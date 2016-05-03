@@ -28,17 +28,17 @@ public class YunpianRestTest {
         SmsOperator smsOperator = client.getSmsOperator();
         // 单条发送
         ResultDO<SendSingleSmsInfo> r1 =
-            smsOperator.singleSend("13012312315", "【yunpian】您的验证码是1234");
+            smsOperator.singleSend("13012312315", "【云片网】您的验证码是1234");
         System.out.println(r1);
         // 批量发送
         ResultDO<SendBatchSmsInfo> r2 =
-            smsOperator.batchSend("13012312316,13112312312,123321,333,111", "【yunpian】您的验证码是1234");
+            smsOperator.batchSend("13012312316,13112312312,123321,333,111", "【云片网】您的验证码是1234");
         System.out.println(r2);
 
         List<String> mobile =
             Arrays.asList("13012312321,13012312322,13012312323,130123123".split(","));
         List<String> text = Arrays.asList(
-            "【yunpian】您的验证码是1234,【yunpian】您的验证码是1234,【yunpian】您的验证码是1234,【yunpian】您的验证码是1234"
+            "【云片网】您的验证码是1234,【云片网】您的验证码是1234,【云片网】您的验证码是1234,【云片网】您的验证码是1234"
                 .split(","));
         // 个性化发送
         ResultDO<SendBatchSmsInfo> r3 = smsOperator.multiSend(mobile, text);

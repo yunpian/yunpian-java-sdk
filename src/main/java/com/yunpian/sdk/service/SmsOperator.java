@@ -119,16 +119,18 @@ public class SmsOperator extends AbstractOperator {
                 if ("tea".equalsIgnoreCase(encrypt)) {
                     parms.put(YunpianConstants.MOBILE,
                         TeaUtil.encryptForYunpianV2(mobile, apiSecret));
-                    parms.put(YunpianConstants.TEXT, TeaUtil.encryptForYunpianV2(text, apiSecret));
+                    if (text != null)
+                        parms.put(YunpianConstants.TEXT, TeaUtil.encryptForYunpianV2(text, apiSecret));
                     if (tplValue != null)
-                        parms.put(YunpianConstants.TEXT,
+                        parms.put(YunpianConstants.TPL_VALUE,
                             TeaUtil.encryptForYunpianV2(tplValue, apiSecret));
                 } else if ("des".equalsIgnoreCase(encrypt)) {
                     parms
                         .put(YunpianConstants.MOBILE, DesUtil.encryptForYunpian(mobile, apiSecret));
-                    parms.put(YunpianConstants.TEXT, DesUtil.decryptForYunpian(text, apiSecret));
+                    if (text != null)
+                        parms.put(YunpianConstants.TEXT, DesUtil.decryptForYunpian(text, apiSecret));
                     if (tplValue != null)
-                        parms.put(YunpianConstants.TEXT,
+                        parms.put(YunpianConstants.TPL_VALUE,
                             DesUtil.decryptForYunpian(tplValue, apiSecret));
                 }
                 parms.put(YunpianConstants.ENCRYPT, YunpianSdkConstants.DEFAULT_ENCRYPT);
