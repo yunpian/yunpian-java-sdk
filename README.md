@@ -10,7 +10,7 @@
 <dependency>
 	<groupId>com.yunpian.sdk</groupId>
     <artifactId>yunpian-java-sdk</artifactId>
-    <version>1.1</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
