@@ -20,6 +20,11 @@ import java.util.Map;
 /**
  * Created by bingone on 16/1/18.
  */
+
+
+/**
+ * 流量发送操作类
+ */
 public class FlowOperator extends AbstractOperator {
     private String apikey;
     private String apiSecret;

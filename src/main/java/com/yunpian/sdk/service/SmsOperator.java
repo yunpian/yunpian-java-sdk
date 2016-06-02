@@ -21,6 +21,11 @@ import java.util.Map;
 /**
  * Created by bingone on 16/1/18.
  */
+
+
+/**
+ * 短信发送操作类
+ */
 public class SmsOperator extends AbstractOperator {
     private String apikey;
     private String apiSecret;

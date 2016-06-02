@@ -16,6 +16,7 @@ import java.security.Key;
 
 
 /**
+ * DES加密方法
  * reference  :     http://blog.csdn.net/jjwwmlp456/article/details/20933021
  */
 public class DesUtil {

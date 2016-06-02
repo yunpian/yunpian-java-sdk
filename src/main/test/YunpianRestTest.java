@@ -19,7 +19,7 @@ public class YunpianRestTest {
     public static YunpianRestClient client;
 
     @BeforeClass public static void init() {
-        client = new YunpianRestClient("your apikey");
+        client = new YunpianRestClient("327d7f6aca319be83cbcb92eb9b6eff6");
 
     }
 
@@ -28,7 +28,7 @@ public class YunpianRestTest {
         SmsOperator smsOperator = client.getSmsOperator();
         // 单条发送
         ResultDO<SendSingleSmsInfo> r1 =
-            smsOperator.singleSend("13012312315", "【云片网】您的验证码是1234");
+            smsOperator.singleSend("18210374138", "【云片网】您的验证码是1234");
         System.out.println(r1);
         // 批量发送
         ResultDO<SendBatchSmsInfo> r2 =
@@ -44,20 +44,21 @@ public class YunpianRestTest {
         ResultDO<SendBatchSmsInfo> r3 = smsOperator.multiSend(mobile, text);
         System.out.println(r3);
 
-        String tpl_value = URLEncoder.encode("#code#", Config.ENCODING) + "=" + URLEncoder
-            .encode("1234", Config.ENCODING) + "&" + URLEncoder.encode("#company#", Config.ENCODING)
-            + "=" + URLEncoder.encode("云片网", Config.ENCODING);
-        // tpl batch send
-        ResultDO<SendBatchSmsInfo> r4 =
-            smsOperator.tplBatchSend("13200000000,13212312312,123321,333,111", "1", tpl_value);
-        System.out.println(r4);
-        // tpl single send
-        ResultDO<SendSingleSmsInfo> r5 =
-            smsOperator.tplSingleSend("15404450000", "1", tpl_value);
-        System.out.println(r5);
-        System.out.println(smsOperator.getRecord(new Date(System.currentTimeMillis()),new Date(System.currentTimeMillis()),"","",""));
-        System.out.println(smsOperator
-            .getRecord(new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()),"","",""));
+//        （不推荐使用）
+//        String tpl_value = URLEncoder.encode("#code#", Config.ENCODING) + "=" + URLEncoder
+//            .encode("1234", Config.ENCODING) + "&" + URLEncoder.encode("#company#", Config.ENCODING)
+//            + "=" + URLEncoder.encode("云片网", Config.ENCODING);
+//        // tpl batch send
+//        ResultDO<SendBatchSmsInfo> r4 =
+//            smsOperator.tplBatchSend("13200000000,13212312312,123321,333,111", "1", tpl_value);
+//        System.out.println(r4);
+//        // tpl single send
+//        ResultDO<SendSingleSmsInfo> r5 =
+//            smsOperator.tplSingleSend("15404450000", "1", tpl_value);
+//        System.out.println(r5);
+//        System.out.println(smsOperator.getRecord(new Date(System.currentTimeMillis()),new Date(System.currentTimeMillis()),"","",""));
+//        System.out.println(smsOperator
+//            .getRecord(new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()),"","",""));
 
     }
 

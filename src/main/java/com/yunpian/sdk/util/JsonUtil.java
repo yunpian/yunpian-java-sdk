@@ -18,6 +18,11 @@ import java.util.Map;
 /**
  * Created by bingone on 15/11/6.
  */
+
+
+/**
+ * json格式化工具
+ */
 public class JsonUtil {
     private static final Gson gson =
         new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

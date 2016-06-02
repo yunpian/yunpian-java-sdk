@@ -17,6 +17,11 @@ import java.util.Map;
 /**
  * Created by bingone on 16/1/19.
  */
+
+
+/**
+ * 模板短信操作类
+ */
 public class TplOperator extends AbstractOperator {
     private String apikey;
 

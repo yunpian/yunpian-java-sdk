@@ -6,6 +6,11 @@ import com.yunpian.sdk.service.FlowOperator;
 /**
  * Created by bingone on 16/1/18.
  */
+
+
+/**
+ * 用户操作入口
+ */
 public class YunpianRestClient {
     private static Config config = new Config();
     private String apikey = config.APIKEY;

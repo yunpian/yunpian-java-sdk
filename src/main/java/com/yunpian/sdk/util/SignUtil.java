@@ -9,6 +9,11 @@ import java.util.TreeMap;
 /**
  * Created by bingone on 16/1/18.
  */
+
+
+/**
+ * 签名计算方法
+ */
 public class SignUtil {
     public static String getSign(Map<String, String> parms, String secret) {
         Map<String, String> treeMap = new TreeMap<String, String>();

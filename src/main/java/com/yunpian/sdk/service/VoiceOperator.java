@@ -19,6 +19,11 @@ import java.util.Map;
 /**
  * Created by bingone on 16/1/18.
  */
+
+
+/**
+ * 语音操作类
+ */
 public class VoiceOperator extends AbstractOperator {
     private String apikey;
     private String apiSecret;

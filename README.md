@@ -3,6 +3,7 @@
 
 ---
 ## Java
+获取更多: [more information](https://github.com/yunpian/yunpian-java-sdk)
 ### 添加依赖包
 1. 在maven工程中添加下列引用
 
@@ -10,11 +11,11 @@
 <dependency>
 	<groupId>com.yunpian.sdk</groupId>
     <artifactId>yunpian-java-sdk</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 </dependency>
 ```
 
-或下载jar包[]()
+2. 下载jar包[]()
 
 ### 使用
 
@@ -31,6 +32,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,44 +42,48 @@ public class YunpianRestTest {
     public static YunpianRestClient client;
 
     @BeforeClass public static void init() {
-    //You can get the APIKEY and APISECRET from http://www.yunpian.com/ when log on.
+    //You can get the APIKEY from http://www.yunpian.com/ when log in.
         client = new YunpianRestClient("your apikey");
 
     }
 
     @Test public void testSendSms() throws UnsupportedEncodingException {
-    //You can get the APIKEY and APISECRET from http://www.yunpian.com/ when log on.
         YunpianRestClient client = new YunpianRestClient("your apikey");
         SmsOperator smsOperator = client.getSmsOperator();
-        // 单挑发送
+        // 单条发送
         ResultDO<SendSingleSmsInfo> r1 =
-            smsOperator.singleSend("13012312315", "【yunpian】您的验证码是1234");
+            smsOperator.singleSend("18210374138", "【云片网】您的验证码是1234");
         System.out.println(r1);
         // 批量发送
         ResultDO<SendBatchSmsInfo> r2 =
-            smsOperator.batchSend("13012312316,13112312312,123321,333,111", "【yunpian】您的验证码是1234");
+            smsOperator.batchSend("13012312316,13112312312,123321,333,111", "【云片网】您的验证码是1234");
         System.out.println(r2);
 
         List<String> mobile =
             Arrays.asList("13012312321,13012312322,13012312323,130123123".split(","));
         List<String> text = Arrays.asList(
-            "【yunpian】您的验证码是1234,【yunpian】您的验证码是1234,【yunpian】您的验证码是1234,【yunpian】您的验证码是1234"
+            "【云片网】您的验证码是1234,【云片网】您的验证码是1234,【云片网】您的验证码是1234,【云片网】您的验证码是1234"
                 .split(","));
         // 个性化发送
         ResultDO<SendBatchSmsInfo> r3 = smsOperator.multiSend(mobile, text);
         System.out.println(r3);
 
-        String tpl_value = URLEncoder.encode("#code#", Config.ENCODING) + "=" + URLEncoder
-            .encode("1234", Config.ENCODING) + "&" + URLEncoder.encode("#company#", Config.ENCODING)
-            + "=" + URLEncoder.encode("云片网", Config.ENCODING);
-        // tpl batch send
-        ResultDO<SendBatchSmsInfo> r4 =
-            smsOperator.tplBatchSend("13200000000,13212312312,123321,333,111", "1", tpl_value);
-        System.out.println(r4);
-        // tpl single send
-        ResultDO<SendSingleSmsInfo> r5 =
-            smsOperator.tplSingleSend("15404450000", "1", tpl_value);
-        System.out.println(r5);
+//        （不推荐使用）
+//        String tpl_value = URLEncoder.encode("#code#", Config.ENCODING) + "=" + URLEncoder
+//            .encode("1234", Config.ENCODING) + "&" + URLEncoder.encode("#company#", Config.ENCODING)
+//            + "=" + URLEncoder.encode("云片网", Config.ENCODING);
+//        // tpl batch send
+//        ResultDO<SendBatchSmsInfo> r4 =
+//            smsOperator.tplBatchSend("13200000000,13212312312,123321,333,111", "1", tpl_value);
+//        System.out.println(r4);
+//        // tpl single send
+//        ResultDO<SendSingleSmsInfo> r5 =
+//            smsOperator.tplSingleSend("15404450000", "1", tpl_value);
+//        System.out.println(r5);
+//        System.out.println(smsOperator.getRecord(new Date(System.currentTimeMillis()),new Date(System.currentTimeMillis()),"","",""));
+//        System.out.println(smsOperator
+//            .getRecord(new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()),"","",""));
+
     }
 
     @Test public void testUser() {
@@ -98,11 +104,11 @@ public class YunpianRestTest {
         System.out.println(resultDO);
 
 
-        ResultDO<TemplateInfo> result = tplOperator.add("【bb】大倪#asdf#");
+        ResultDO<TemplateInfo> result = tplOperator.add("【bbb】大倪#asdf#");
         System.out.println(result);
         resultDO = tplOperator.get(String.valueOf(result.getData().getTpl_id()));
         System.out.println(resultDO);
-        result = tplOperator.update(String.valueOf(result.getData().getTpl_id()), "【aa】大倪#asdf#");
+        result = tplOperator.update(String.valueOf(result.getData().getTpl_id()), "【aaa】大倪#asdf#");
         System.out.println(result);
         result = tplOperator.del(String.valueOf(result.getData().getTpl_id()));
         System.out.println(result);
