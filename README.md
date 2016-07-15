@@ -59,13 +59,13 @@ public class YunpianRestMainTest {
         // 用户
         testUser();
         // 流量
-        testFlow();
+//        testFlow();
         // 状态报告
         testReport();
         // 模板
         testTpl();
         // 语音
-        testVoice();
+//        testVoice();
     }
 
 
@@ -80,14 +80,14 @@ public class YunpianRestMainTest {
         // 单条发送
         ResultDO<SendSingleSmsInfo> r1 = smsOperator.singleSend("18210374138", "【云片网】您的验证码是1234");
         System.out.println(r1);
-        // 批量发送
-        ResultDO<SendBatchSmsInfo> r2 = smsOperator
-            .batchSend("13012312324,13112312323,13112312322,13112312320,13112312321",
-                "【云片网】您的验证码是1234");
-        System.out.println(r2);
+        // 批量短信发送（批量发送的接口耗时比单号码发送长，如果需要更高并发速度，推荐使用single_send/tpl_single_send）
+//        ResultDO<SendBatchSmsInfo> r2 = smsOperator
+//            .batchSend("13012312324,13112312323,13112312322,13112312320,13112312321",
+//                "【云片网】您的验证码是1234");
+//        System.out.println(r2);
 
 
-        //        （这个是个性化接口发送，批量处理可能会产生耗时较长导致并发速度降低，不推荐使用）
+        //        （这个是个性化接口发送，批量发送的接口耗时比单号码发送长，如果需要更高并发速度，推荐使用single_send/tpl_single_send，不推荐使用）
         //        List<String> mobile =
         //            Arrays.asList("13012312330,13012312331,13012312332,13012312333".split(","));
         //        List<String> text = Arrays
