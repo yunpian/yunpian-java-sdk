@@ -1,10 +1,10 @@
 package com.yunpian.sdk.util;
 
-import com.yunpian.sdk.common.YunpianException;
-
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.yunpian.sdk.YunpianException;
 
 /**
  * Created by bingone on 15/11/8.

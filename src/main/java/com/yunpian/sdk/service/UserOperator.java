@@ -1,7 +1,7 @@
 package com.yunpian.sdk.service;
 
-import com.yunpian.sdk.common.Config;
-import com.yunpian.sdk.common.YunpianException;
+import com.yunpian.sdk.YunpianException;
+import com.yunpian.sdk.constants.Config;
 import com.yunpian.sdk.constants.YunpianConstants;
 import com.yunpian.sdk.model.ResultDO;
 import com.yunpian.sdk.model.TemplateInfo;

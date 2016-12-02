@@ -1,62 +1,56 @@
 package com.yunpian.sdk.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
+
+import com.yunpian.sdk.util.JsonUtil;
 
 /**
  * Created by bingone on 15/11/20.
  */
 public class SendBatchSmsInfo {
 
-    @SerializedName("total_count")
-    private int totalCount;
-    @SerializedName("total_fee")
-    private double totalFee;
+	private Integer total_count;
 
-    private String unit;
-    private List<SendSingleSmsInfo> data;
+	private Double total_fee;
 
-    public List<SendSingleSmsInfo> getData() {
-        return data;
-    }
+	private String unit;
 
-    public void setData(List<SendSingleSmsInfo> data) {
-        this.data = data;
-    }
+	private List<SendSingleSmsInfo> data;
 
-    public int getTotalCount() {
-        return totalCount;
-    }
+	public List<SendSingleSmsInfo> getData() {
+		return data;
+	}
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
-    }
+	public void setData(List<SendSingleSmsInfo> data) {
+		this.data = data;
+	}
 
-    public double getTotalFee() {
-        return totalFee;
-    }
+	public String getUnit() {
+		return unit;
+	}
 
-    public void setTotalFee(double totalFee) {
-        this.totalFee = totalFee;
-    }
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
 
-    public String getUnit() {
-        return unit;
-    }
+	public Integer getTotal_count() {
+		return total_count;
+	}
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
+	public void setTotal_count(Integer total_count) {
+		this.total_count = total_count;
+	}
 
-    @Override
-    public String toString() {
-        return "SendBatchSmsInfo{" +
-                "data=" + data +
-                ", totalCount=" + totalCount +
-                ", totalFee=" + totalFee +
-                ", unit='" + unit + '\'' +
-                '}';
-    }
+	public Double getTotal_fee() {
+		return total_fee;
+	}
+
+	public void setTotal_fee(Double total_fee) {
+		this.total_fee = total_fee;
+	}
+
+	@Override
+	public String toString() {
+		return JsonUtil.toJson(this);
+	}
 }

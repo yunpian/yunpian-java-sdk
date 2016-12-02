@@ -1,4 +1,4 @@
-import com.yunpian.sdk.common.Config;
+import com.yunpian.sdk.constants.Config;
 import com.yunpian.sdk.model.*;
 import com.yunpian.sdk.service.*;
 import org.junit.Before;

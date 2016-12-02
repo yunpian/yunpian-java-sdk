@@ -1,0 +1,166 @@
+/**
+ * 
+ */
+package com.yunpian.sdk.api;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
+
+import com.yunpian.sdk.YunpianClient;
+import com.yunpian.sdk.constants.Code;
+import com.yunpian.sdk.model.Result;
+import com.yunpian.sdk.model.UserInfo;
+import com.yunpian.sdk.util.ApiUtil;
+import com.yunpian.sdk.util.JsonUtil;
+
+/**
+ * https://www.yunpian.com/api2.0/user.html
+ * 
+ * @author dzh
+ * @date Nov 23, 2016 1:10:42 PM
+ * @since 1.2.0
+ */
+public class UserApi extends YunpianApi {
+
+	public static final String NAME = "user";
+
+	@Override
+	public String name() {
+		return NAME;
+	}
+
+	@Override
+	public void init(YunpianClient clnt) {
+		super.init(clnt);
+		host(clnt.getConf().getConf(YP_USER_HOST, "https://sms.yunpian.com"));
+	}
+
+	/**
+	 * <h1>查账户信息</h1>
+	 * 
+	 * <p>
+	 * 参数名 类型 是否必须 描述 示例
+	 * </p>
+	 * <p>
+	 * apikey String 是 用户唯一标识 9b11127a9701975c734b8aee81ee3526
+	 * </p>
+	 * 
+	 * @return
+	 */
+	public Result<UserInfo> get() {
+		List<NameValuePair> list = new ArrayList<NameValuePair>(1);
+		list.add(new BasicNameValuePair(API_KEY, apikey()));
+		String data = URLEncodedUtils.format(list, charset());
+
+		MapResultHandler<UserInfo> h = new MapResultHandler<UserInfo>() {
+			@Override
+			public UserInfo data(Map<String, String> rsp) {
+				switch (version()) {
+				case VERSION_V1:
+					return JsonUtil.fromJson(rsp.get(USER), UserInfo.class);
+				case VERSION_V2:
+					return map2User(rsp);
+				}
+				return null;
+			}
+
+			@Override
+			public Integer code(Map<String, String> rsp) {
+				return null;
+			}
+		};
+
+		try {
+			return path("get.json").post(uri(), data, h);
+		} catch (Exception e) {
+			return h.catchExceptoin(e, null);
+		}
+	}
+
+	/**
+	 * <h1>修改账户信息</h1>
+	 * 
+	 * <p>
+	 * 参数名 类型 是否必须 描述 示例
+	 * </p>
+	 * <p>
+	 * apikey String 是 用户唯一标识 9b11127a9701975c734b8aee81ee3526
+	 * </p>
+	 * <p>
+	 * emergency_contact String 否 紧急联系人 zhangshan
+	 * </p>
+	 * <p>
+	 * emergency_mobile String 否 紧急联系人手机号 13012345678
+	 * </p>
+	 * <p>
+	 * alarm_balance Long 否 短信余额提醒阈值。 一天只提示一次 100
+	 * </p>
+	 * 
+	 * @param param
+	 *            emergency_contact emergency_mobile alarm_balance
+	 * @return
+	 */
+	public Result<UserInfo> set(Map<String, String> param) {
+		Result<UserInfo> r = new Result<>();
+		if (param == null) {
+			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
+		}
+
+		List<NameValuePair> list = new LinkedList<NameValuePair>();
+		if (param.containsKey(EMERGENCY_CONTACT)) {
+			list.add(new BasicNameValuePair(EMERGENCY_CONTACT, param.get(EMERGENCY_CONTACT)));
+		}
+		if (param.containsKey(EMERGENCY_MOBILE)) {
+			list.add(new BasicNameValuePair(EMERGENCY_MOBILE, param.get(EMERGENCY_MOBILE)));
+		}
+		if (param.containsKey(ALARM_BALANCE)) {
+			list.add(new BasicNameValuePair(ALARM_BALANCE, param.get(ALARM_BALANCE)));
+		}
+		if (list.size() == 0) {
+			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
+		}
+		list.add(new BasicNameValuePair(API_KEY, apikey()));
+		String data = URLEncodedUtils.format(list, charset());
+
+		MapResultHandler<UserInfo> h = new MapResultHandler<UserInfo>() {
+			@Override
+			public UserInfo data(Map<String, String> rsp) {
+				switch (version()) {
+				case VERSION_V2:
+					return map2User(rsp);
+				}
+				return null;
+			}
+
+			@Override
+			public Integer code(Map<String, String> rsp) {
+				return YunpianApi.code(rsp, UserApi.this.version());
+			}
+		};
+		try {
+			return path("set.json").post(uri(), data, h, r);
+		} catch (Exception e) {
+			return h.catchExceptoin(e, r);
+		}
+	}
+
+	public static final UserInfo map2User(Map<String, String> map) {
+		UserInfo user = new UserInfo();
+		user.setNick(map.get(NICK));
+		user.setAlarm_balance(Long.parseLong(map.get(ALARM_BALANCE)));
+		user.setBalance(Long.parseLong(map.get(BALANCE)));
+		user.setEmail(map.get(EMAIL));
+		user.setEmergency_contact(map.get(EMERGENCY_CONTACT));
+		user.setEmergency_mobile(map.get(EMERGENCY_MOBILE));
+		user.setGmt_created(ApiUtil.str2date(map.get(GMT_CREATED)));
+		user.setIp_whitelist(map.get(IP_WHITELIST));
+		return user;
+	}
+
+}

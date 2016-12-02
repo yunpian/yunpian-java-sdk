@@ -1,12 +1,8 @@
 package com.yunpian.sdk.util;
 
-/**
- * Created by bingone on 15/11/18.
- */
-    import com.yunpian.sdk.common.Config;
-    import com.yunpian.sdk.constants.YunpianConstants;
+import java.util.Collection;
 
-    import java.util.Collection;
+import com.yunpian.sdk.constants.Config;
 
     /**
      * 字符串连接工具类
