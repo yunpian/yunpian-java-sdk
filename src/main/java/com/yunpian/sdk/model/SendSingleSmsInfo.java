@@ -1,5 +1,7 @@
 package com.yunpian.sdk.model;
 
+import com.yunpian.sdk.util.JsonUtil;
+
 /**
  * Created by bingone on 15/11/20.
  */
@@ -70,7 +72,6 @@ public class SendSingleSmsInfo {
 
 	@Override
 	public String toString() {
-		return "SendSingleSmsInfo{" + "code=" + code + ", msg='" + msg + '\'' + ", count=" + count + ", fee=" + fee
-				+ ", unit='" + unit + '\'' + ", mobile='" + mobile + '\'' + ", sid='" + sid + '\'' + '}';
+		return JsonUtil.toJson(this);
 	}
 }

@@ -12,7 +12,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.yunpian.sdk.constants.YunpianConstants;
+import com.yunpian.sdk.constant.YunpianConstant;
 
 /**
  * api参数／返回值处理工具
@@ -35,14 +35,14 @@ public class ApiUtil {
 		try {
 			return format.parse(date);
 		} catch (ParseException e) {
-			LOG.error(date + " " + e.getMessage(), e.fillInStackTrace());
+			LOG.error(date + "-" + e.getMessage(), e.fillInStackTrace());
 		}
 		return null;
 	}
 
 	public static final String urlEncode(String text, String charset) {
 		if (charset == null || "".equals(charset))
-			charset = YunpianConstants.HTTP_CHARSET_DEFAULT;
+			charset = YunpianConstant.HTTP_CHARSET_DEFAULT;
 		try {
 			return URLEncoder.encode(text, charset);
 		} catch (UnsupportedEncodingException e) {

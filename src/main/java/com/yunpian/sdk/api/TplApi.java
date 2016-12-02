@@ -6,17 +6,14 @@ package com.yunpian.sdk.api;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
-import com.yunpian.sdk.constants.Code;
+import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.TemplateInfo;
 import com.yunpian.sdk.util.JsonUtil;
@@ -61,16 +58,10 @@ public class TplApi extends YunpianApi {
 	 */
 	public Result<List<TemplateInfo>> get_default(Map<String, String> param) {
 		Result<List<TemplateInfo>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(TPL_ID)) {
-			list.add(new BasicNameValuePair(TPL_ID, param.get(TPL_ID)));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		ListResultHandler<TemplateInfo, List<TemplateInfo>> h = new ListResultHandler<TemplateInfo, List<TemplateInfo>>() {
 			@Override
@@ -116,18 +107,12 @@ public class TplApi extends YunpianApi {
 	 */
 	public Result<List<TemplateInfo>> get(Map<String, String> param) {
 		Result<List<TemplateInfo>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
+		List<NameValuePair> list = param2pair(param, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(TPL_ID)) {
-			list.add(new BasicNameValuePair(TPL_ID, param.get(TPL_ID)));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
-
-		ListResultHandler<TemplateInfo, List<TemplateInfo>> h = new ListResultHandler<TemplateInfo, List<TemplateInfo>>() {
+		SimpleListResultHandler<TemplateInfo> h = new SimpleListResultHandler<TemplateInfo>() {
 			@Override
 			public List<TemplateInfo> data(List<TemplateInfo> rsp) {
 				switch (version()) {
@@ -187,25 +172,10 @@ public class TplApi extends YunpianApi {
 	 */
 	public Result<TemplateInfo> add(Map<String, String> param) {
 		Result<TemplateInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(TPL_CONTENT)) {
-			list.add(new BasicNameValuePair(TPL_CONTENT, param.get(TPL_CONTENT)));
-		}
-		if (param.containsKey(NOTIFY_TYPE)) {
-			list.add(new BasicNameValuePair(NOTIFY_TYPE, param.get(NOTIFY_TYPE)));
-		}
-		if (param.containsKey(LANG)) {
-			list.add(new BasicNameValuePair(LANG, param.get(LANG)));
-		}
-		if (list.size() == 0) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_CONTENT);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<TemplateInfo> h = new MapResultHandler<TemplateInfo>() {
 			@Override
@@ -249,19 +219,10 @@ public class TplApi extends YunpianApi {
 	 */
 	public Result<TemplateInfo> del(Map<String, String> param) {
 		Result<TemplateInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(TPL_ID)) {
-			list.add(new BasicNameValuePair(TPL_ID, param.get(TPL_ID)));
-		}
-		if (list.size() == 0) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_ID);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<TemplateInfo> h = new MapResultHandler<TemplateInfo>() {
 			@Override
@@ -315,28 +276,10 @@ public class TplApi extends YunpianApi {
 	 */
 	public Result<TemplateInfo> update(Map<String, String> param) {
 		Result<TemplateInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(TPL_ID)) {
-			list.add(new BasicNameValuePair(TPL_ID, param.get(TPL_ID)));
-		}
-		if (param.containsKey(TPL_CONTENT)) {
-			list.add(new BasicNameValuePair(TPL_CONTENT, param.get(TPL_CONTENT)));
-		}
-		if (param.containsKey(NOTIFY_TYPE)) {
-			list.add(new BasicNameValuePair(NOTIFY_TYPE, param.get(NOTIFY_TYPE)));
-		}
-		if (param.containsKey(LANG)) {
-			list.add(new BasicNameValuePair(LANG, param.get(LANG)));
-		}
-		if (list.size() == 0) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_ID, TPL_CONTENT);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<TemplateInfo> h = new MapResultHandler<TemplateInfo>() {
 			@Override
@@ -369,12 +312,17 @@ public class TplApi extends YunpianApi {
 		if (map == null)
 			return null;
 
-		TemplateInfo t = new TemplateInfo();
-		t.setCheck_status(map.get(CHECK_STATUS));
-		t.setReason(map.get(REASON));
-		t.setTpl_content(map.get(TPL_CONTENT));
-		t.setTpl_id(Long.parseLong(map.get(TPL_ID)));
-		return t;
+		try {
+			TemplateInfo t = new TemplateInfo();
+			t.setCheck_status(map.get(CHECK_STATUS));
+			t.setReason(map.get(REASON));
+			t.setTpl_content(map.get(TPL_CONTENT));
+			t.setTpl_id(Long.parseLong(map.get(TPL_ID)));
+			return t;
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e.fillInStackTrace());
+		}
+		return null;
 	}
 
 }

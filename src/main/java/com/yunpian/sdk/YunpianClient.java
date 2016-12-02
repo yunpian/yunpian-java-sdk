@@ -16,7 +16,6 @@ import java.util.concurrent.Future;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.config.ConnectionConfig;
@@ -81,7 +80,7 @@ public class YunpianClient {
 	 * 构造器里的key作为默认值,方法请求时可以自定义
 	 */
 	public YunpianClient() {
-		this(System.getProperty(YunpianConf.API_KEY), System.getProperty(YunpianConf.YP_FILE));
+		this(System.getProperty(YunpianConf.YP_APIKEY), System.getProperty(YunpianConf.YP_FILE));
 	}
 
 	public YunpianClient(String apikey) {
@@ -159,18 +158,25 @@ public class YunpianClient {
 
 		PoolingNHttpClientConnectionManager connManager = new PoolingNHttpClientConnectionManager(ioReactor);
 		ConnectionConfig connectionConfig = ConnectionConfig.custom().setMalformedInputAction(CodingErrorAction.IGNORE)
-				.setUnmappableInputAction(CodingErrorAction.IGNORE).setCharset(Consts.UTF_8).build();
+				.setUnmappableInputAction(CodingErrorAction.IGNORE)
+				.setCharset(Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, YunpianConf.HTTP_CHARSET_DEFAULT)))
+				.build();
 		connManager.setDefaultConnectionConfig(connectionConfig);
 		connManager.setMaxTotal(conf.getConfInt(YunpianConf.HTTP_CONN_MAXTOTAL, "100"));
 		connManager.setDefaultMaxPerRoute(conf.getConfInt(YunpianConf.HTTP_CONN_MAXPREROUTE, "10"));
 
 		CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom().setConnectionManager(connManager).build();
+		httpclient.start();
 		return httpclient;
 	}
 
 	static Map<String, String> Headers = new HashMap<>(1, 1);
 	static {
 		Headers.put("Api-Lang", "java");
+	}
+
+	public final Map<String, String> newParam(int size) {
+		return new HashMap<String, String>(size, 1);
 	}
 
 	/**

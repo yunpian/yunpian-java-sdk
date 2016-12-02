@@ -9,6 +9,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.7</jdk.version>
 		<slf4j.version>1.7.21</slf4j.version>
+		<httpasyncclient.version>4.1.2</httpasyncclient.version>
 	</properties>
 
 	<build>
@@ -16,7 +17,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.6.0</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
@@ -26,7 +27,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<phase>compile</phase>
@@ -34,6 +35,14 @@
 				</executions>
 				<configuration>
 					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<skip>true</skip>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -63,19 +72,17 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.0</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpasyncclient</artifactId>
-			<version>4.1.2</version>
+			<version>${httpasyncclient.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpasyncclient-cache</artifactId>
-			<version>4.1.2</version>
+			<version>${httpasyncclient.version}</version>
 		</dependency>
-
 	</dependencies>
-
 
 </project>

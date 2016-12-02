@@ -1,9 +1,9 @@
-package com.yunpian.sdk.constants;
+package com.yunpian.sdk.constant;
 
 /**
  * Created by bingone on 15/11/6.
  */
-public interface YunpianConstants {
+public interface YunpianConstant {
 
 	/**************************** http *************************************/
 	String HTTP_CONN_TIMEOUT = "http.conn.timeout";
@@ -32,7 +32,7 @@ public interface YunpianConstants {
 	String VERSION_V1 = "v1";
 	String VERSION_V2 = "v2";
 
-	String API_KEY = "apikey";
+	String APIKEY = "apikey";
 
 	// 返回值字段
 	String CODE = "code";
@@ -41,7 +41,7 @@ public interface YunpianConstants {
 	String DATA = "data";
 
 	// user
-	String USER = "USER";
+	String USER = "user";
 	String BALANCE = "balance";
 	/**
 	 * 紧急联系人电话
@@ -116,40 +116,20 @@ public interface YunpianConstants {
 	String SMS = "sms";
 	String TOTAL = "total";
 
-	/**
-	 * 签名
-	 */
-	String TPL_SIGN = "tpl_sign";
-
-	String APP_ID = "appid";
-
-	String TIMESTAMP = "timestamp";
-	String USER_API_KEY = "user_apikey";
 	String NICK = "nick";
-	String COMPANY = "company";
 	String UID = "uid";
 
-	String PASSWD = "passwd";
-	String ACCESS_LIMIT = "access_limit";
-	String SEND_LIMIT = "send_limit";
-	String TYPE = "type";
-	String SMS_NUM = "sms_num";
 	String TEXT = "text";
-	String SMS_ID = "sms_id";
 	String START_TIME = "start_time";
 	String END_TIME = "end_time";
 	String PAGE_NUM = "page_num";
 
-	String RETURN_FIELDS = "return_fields";
-	String SORT_FIELDS = "sort_fields";
+	@Deprecated
 	String ENCRYPT = "encrypt";
 	@Deprecated
 	String API_SECRET = "api_secret";
-
-	/**
-	 * 屏蔽词
-	 */
-	String BLACK_WORD = "black_word";
+	@Deprecated
+	String DEFAULT_ENCRYPT = "tea";
 
 	/**
 	 * 流量充值参数
@@ -167,10 +147,5 @@ public interface YunpianConstants {
 	 */
 	String TOTAL_COUNT = "total_count";
 	String TOTAL_FEE = "total_fee";
-
-	/**
-	 * 错误返回值名
-	 */
-	String HTTP_STATUS_CODE = "httpStatusCode";
 
 }

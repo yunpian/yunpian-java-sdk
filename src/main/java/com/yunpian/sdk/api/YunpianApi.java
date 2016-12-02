@@ -3,17 +3,23 @@
  */
 package com.yunpian.sdk.api;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yunpian.sdk.YunpianClient;
-import com.yunpian.sdk.constants.Code;
-import com.yunpian.sdk.constants.YunpianConstants;
+import com.yunpian.sdk.constant.Code;
+import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.Result;
 
 /**
@@ -30,7 +36,7 @@ import com.yunpian.sdk.model.Result;
  * @date Nov 23, 2016 1:10:02 PM
  * @since 1.2.0
  */
-public abstract class YunpianApi implements YunpianConstants, YunpianApiResult {
+public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
 
 	static final Logger LOG = LoggerFactory.getLogger(YunpianApi.class);
 
@@ -172,6 +178,7 @@ public abstract class YunpianApi implements YunpianConstants, YunpianApiResult {
 	}
 
 	public <R, T> Result<T> post(String uri, String data, ResultHandler<R, T> h, Result<T> r) {
+		LOG.debug("post uri-{} data-{}", uri, data);
 		try {
 			String rsp = post(uri, data);
 			return result(rsp, h, r);
@@ -188,9 +195,11 @@ public abstract class YunpianApi implements YunpianConstants, YunpianApiResult {
 		if (rsp != null) {
 			switch (version) {
 			case VERSION_V1:
-				code = rsp.containsKey(CODE) ? Integer.parseInt(rsp.get(CODE)) : Code.UNKNOWN_EXCEPTION;
+				code = rsp.containsKey(CODE) ? (int) Double.parseDouble((rsp.get(CODE))) : Code.UNKNOWN_EXCEPTION;
+				break;
 			case VERSION_V2:
-				code = rsp.containsKey(CODE) ? Integer.parseInt(rsp.get(CODE)) : Code.OK;
+				code = rsp.containsKey(CODE) ? (int) Double.parseDouble((rsp.get(CODE))) : Code.OK;
+				break;
 			}
 		}
 		return code;
@@ -205,6 +214,62 @@ public abstract class YunpianApi implements YunpianConstants, YunpianApiResult {
 		} catch (Exception e) {
 			return h.catchExceptoin(e, r);
 		}
+	}
+
+	/**
+	 * 
+	 * @param param
+	 *            http request
+	 * 
+	 * @param r
+	 *            must be not null
+	 * @param must
+	 *            necessary parameters
+	 * @return
+	 */
+	protected <T> List<NameValuePair> param2pair(Map<String, String> param, Result<T> r, String... must) {
+		LOG.debug("param2pair param-{} must-{}", param, must);
+		if (param == null)
+			param = Collections.emptyMap();
+		if (r == null)
+			r = new Result<T>();
+
+		List<NameValuePair> pair = new LinkedList<NameValuePair>();
+		// validate apikey
+		if (!param.containsKey(APIKEY)) {
+			if (null == apikey()) {
+				LOG.error("apikey is null");
+				r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING) + "-" + APIKEY);
+				return pair;
+			}
+			// default apikey
+			pair.add(new BasicNameValuePair(APIKEY, apikey()));
+		}
+
+		// validate must
+		for (String m : must) {
+			if (m.equals(APIKEY))
+				continue;
+			if (param.get(m) == null) {
+				LOG.error("miss must-{} in param-{}", m, param);
+				r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING) + "-" + m);
+				return pair;
+			}
+		}
+		for (java.util.Map.Entry<String, String> e : param.entrySet())
+			pair.add(new BasicNameValuePair(e.getKey(), e.getValue()));
+		return pair;
+	}
+
+	/**
+	 * 
+	 * @param param
+	 * @return 'application/x-www-form-urlencoded' format
+	 */
+	protected String format2Form(List<NameValuePair> param) {
+		if (param == null)
+			return "";
+		return URLEncodedUtils.format(param, charset());
 	}
 
 }

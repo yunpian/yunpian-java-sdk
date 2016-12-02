@@ -1,4 +1,4 @@
-package com.yunpian.sdk.util;
+package com.yunpian.sdk.service;
 
 import java.security.Key;
 
@@ -9,17 +9,20 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
+/**
+ * Created by bingone on 16/2/29.
+ */
+
+/**
+ * DES 算法       1972美国IBM研制，对称加密算法
+ */
 import org.apache.commons.codec.binary.Base64;
 
-/**
- * Created by bingone on 16/3/10.
- */
-
-/**
- * DES加密方法 reference : http://blog.csdn.net/jjwwmlp456/article/details/20933021
- */
 @Deprecated
-public class DesUtil {
+public class DESTest {
+}
+
+class DES {
 	// 算法名称
 	public static final String KEY_ALGORITHM = "DES";
 	// 算法名称/加密模式/填充方式
@@ -32,15 +35,10 @@ public class DesUtil {
 		 */
 		// byte[] key = generateKey();
 		byte[] key = "12345678".getBytes();
-		// byte[] encrypt = encrypt("12345678".getBytes(), key);
-		// System.out.println(Base64.encodeBase64String(encrypt));
-		// System.out.println(new String(decrypt(encrypt, key)));
-		// String tmp = encryptForYunpian("Yunpian",
-		// "12345678123456781234567812345678");
-		// System.out.println(tmp);
-		// System.out.println(decryptForYunpian(tmp,
-		// "12345678123456781234567812345678"));
-		System.out.println(decryptForYunpian("RLlJ+bgSQnRRguZMMPqQWPu7QmWwrxdSbgEIRSxtZD4X7RBRmdIllQ==", "12345678"));
+		byte[] encrypt = encrypt("12345678".getBytes(), key);
+		System.out.println(Base64.encodeBase64String(encrypt));
+		System.out.println(new String(decrypt(encrypt, key)));
+
 		/*
 		 * 使用CBC mode 使用密钥工厂生成密钥，加密 解密 iv: DES in CBC mode and RSA ciphers with
 		 * OAEP encoding operation.
@@ -90,18 +88,9 @@ public class DesUtil {
 		return secretKey;
 	}
 
-	public static String encryptForYunpian(String data, String key) throws Exception {
-		return Base64.encodeBase64String(encrypt(data.getBytes(), key.getBytes()));
-	}
-
-	public static String decryptForYunpian(String data, String key) throws Exception {
-		key = key + key + key + key;
-		return new String(decrypt(Base64.decodeBase64(data), key.getBytes()), "utf8");
-	}
-
 	/**
 	 * 加密
-	 *
+	 * 
 	 * @param data
 	 *            原文
 	 * @param key
@@ -117,7 +106,7 @@ public class DesUtil {
 
 	/**
 	 * 解密
-	 *
+	 * 
 	 * @param data
 	 *            密文
 	 * @param key

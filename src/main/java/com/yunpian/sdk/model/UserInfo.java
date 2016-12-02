@@ -27,7 +27,7 @@ public class UserInfo {
 
 	private String emergency_mobile;
 
-	private Long balance;
+	private Double balance;
 
 	public String getNick() {
 		return nick;
@@ -101,11 +101,11 @@ public class UserInfo {
 		this.emergency_mobile = emergency_mobile;
 	}
 
-	public Long getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Long balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 

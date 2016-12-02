@@ -3,6 +3,7 @@
  */
 package com.yunpian.sdk.model;
 
+import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.util.JsonUtil;
 
 /**
@@ -14,7 +15,7 @@ import com.yunpian.sdk.util.JsonUtil;
  */
 public class Result<T> {
 
-	private Integer code;
+	private Integer code = Code.OK;
 	private String msg;
 	private String detail;
 

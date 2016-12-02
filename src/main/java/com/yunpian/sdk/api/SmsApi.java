@@ -6,16 +6,13 @@ package com.yunpian.sdk.api;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 
 import com.google.gson.reflect.TypeToken;
-import com.yunpian.sdk.constants.Code;
+import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SendBatchSmsInfo;
 import com.yunpian.sdk.model.SendSingleSmsInfo;
@@ -77,31 +74,10 @@ public class SmsApi extends YunpianApi {
 	@Deprecated
 	public Result<SendSingleSmsInfo> send(Map<String, String> param) {
 		Result<SendSingleSmsInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(TEXT)) {
-			list.add(new BasicNameValuePair(TEXT, param.get(TEXT)));
-		}
-		if (list.size() != 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(EXTEND)) {
-			list.add(new BasicNameValuePair(EXTEND, param.get(EXTEND)));
-		}
-		if (param.containsKey(UID)) {
-			list.add(new BasicNameValuePair(UID, param.get(UID)));
-		}
-		if (param.containsKey(CALLBACK_URL)) {
-			list.add(new BasicNameValuePair(CALLBACK_URL, param.get(CALLBACK_URL)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<SendSingleSmsInfo> h = new MapResultHandler<SendSingleSmsInfo>() {
 			@Override
@@ -162,31 +138,10 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<SendSingleSmsInfo> single_send(Map<String, String> param) {
 		Result<SendSingleSmsInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(TEXT)) {
-			list.add(new BasicNameValuePair(TEXT, param.get(TEXT)));
-		}
-		if (list.size() != 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(EXTEND)) {
-			list.add(new BasicNameValuePair(EXTEND, param.get(EXTEND)));
-		}
-		if (param.containsKey(UID)) {
-			list.add(new BasicNameValuePair(UID, param.get(UID)));
-		}
-		if (param.containsKey(CALLBACK_URL)) {
-			list.add(new BasicNameValuePair(CALLBACK_URL, param.get(CALLBACK_URL)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<SendSingleSmsInfo> h = new MapResultHandler<SendSingleSmsInfo>() {
 			@Override
@@ -244,31 +199,10 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<SendBatchSmsInfo> batch_send(Map<String, String> param) {
 		Result<SendBatchSmsInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(TEXT)) {
-			list.add(new BasicNameValuePair(TEXT, param.get(TEXT)));
-		}
-		if (list.size() != 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(EXTEND)) {
-			list.add(new BasicNameValuePair(EXTEND, param.get(EXTEND)));
-		}
-		if (param.containsKey(UID)) {
-			list.add(new BasicNameValuePair(UID, param.get(UID)));
-		}
-		if (param.containsKey(CALLBACK_URL)) {
-			list.add(new BasicNameValuePair(CALLBACK_URL, param.get(CALLBACK_URL)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<SendBatchSmsInfo> h = new MapResultHandler<SendBatchSmsInfo>() {
 			@Override
@@ -330,31 +264,10 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<SendBatchSmsInfo> multi_send(Map<String, String> param) {
 		Result<SendBatchSmsInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(TEXT)) {
-			list.add(new BasicNameValuePair(TEXT, param.get(TEXT)));
-		}
-		if (list.size() != 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(EXTEND)) {
-			list.add(new BasicNameValuePair(EXTEND, param.get(EXTEND)));
-		}
-		if (param.containsKey(UID)) {
-			list.add(new BasicNameValuePair(UID, param.get(UID)));
-		}
-		if (param.containsKey(CALLBACK_URL)) {
-			list.add(new BasicNameValuePair(CALLBACK_URL, param.get(CALLBACK_URL)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<SendBatchSmsInfo> h = new MapResultHandler<SendBatchSmsInfo>() {
 			@Override
@@ -386,31 +299,10 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<List<Result<SendSingleSmsInfo>>> multi_send_v1(Map<String, String> param) {
 		Result<List<Result<SendSingleSmsInfo>>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(TEXT)) {
-			list.add(new BasicNameValuePair(TEXT, param.get(TEXT)));
-		}
-		if (list.size() != 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(EXTEND)) {
-			list.add(new BasicNameValuePair(EXTEND, param.get(EXTEND)));
-		}
-		if (param.containsKey(UID)) {
-			list.add(new BasicNameValuePair(UID, param.get(UID)));
-		}
-		if (param.containsKey(CALLBACK_URL)) {
-			list.add(new BasicNameValuePair(CALLBACK_URL, param.get(CALLBACK_URL)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		SimpleListResultHandler<Result<SendSingleSmsInfo>> h = new SimpleListResultHandler<Result<SendSingleSmsInfo>>() {
 			@Override
@@ -455,21 +347,12 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<List<SmsStatusInfo>> pull_status(Map<String, String> param) {
 		Result<List<SmsStatusInfo>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
+		List<NameValuePair> list = param2pair(param, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (list.size() != 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(PAGE_SIZE)) {
-			list.add(new BasicNameValuePair(PAGE_SIZE, param.get(PAGE_SIZE)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
-
-		ListResultHandler<SmsStatusInfo, List<SmsStatusInfo>> h = new ListResultHandler<SmsStatusInfo, List<SmsStatusInfo>>() {
+		SimpleListResultHandler<SmsStatusInfo> h = new SimpleListResultHandler<SmsStatusInfo>() {
 			@Override
 			public List<SmsStatusInfo> data(List<SmsStatusInfo> rsp) {
 				switch (version()) {
@@ -517,19 +400,10 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<List<SmsReplyInfo>> pull_reply(Map<String, String> param) {
 		Result<List<SmsReplyInfo>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (list.size() != 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(PAGE_SIZE)) {
-			list.add(new BasicNameValuePair(PAGE_SIZE, param.get(PAGE_SIZE)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		SimpleListResultHandler<SmsReplyInfo> h = new SimpleListResultHandler<SmsReplyInfo>() {
 			@Override
@@ -599,32 +473,10 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<List<SmsReplyInfo>> get_reply(Map<String, String> param) {
 		Result<List<SmsReplyInfo>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(START_TIME)) {
-			list.add(new BasicNameValuePair(START_TIME, param.get(START_TIME)));
-		}
-		if (param.containsKey(END_TIME)) {
-			list.add(new BasicNameValuePair(END_TIME, param.get(END_TIME)));
-		}
-		if (param.containsKey(PAGE_NUM)) {
-			list.add(new BasicNameValuePair(PAGE_NUM, param.get(PAGE_NUM)));
-		}
-		if (param.containsKey(PAGE_SIZE)) {
-			list.add(new BasicNameValuePair(PAGE_SIZE, param.get(PAGE_SIZE)));
-		}
-		if (list.size() != 5) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, START_TIME, END_TIME, PAGE_NUM, PAGE_SIZE);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		SimpleListResultHandler<SmsReplyInfo> h = new SimpleListResultHandler<SmsReplyInfo>() {
 			@Override
@@ -676,19 +528,10 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<List<String>> get_black_word(Map<String, String> param) {
 		Result<List<String>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(TEXT)) {
-			list.add(new BasicNameValuePair(TEXT, param.get(TEXT)));
-		}
-		if (list.size() != 2) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, TEXT);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		SimpleListResultHandler<String> h = new SimpleListResultHandler<String>() {
 			@Override
@@ -755,31 +598,10 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<List<SmsRecordInfo>> get_record(Map<String, String> param) {
 		Result<List<SmsRecordInfo>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(START_TIME)) {
-			list.add(new BasicNameValuePair(START_TIME, param.get(START_TIME)));
-		}
-		if (param.containsKey(END_TIME)) {
-			list.add(new BasicNameValuePair(END_TIME, param.get(END_TIME)));
-		}
-		if (list.size() != 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(PAGE_NUM)) {
-			list.add(new BasicNameValuePair(PAGE_NUM, param.get(PAGE_NUM)));
-		}
-		if (param.containsKey(PAGE_SIZE)) {
-			list.add(new BasicNameValuePair(PAGE_SIZE, param.get(PAGE_SIZE)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, START_TIME, END_TIME);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		SimpleListResultHandler<SmsRecordInfo> h = new SimpleListResultHandler<SmsRecordInfo>() {
 			@Override
@@ -845,31 +667,10 @@ public class SmsApi extends YunpianApi {
 	 */
 	public Result<Integer> count(Map<String, String> param) {
 		Result<Integer> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(START_TIME)) {
-			list.add(new BasicNameValuePair(START_TIME, param.get(START_TIME)));
-		}
-		if (param.containsKey(END_TIME)) {
-			list.add(new BasicNameValuePair(END_TIME, param.get(END_TIME)));
-		}
-		if (list.size() != 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(PAGE_NUM)) {
-			list.add(new BasicNameValuePair(PAGE_NUM, param.get(PAGE_NUM)));
-		}
-		if (param.containsKey(PAGE_SIZE)) {
-			list.add(new BasicNameValuePair(PAGE_SIZE, param.get(PAGE_SIZE)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, START_TIME, END_TIME);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<Integer> h = new MapResultHandler<Integer>() {
 			@Override
@@ -929,31 +730,10 @@ public class SmsApi extends YunpianApi {
 	@Deprecated
 	public Result<SendSingleSmsInfo> tpl_send(Map<String, String> param) {
 		Result<SendSingleSmsInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(TPL_ID)) {
-			list.add(new BasicNameValuePair(TPL_ID, param.get(TPL_ID)));
-		}
-		if (param.containsKey(TPL_VALUE)) {
-			list.add(new BasicNameValuePair(TPL_VALUE, param.get(TPL_VALUE)));
-		}
-		if (list.size() != 4) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(EXTEND)) {
-			list.add(new BasicNameValuePair(EXTEND, param.get(EXTEND)));
-		}
-		if (param.containsKey(UID)) {
-			list.add(new BasicNameValuePair(UID, param.get(UID)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<SendSingleSmsInfo> h = new MapResultHandler<SendSingleSmsInfo>() {
 			@Override
@@ -1018,31 +798,10 @@ public class SmsApi extends YunpianApi {
 	@Deprecated
 	public Result<SendSingleSmsInfo> tpl_single_send(Map<String, String> param) {
 		Result<SendSingleSmsInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(TPL_ID)) {
-			list.add(new BasicNameValuePair(TPL_ID, param.get(TPL_ID)));
-		}
-		if (param.containsKey(TPL_VALUE)) {
-			list.add(new BasicNameValuePair(TPL_VALUE, param.get(TPL_VALUE)));
-		}
-		if (list.size() != 4) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(EXTEND)) {
-			list.add(new BasicNameValuePair(EXTEND, param.get(EXTEND)));
-		}
-		if (param.containsKey(UID)) {
-			list.add(new BasicNameValuePair(UID, param.get(UID)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<SendSingleSmsInfo> h = new MapResultHandler<SendSingleSmsInfo>() {
 			@Override
@@ -1104,31 +863,10 @@ public class SmsApi extends YunpianApi {
 	@Deprecated
 	public Result<SendBatchSmsInfo> tpl_batch_send(Map<String, String> param) {
 		Result<SendBatchSmsInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(TPL_ID)) {
-			list.add(new BasicNameValuePair(TPL_ID, param.get(TPL_ID)));
-		}
-		if (param.containsKey(TPL_VALUE)) {
-			list.add(new BasicNameValuePair(TPL_VALUE, param.get(TPL_VALUE)));
-		}
-		if (list.size() != 4) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(EXTEND)) {
-			list.add(new BasicNameValuePair(EXTEND, param.get(EXTEND)));
-		}
-		if (param.containsKey(UID)) {
-			list.add(new BasicNameValuePair(UID, param.get(UID)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<SendBatchSmsInfo> h = new MapResultHandler<SendBatchSmsInfo>() {
 			@Override

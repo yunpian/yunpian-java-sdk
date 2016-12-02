@@ -1,4 +1,4 @@
-package com.yunpian.sdk.constants;
+package com.yunpian.sdk.constant;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,19 +21,19 @@ public class Code {
 	public static String getErrorMsg(int code) {
 		switch (code) {
 		case INVALID_ARGUMENT:
-			return "Invalid arguments";
+			return Messages.getString("Code.invalid_argument"); //$NON-NLS-1$
 		case MISSING_ARGUMENT:
-			return "Missing required arguments";
+			return Messages.getString("Code.miss_parameter"); //$NON-NLS-1$
 		case QUERY_FAIL:
-			return "Query fail on server";
+			return Messages.getString("Code.query_failure"); //$NON-NLS-1$
 		case AUTH_FAIL:
-			return "Auth fail";
+			return Messages.getString("Code.auth_failure"); //$NON-NLS-1$
 		case SUBMIT_FAIL:
-			return "Submit fail";
+			return Messages.getString("Code.submit_failure"); //$NON-NLS-1$
 		case API_CALL_LIMIT:
-			return "Api call limit";
+			return Messages.getString("Code.api_call_limit"); //$NON-NLS-1$
 		default:
-			return "Unknown error";
+			return codeMsgMap.get(code);
 		}
 	}
 
@@ -232,51 +232,51 @@ public class Code {
 	public static final Map<Integer, String> codeMsgMap = new HashMap<Integer, String>();
 
 	static {
-		codeMsgMap.put(OK, "OK");
+		codeMsgMap.put(OK, Messages.getString("Code.ok")); //$NON-NLS-1$
 
 		/****************** 调用API时间发生的错误，需要开发者自己处理 ****************************/
-		codeMsgMap.put(ARGUMENT_MISSING, "请求参数缺失");
-		codeMsgMap.put(BAD_ARGUMENT_FORMAT, "请求参数格式错误");
-		codeMsgMap.put(MONEY_NOT_ENOUGH, "账户余额不足");
-		codeMsgMap.put(BLACK_WORD, "关键词屏蔽");
-		codeMsgMap.put(TPL_NOT_FOUND, "未找到匹配的模板");
+		codeMsgMap.put(ARGUMENT_MISSING, Messages.getString("Code.miss_argument")); //$NON-NLS-1$
+		codeMsgMap.put(BAD_ARGUMENT_FORMAT, Messages.getString("Code.bad_argument_format")); //$NON-NLS-1$
+		codeMsgMap.put(MONEY_NOT_ENOUGH, Messages.getString("Code.money_not_enough")); //$NON-NLS-1$
+		codeMsgMap.put(BLACK_WORD, Messages.getString("Code.black_word")); //$NON-NLS-1$
+		codeMsgMap.put(TPL_NOT_FOUND, Messages.getString("Code.tpl_not_found")); //$NON-NLS-1$
 
-		codeMsgMap.put(REGION_NOT_SUPPORT, "暂不支持的国家地区");
-		codeMsgMap.put(REGION_NOT_IN_TPL_LIST, "号码归属地不在模板可发送的地区内");
-		codeMsgMap.put(PACKAGE_ERROR, "流量包错误");
+		codeMsgMap.put(REGION_NOT_SUPPORT, Messages.getString("Code.region_not_support")); //$NON-NLS-1$
+		codeMsgMap.put(REGION_NOT_IN_TPL_LIST, Messages.getString("Code.region_exclude_tpl_list")); //$NON-NLS-1$
+		codeMsgMap.put(PACKAGE_ERROR, Messages.getString("Code.package_error")); //$NON-NLS-1$
 
 		/*************** 权限相关的错误 需要开发者自己处理 *******************/
-		codeMsgMap.put(BAD_API_KEY, "非法的apikey");
-		codeMsgMap.put(API_NOT_ALLOWED, "API没有权限");
-		codeMsgMap.put(IP_NOT_ALLOWED, "IP没有权限");
-		codeMsgMap.put(OVER_ACCESS_LIMIT, "访问次数超限");
-		codeMsgMap.put(OVER_ACCESS_RATE, "访问频率超限");
-		codeMsgMap.put(SUBMIT_SMS_FAILED, "提交短信失败");
-		codeMsgMap.put(RECORD_ALREADY_EXISTED, "记录已经存在");
-		codeMsgMap.put(RECORD_NOT_EXISTED, "记录不存在");
-		codeMsgMap.put(ADD_TPL_FAILED, "添加模板失败");
-		codeMsgMap.put(TPL_NOT_VALID, "模板不可用");
-		codeMsgMap.put(DUP_IN_SHORT_TIME, "同一手机号30秒内重复提交相同的内容");
-		codeMsgMap.put(TOO_MANY_TIME_IN_5, "同一手机号5分钟内重复提交相同的内容超过3次");
-		codeMsgMap.put(BLACK_PHONE_FILTER, "手机号黑名单过滤");
-		codeMsgMap.put(GET_METHOD_NOT_SUPPORT, "接口不支持GET方式调用");
-		codeMsgMap.put(POST_METHOD_NOT_SUPPORT, "接口不支持POST方式调用");
-		codeMsgMap.put(MARKET_FORBIDDEN, "营销短信暂停发送");
-		codeMsgMap.put(DECODE_ERROR, "解码失败");
-		codeMsgMap.put(SIGN_NOT_MATCH, "签名不匹配");
-		codeMsgMap.put(BAD_SIGN_FORMAT, "签名格式不正确");
-		codeMsgMap.put(DAY_LIMIT_PER_MOBILE, "24小时内同一手机号发送次数超过限制");
-		codeMsgMap.put(SIGN_NOT_VALID, "签名校验失败");
-		codeMsgMap.put(REQUEST_NOT_VALID, "请求已失效");
-		codeMsgMap.put(DECRYPT_ERROR, "解密失败");
+		codeMsgMap.put(BAD_API_KEY, Messages.getString("Code.invalid_apikey")); //$NON-NLS-1$
+		codeMsgMap.put(API_NOT_ALLOWED, Messages.getString("Code.api_refused")); //$NON-NLS-1$
+		codeMsgMap.put(IP_NOT_ALLOWED, Messages.getString("Code.ip_refused")); //$NON-NLS-1$
+		codeMsgMap.put(OVER_ACCESS_LIMIT, Messages.getString("Code.access_limit")); //$NON-NLS-1$
+		codeMsgMap.put(OVER_ACCESS_RATE, Messages.getString("Code.access_rate")); //$NON-NLS-1$
+		codeMsgMap.put(SUBMIT_SMS_FAILED, Messages.getString("Code.sms_submit_fail")); //$NON-NLS-1$
+		codeMsgMap.put(RECORD_ALREADY_EXISTED, Messages.getString("Code.record_existence")); //$NON-NLS-1$
+		codeMsgMap.put(RECORD_NOT_EXISTED, Messages.getString("Code.record_not_found")); //$NON-NLS-1$
+		codeMsgMap.put(ADD_TPL_FAILED, Messages.getString("Code.tpl_add_fail")); //$NON-NLS-1$
+		codeMsgMap.put(TPL_NOT_VALID, Messages.getString("Code.invalid_tpl")); //$NON-NLS-1$
+		codeMsgMap.put(DUP_IN_SHORT_TIME, Messages.getString("Code.dup_in_short_time")); //$NON-NLS-1$
+		codeMsgMap.put(TOO_MANY_TIME_IN_5, Messages.getString("Code.too_many_times_in_5")); //$NON-NLS-1$
+		codeMsgMap.put(BLACK_PHONE_FILTER, Messages.getString("Code.black_mobile_filter")); //$NON-NLS-1$
+		codeMsgMap.put(GET_METHOD_NOT_SUPPORT, Messages.getString("Code.not_support_get")); //$NON-NLS-1$
+		codeMsgMap.put(POST_METHOD_NOT_SUPPORT, Messages.getString("Code.not_support_post")); //$NON-NLS-1$
+		codeMsgMap.put(MARKET_FORBIDDEN, Messages.getString("Code.market_forbidden")); //$NON-NLS-1$
+		codeMsgMap.put(DECODE_ERROR, Messages.getString("Code.decode_fail")); //$NON-NLS-1$
+		codeMsgMap.put(SIGN_NOT_MATCH, Messages.getString("Code.sign_not_match")); //$NON-NLS-1$
+		codeMsgMap.put(BAD_SIGN_FORMAT, Messages.getString("Code.bad_sign_format")); //$NON-NLS-1$
+		codeMsgMap.put(DAY_LIMIT_PER_MOBILE, Messages.getString("Code.day_limit_per_mobile")); //$NON-NLS-1$
+		codeMsgMap.put(SIGN_NOT_VALID, Messages.getString("Code.invalid_sign")); //$NON-NLS-1$
+		codeMsgMap.put(REQUEST_NOT_VALID, Messages.getString("Code.invalid_request")); //$NON-NLS-1$
+		codeMsgMap.put(DECRYPT_ERROR, Messages.getString("Code.decrypt_fail")); //$NON-NLS-1$
 
 		/*************** 系统相关系统 需要技术支持 *******************/
-		codeMsgMap.put(UNKNOWN_EXCEPTION, "未知异常");
+		codeMsgMap.put(UNKNOWN_EXCEPTION, Messages.getString("Code.unknown_exception")); //$NON-NLS-1$
 		// codeMsgMap.put(DB_OPERATION_FAIL, "数据库操作失败");
-		codeMsgMap.put(DB_OPERATION_FAIL, "系统繁忙");
-		codeMsgMap.put(RECHARGE_FAILED, "充值失败");
-		codeMsgMap.put(PROM_FAILED, "赠送失败");
-		codeMsgMap.put(SIGE_NOT_SET, "用户开通过固定签名功能，但签名未设置");
+		codeMsgMap.put(DB_OPERATION_FAIL, Messages.getString("Code.db_operaion_fail")); //$NON-NLS-1$
+		codeMsgMap.put(RECHARGE_FAILED, Messages.getString("Code.recharge_fail")); //$NON-NLS-1$
+		codeMsgMap.put(PROM_FAILED, Messages.getString("Code.present_fail")); //$NON-NLS-1$
+		codeMsgMap.put(SIGE_NOT_SET, Messages.getString("Code.sign_not_set")); //$NON-NLS-1$
 	}
 
 	;

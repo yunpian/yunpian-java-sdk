@@ -28,19 +28,17 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.yunpian.sdk.YunpianException;
-import com.yunpian.sdk.constants.Config;
+import com.yunpian.sdk.constant.Config;
 
+@Deprecated
 public class HttpUtil {
 	public static final int CONNECTION_TIMEOUT = 5000;
 	public static final int SOCKETCOOECTION_TIMEOUT = 5000;
 
 	public static final int NORMAL = 200;
 	private static CloseableHttpClient httpClient = createSSLClientDefault();
-	private static final Logger logger = LoggerFactory.getLogger("resource");
 
 	public static CloseableHttpClient createSSLClientDefault() {
 		try {

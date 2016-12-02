@@ -1,4 +1,4 @@
-package com.yunpian.sdk.constants;
+package com.yunpian.sdk.constant;
 
 import java.nio.charset.Charset;
 import java.util.Properties;
@@ -6,6 +6,7 @@ import java.util.Properties;
 /**
  * Created by bingone on 15/11/19.
  */
+@Deprecated
 public class Config {
 
 	public static final Properties properties = new Properties();

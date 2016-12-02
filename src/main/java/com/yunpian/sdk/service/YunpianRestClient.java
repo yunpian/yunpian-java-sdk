@@ -1,6 +1,6 @@
 package com.yunpian.sdk.service;
 
-import com.yunpian.sdk.constants.Config;
+import com.yunpian.sdk.constant.Config;
 
 /**
  * Created by bingone on 16/1/18.
@@ -12,6 +12,7 @@ import com.yunpian.sdk.constants.Config;
  * 用户操作入口
  */
 @Deprecated
+@SuppressWarnings("static-access")
 public class YunpianRestClient {
 	private static Config config = new Config();
 	private String apikey = config.APIKEY;

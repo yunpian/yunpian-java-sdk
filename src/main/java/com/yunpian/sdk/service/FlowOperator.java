@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.reflect.TypeToken;
-import com.yunpian.sdk.constants.Config;
-import com.yunpian.sdk.constants.YunpianConstants;
-import com.yunpian.sdk.constants.YunpianSdkConstants;
+import com.yunpian.sdk.constant.Config;
+import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.FlowPackageInfo;
 import com.yunpian.sdk.model.FlowStatusInfo;
 import com.yunpian.sdk.model.ResultDO;
@@ -27,7 +26,12 @@ import com.yunpian.sdk.util.TeaUtil;
 /**
  * 流量发送操作类
  */
+@Deprecated
 public class FlowOperator extends AbstractOperator {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String apikey;
 	private String apiSecret;
 
@@ -45,8 +49,8 @@ public class FlowOperator extends AbstractOperator {
 		Type t = new TypeToken<List<FlowPackageInfo>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.API_KEY, apikey);
-		parms.put(YunpianConstants.CARRIER, carrier);
+		parms.put(YunpianConstant.APIKEY, apikey);
+		parms.put(YunpianConstant.CARRIER, carrier);
 		try {
 			String ret = HttpUtil.post(Config.URI_GET_FLOW_PACKAGE, parms);
 			result.setData(JsonUtil.<List<FlowPackageInfo>>fromJson(ret, t));
@@ -62,15 +66,15 @@ public class FlowOperator extends AbstractOperator {
 		Type t = new TypeToken<SendFlowInfo>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.API_KEY, apikey);
-		parms.put(YunpianConstants.SN, sn);
+		parms.put(YunpianConstant.APIKEY, apikey);
+		parms.put(YunpianConstant.SN, sn);
 		try {
 			if (!StringUtil.isNullOrEmpty(apiSecret)) {
-				parms.put(YunpianConstants.MOBILE, TeaUtil.encryptForYunpianV2(mobile, apiSecret));
-				parms.put(YunpianConstants.ENCRYPT, YunpianSdkConstants.DEFAULT_ENCRYPT);
-				parms.put(YunpianConstants.SIGN, SignUtil.getSign(parms, apiSecret));
+				parms.put(YunpianConstant.MOBILE, TeaUtil.encryptForYunpianV2(mobile, apiSecret));
+				parms.put(YunpianConstant.ENCRYPT, YunpianConstant.DEFAULT_ENCRYPT);
+				parms.put(YunpianConstant.SIGN, SignUtil.getSign(parms, apiSecret));
 			} else {
-				parms.put(YunpianConstants.MOBILE, mobile);
+				parms.put(YunpianConstant.MOBILE, mobile);
 			}
 		} catch (UnsupportedEncodingException e) {
 			result.setE(e);
@@ -91,7 +95,7 @@ public class FlowOperator extends AbstractOperator {
 		Type t = new TypeToken<List<FlowStatusInfo>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.API_KEY, apikey);
+		parms.put(YunpianConstant.APIKEY, apikey);
 		try {
 			String ret = HttpUtil.post(Config.URI_PULL_FLOW_STATUS, parms);
 			result.setData(JsonUtil.<List<FlowStatusInfo>>fromJson(ret, t));

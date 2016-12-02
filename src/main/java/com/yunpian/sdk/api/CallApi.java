@@ -4,15 +4,12 @@
 package com.yunpian.sdk.api;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 
-import com.yunpian.sdk.constants.Code;
+import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.CallBill;
 import com.yunpian.sdk.model.CallBind;
 import com.yunpian.sdk.model.Result;
@@ -60,28 +57,10 @@ public class CallApi extends YunpianApi {
 	 */
 	public Result<CallBind> bind(Map<String, String> param) {
 		Result<CallBind> r = new Result<>();
-		if (param == null) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(FROM)) {
-			list.add(new BasicNameValuePair(FROM, param.get(FROM)));
-		}
-		if (param.containsKey(TO)) {
-			list.add(new BasicNameValuePair(TO, param.get(TO)));
-		}
-		if (param.containsKey(DURATION)) {
-			list.add(new BasicNameValuePair(DURATION, param.get(DURATION)));
-		}
-		if (list.size() < 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		if (param.containsKey(AREA_CODE)) {
-			list.add(new BasicNameValuePair(AREA_CODE, param.get(AREA_CODE)));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, TO, DURATION);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<CallBind> h = new MapResultHandler<CallBind>() {
 			@Override
@@ -129,25 +108,10 @@ public class CallApi extends YunpianApi {
 	 */
 	public Result<Void> unbind(Map<String, String> param) {
 		Result<Void> r = new Result<>();
-		if (param == null) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(FROM)) {
-			list.add(new BasicNameValuePair(FROM, param.get(FROM)));
-		}
-		if (param.containsKey(TO)) {
-			list.add(new BasicNameValuePair(TO, param.get(TO)));
-		}
-		if (param.containsKey(DURATION)) {
-			list.add(new BasicNameValuePair(DURATION, param.get(DURATION)));
-		}
-		if (list.size() < 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, TO, DURATION);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<Void> h = new MapResultHandler<Void>() {
 			@Override
@@ -184,18 +148,12 @@ public class CallApi extends YunpianApi {
 	 */
 	public Result<List<CallBill>> pull(Map<String, String> param) {
 		Result<List<CallBill>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
+		List<NameValuePair> list = param2pair(param, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(PAGE_SIZE)) {
-			list.add(new BasicNameValuePair(PAGE_SIZE, param.get(PAGE_SIZE)));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
-
-		ListResultHandler<CallBill, List<CallBill>> h = new ListResultHandler<CallBill, List<CallBill>>() {
+		SimpleListResultHandler<CallBill> h = new SimpleListResultHandler<CallBill>() {
 			@Override
 			public List<CallBill> data(List<CallBill> rsp) {
 				switch (version()) {

@@ -5,16 +5,13 @@ package com.yunpian.sdk.api;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 
 import com.google.gson.reflect.TypeToken;
-import com.yunpian.sdk.constants.Code;
+import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SendVoiceInfo;
 import com.yunpian.sdk.model.VoiceStatusInfo;
@@ -71,34 +68,10 @@ public class VoiceApi extends YunpianApi {
 	 */
 	public Result<SendVoiceInfo> send(Map<String, String> param) {
 		Result<SendVoiceInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(CODE)) {
-			list.add(new BasicNameValuePair(CODE, param.get(CODE)));
-		}
-		if (list.size() != 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		// if (param.containsKey(ENCRYPT)) {
-		// list.add(new BasicNameValuePair(ENCRYPT, param.get(ENCRYPT)));
-		// }
-		// if (param.containsKey(_SIGN)) {
-		// list.add(new BasicNameValuePair(_SIGN, param.get(_SIGN)));
-		// }
-		if (param.containsKey(CALLBACK_URL)) {
-			list.add(new BasicNameValuePair(CALLBACK_URL, param.get(CALLBACK_URL)));
-		}
-		if (param.containsKey(DISPLAY_NUM)) {
-			list.add(new BasicNameValuePair(DISPLAY_NUM, param.get(DISPLAY_NUM)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, CODE);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<SendVoiceInfo> h = new MapResultHandler<SendVoiceInfo>() {
 			@Override
@@ -142,18 +115,12 @@ public class VoiceApi extends YunpianApi {
 	 */
 	public Result<List<VoiceStatusInfo>> pull_status(Map<String, String> param) {
 		Result<List<VoiceStatusInfo>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
+		List<NameValuePair> list = param2pair(param, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(PAGE_SIZE)) {
-			list.add(new BasicNameValuePair(PAGE_SIZE, param.get(PAGE_SIZE)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
-
-		ListResultHandler<VoiceStatusInfo, List<VoiceStatusInfo>> h = new ListResultHandler<VoiceStatusInfo, List<VoiceStatusInfo>>() {
+		SimpleListResultHandler<VoiceStatusInfo> h = new SimpleListResultHandler<VoiceStatusInfo>() {
 			@Override
 			public List<VoiceStatusInfo> data(List<VoiceStatusInfo> rsp) {
 				switch (version()) {
@@ -188,11 +155,16 @@ public class VoiceApi extends YunpianApi {
 	protected SendVoiceInfo map2VoiceResult(Map<String, String> rsp) {
 		if (rsp == null || rsp.isEmpty())
 			return null;
-		SendVoiceInfo voice = new SendVoiceInfo();
-		voice.setCount(rsp.get(COUNT));
-		voice.setFee(Double.parseDouble(rsp.get(FEE)));
-		voice.setSid(rsp.get(SID));
-		return voice;
+		try {
+			SendVoiceInfo voice = new SendVoiceInfo();
+			voice.setCount(rsp.get(COUNT));
+			voice.setFee(Double.parseDouble(rsp.get(FEE)));
+			voice.setSid(rsp.get(SID));
+			return voice;
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e.fillInStackTrace());
+		}
+		return null;
 	}
 
 }

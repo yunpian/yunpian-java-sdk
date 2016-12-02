@@ -12,7 +12,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.yunpian.sdk.constants.YunpianConstants;
+import com.yunpian.sdk.constant.YunpianConstant;
 
 /**
  * 云片配置
@@ -22,7 +22,7 @@ import com.yunpian.sdk.constants.YunpianConstants;
  * @date Nov 22, 2016 7:46:10 PM
  * @since 1.2.0
  */
-public class YunpianConf implements YunpianConstants {
+public class YunpianConf implements YunpianConstant {
 
 	static final Logger LOG = LoggerFactory.getLogger(YunpianConf.class);
 
@@ -88,7 +88,7 @@ public class YunpianConf implements YunpianConstants {
 			load(in);
 			load(props);
 
-			if (this.props.isEmpty()) {
+			if (_conf.isEmpty()) {
 				LOG.info("load default yunpian.properties");
 				load(YunpianClient.class.getResourceAsStream("/yunpian.properties"));
 			}
@@ -162,7 +162,7 @@ public class YunpianConf implements YunpianConstants {
 	// }
 
 	/**
-	 * apikey定义优先级:
+	 * apikey优先级:
 	 * <p>
 	 * <ol type="1">
 	 * <li>System.getProperty("yp.apikey")</li>

@@ -5,16 +5,13 @@ package com.yunpian.sdk.api;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 
 import com.google.gson.reflect.TypeToken;
-import com.yunpian.sdk.constants.Code;
+import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.FlowPackageInfo;
 import com.yunpian.sdk.model.FlowStatusInfo;
 import com.yunpian.sdk.model.Result;
@@ -57,18 +54,12 @@ public class FlowApi extends YunpianApi {
 	 */
 	public Result<List<FlowPackageInfo>> get_package(Map<String, String> param) {
 		Result<List<FlowPackageInfo>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
+		List<NameValuePair> list = param2pair(param, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(CARRIER)) {
-			list.add(new BasicNameValuePair(CARRIER, param.get(CARRIER)));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
-
-		ListResultHandler<FlowPackageInfo, List<FlowPackageInfo>> h = new ListResultHandler<FlowPackageInfo, List<FlowPackageInfo>>() {
+		SimpleListResultHandler<FlowPackageInfo> h = new SimpleListResultHandler<FlowPackageInfo>() {
 			@Override
 			public List<FlowPackageInfo> data(List<FlowPackageInfo> rsp) {
 				switch (version()) {
@@ -130,31 +121,10 @@ public class FlowApi extends YunpianApi {
 	 */
 	public Result<SendFlowInfo> recharge(Map<String, String> param) {
 		Result<SendFlowInfo> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(MOBILE)) {
-			list.add(new BasicNameValuePair(MOBILE, param.get(MOBILE)));
-		}
-		if (param.containsKey(SN)) {
-			list.add(new BasicNameValuePair(SN, param.get(SN)));
-		}
-		if (list.size() != 3) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		// if (param.containsKey(ENCRYPT)) {
-		// list.add(new BasicNameValuePair(ENCRYPT, param.get(ENCRYPT)));
-		// }
-		// if (param.containsKey(_SIGN)) {
-		// list.add(new BasicNameValuePair(_SIGN, param.get(_SIGN)));
-		// }
-		if (param.containsKey(CALLBACK_URL)) {
-			list.add(new BasicNameValuePair(CALLBACK_URL, param.get(CALLBACK_URL)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, SN);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<SendFlowInfo> h = new MapResultHandler<SendFlowInfo>() {
 			@Override
@@ -198,18 +168,12 @@ public class FlowApi extends YunpianApi {
 	 */
 	public Result<List<FlowStatusInfo>> pull_status(Map<String, String> param) {
 		Result<List<FlowStatusInfo>> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
+		List<NameValuePair> list = param2pair(param, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		if (param.containsKey(PAGE_SIZE)) {
-			list.add(new BasicNameValuePair(PAGE_SIZE, param.get(PAGE_SIZE)));
-		}
-		String data = URLEncodedUtils.format(list, charset());
-
-		ListResultHandler<FlowStatusInfo, List<FlowStatusInfo>> h = new ListResultHandler<FlowStatusInfo, List<FlowStatusInfo>>() {
+		SimpleListResultHandler<FlowStatusInfo> h = new SimpleListResultHandler<FlowStatusInfo>() {
 			@Override
 			public List<FlowStatusInfo> data(List<FlowStatusInfo> rsp) {
 				switch (version()) {
@@ -244,11 +208,16 @@ public class FlowApi extends YunpianApi {
 	protected SendFlowInfo map2flowResult(Map<String, String> rsp) {
 		if (rsp == null || rsp.isEmpty())
 			return null;
-		SendFlowInfo info = new SendFlowInfo();
-		info.setCount(rsp.get(COUNT));
-		info.setFee(Double.parseDouble(rsp.get(FEE)));
-		info.setSid(rsp.get(SID));
-		return info;
+		try {
+			SendFlowInfo info = new SendFlowInfo();
+			info.setCount(rsp.get(COUNT));
+			info.setFee(Double.parseDouble(rsp.get(FEE)));
+			info.setSid(rsp.get(SID));
+			return info;
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e.fillInStackTrace());
+		}
+		return null;
 	}
 
 }

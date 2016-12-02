@@ -3,17 +3,13 @@
  */
 package com.yunpian.sdk.api;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 
 import com.yunpian.sdk.YunpianClient;
-import com.yunpian.sdk.constants.Code;
+import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.UserInfo;
 import com.yunpian.sdk.util.ApiUtil;
@@ -54,9 +50,11 @@ public class UserApi extends YunpianApi {
 	 * @return
 	 */
 	public Result<UserInfo> get() {
-		List<NameValuePair> list = new ArrayList<NameValuePair>(1);
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
+		Result<UserInfo> r = new Result<>();
+		List<NameValuePair> list = param2pair(null, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<UserInfo> h = new MapResultHandler<UserInfo>() {
 			@Override
@@ -72,7 +70,7 @@ public class UserApi extends YunpianApi {
 
 			@Override
 			public Integer code(Map<String, String> rsp) {
-				return null;
+				return YunpianApi.code(rsp, UserApi.this.version());
 			}
 		};
 
@@ -108,25 +106,10 @@ public class UserApi extends YunpianApi {
 	 */
 	public Result<UserInfo> set(Map<String, String> param) {
 		Result<UserInfo> r = new Result<>();
-		if (param == null) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(EMERGENCY_CONTACT)) {
-			list.add(new BasicNameValuePair(EMERGENCY_CONTACT, param.get(EMERGENCY_CONTACT)));
-		}
-		if (param.containsKey(EMERGENCY_MOBILE)) {
-			list.add(new BasicNameValuePair(EMERGENCY_MOBILE, param.get(EMERGENCY_MOBILE)));
-		}
-		if (param.containsKey(ALARM_BALANCE)) {
-			list.add(new BasicNameValuePair(ALARM_BALANCE, param.get(ALARM_BALANCE)));
-		}
-		if (list.size() == 0) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<UserInfo> h = new MapResultHandler<UserInfo>() {
 			@Override
@@ -151,16 +134,23 @@ public class UserApi extends YunpianApi {
 	}
 
 	public static final UserInfo map2User(Map<String, String> map) {
-		UserInfo user = new UserInfo();
-		user.setNick(map.get(NICK));
-		user.setAlarm_balance(Long.parseLong(map.get(ALARM_BALANCE)));
-		user.setBalance(Long.parseLong(map.get(BALANCE)));
-		user.setEmail(map.get(EMAIL));
-		user.setEmergency_contact(map.get(EMERGENCY_CONTACT));
-		user.setEmergency_mobile(map.get(EMERGENCY_MOBILE));
-		user.setGmt_created(ApiUtil.str2date(map.get(GMT_CREATED)));
-		user.setIp_whitelist(map.get(IP_WHITELIST));
-		return user;
+		if (map == null || map.isEmpty())
+			return null;
+		try {
+			UserInfo user = new UserInfo();
+			user.setNick(map.get(NICK));
+			user.setAlarm_balance(Long.parseLong(map.get(ALARM_BALANCE)));
+			user.setBalance(Double.parseDouble(map.get(BALANCE)));
+			user.setEmail(map.get(EMAIL));
+			user.setEmergency_contact(map.get(EMERGENCY_CONTACT));
+			user.setEmergency_mobile(map.get(EMERGENCY_MOBILE));
+			user.setGmt_created(ApiUtil.str2date(map.get(GMT_CREATED)));
+			user.setIp_whitelist(map.get(IP_WHITELIST));
+			return user;
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e.fillInStackTrace());
+		}
+		return null;
 	}
 
 }

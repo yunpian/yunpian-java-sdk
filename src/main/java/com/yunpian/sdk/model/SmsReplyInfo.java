@@ -1,5 +1,7 @@
 package com.yunpian.sdk.model;
 
+import com.yunpian.sdk.util.JsonUtil;
+
 /**
  * Created by bingone on 15/11/6.
  */
@@ -32,8 +34,7 @@ public class SmsReplyInfo {
 
 	@Override
 	public String toString() {
-		return "SmsReplyInfo{" + "base_extend='" + base_extend + '\'' + ", extend='" + extend + '\'' + ", reply_time='"
-				+ reply_time + '\'' + ", mobile='" + mobile + '\'' + ", text='" + text + '\'' + '}';
+		return JsonUtil.toJson(this);
 	}
 
 	public String getBase_extend() {

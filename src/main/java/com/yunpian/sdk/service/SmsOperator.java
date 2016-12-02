@@ -14,9 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianException;
-import com.yunpian.sdk.constants.Config;
-import com.yunpian.sdk.constants.YunpianConstants;
-import com.yunpian.sdk.constants.YunpianSdkConstants;
+import com.yunpian.sdk.constant.Config;
+import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.FlowStatusInfo;
 import com.yunpian.sdk.model.ResultDO;
 import com.yunpian.sdk.model.SendBatchSmsInfo;
@@ -38,7 +37,12 @@ import com.yunpian.sdk.util.TeaUtil;
 /**
  * 短信发送操作类
  */
+@Deprecated
 public class SmsOperator extends AbstractOperator {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String apikey;
 	private String apiSecret;
 	private Type singleType = new TypeToken<SendSingleSmsInfo>() {
@@ -59,6 +63,7 @@ public class SmsOperator extends AbstractOperator {
 		this.apiSecret = apiSecret;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ResultDO<SendBatchSmsInfo> multiSend(List<String> mobileList, List<String> textList) {
 		String mobile = StringUtil.join(mobileList, ",");
 		// String text = StringUtil.join(textList, ",");
@@ -68,6 +73,7 @@ public class SmsOperator extends AbstractOperator {
 				text.append(URLEncoder.encode(s, Config.ENCODING) + ",");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
+				@SuppressWarnings("rawtypes")
 				ResultDO resultDO = new ResultDO();
 				resultDO.setE(e);
 				return resultDO;
@@ -84,36 +90,36 @@ public class SmsOperator extends AbstractOperator {
 
 	public ResultDO<SendSingleSmsInfo> singleSend(String mobile, String text) {
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.MOBILE, mobile);
-		parms.put(YunpianConstants.TEXT, text);
+		parms.put(YunpianConstant.MOBILE, mobile);
+		parms.put(YunpianConstant.TEXT, text);
 		return send(Config.URI_SEND_SINGLE_SMS, parms, singleType);
 	}
 
 	public ResultDO<SendBatchSmsInfo> batchSend(String mobile, String text) {
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.MOBILE, mobile);
-		parms.put(YunpianConstants.TEXT, text);
+		parms.put(YunpianConstant.MOBILE, mobile);
+		parms.put(YunpianConstant.TEXT, text);
 		return send(Config.URI_SEND_BATCH_SMS, parms, batchType);
 	}
 
 	public ResultDO<SendBatchSmsInfo> multiSend(String mobile, String text) {
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.MOBILE, mobile);
-		parms.put(YunpianConstants.TEXT, text);
+		parms.put(YunpianConstant.MOBILE, mobile);
+		parms.put(YunpianConstant.TEXT, text);
 		return send(Config.URI_SEND_MULTI_SMS, parms, multiType);
 	}
 
 	public <T> ResultDO<T> send(String url, Map<String, String> parms, Type t) {
-		return send(url, parms, t, YunpianSdkConstants.DEFAULT_ENCRYPT);
+		return send(url, parms, t, YunpianConstant.DEFAULT_ENCRYPT);
 	}
 
 	public <T> ResultDO<T> send(String url, Map<String, String> parms, Type t, String encrypt) {
 		logger.warn("message:" + parms + "to:" + url);
 		ResultDO<T> result = new ResultDO<T>();
-		String mobile = parms.get(YunpianConstants.MOBILE);
-		String text = parms.get(YunpianConstants.TEXT);
-		String tplValue = parms.get(YunpianConstants.TPL_VALUE);
-		String tplId = parms.get(YunpianConstants.TPL_ID);
+		String mobile = parms.get(YunpianConstant.MOBILE);
+		String text = parms.get(YunpianConstant.TEXT);
+		String tplValue = parms.get(YunpianConstant.TPL_VALUE);
+		String tplId = parms.get(YunpianConstant.TPL_ID);
 
 		if (StringUtil.isNullOrEmpty(mobile)) {
 			result.setE(new YunpianException("手机号内容为空"));
@@ -127,24 +133,24 @@ public class SmsOperator extends AbstractOperator {
 			return result;
 		}
 
-		parms.put(YunpianConstants.API_KEY, apikey);
+		parms.put(YunpianConstant.APIKEY, apikey);
 		if (!StringUtil.isNullOrEmpty(apiSecret)) {
 			try {
 				if ("tea".equalsIgnoreCase(encrypt)) {
-					parms.put(YunpianConstants.MOBILE, TeaUtil.encryptForYunpianV2(mobile, apiSecret));
+					parms.put(YunpianConstant.MOBILE, TeaUtil.encryptForYunpianV2(mobile, apiSecret));
 					if (text != null)
-						parms.put(YunpianConstants.TEXT, TeaUtil.encryptForYunpianV2(text, apiSecret));
+						parms.put(YunpianConstant.TEXT, TeaUtil.encryptForYunpianV2(text, apiSecret));
 					if (tplValue != null)
-						parms.put(YunpianConstants.TPL_VALUE, TeaUtil.encryptForYunpianV2(tplValue, apiSecret));
+						parms.put(YunpianConstant.TPL_VALUE, TeaUtil.encryptForYunpianV2(tplValue, apiSecret));
 				} else if ("des".equalsIgnoreCase(encrypt)) {
-					parms.put(YunpianConstants.MOBILE, DesUtil.encryptForYunpian(mobile, apiSecret));
+					parms.put(YunpianConstant.MOBILE, DesUtil.encryptForYunpian(mobile, apiSecret));
 					if (text != null)
-						parms.put(YunpianConstants.TEXT, DesUtil.decryptForYunpian(text, apiSecret));
+						parms.put(YunpianConstant.TEXT, DesUtil.decryptForYunpian(text, apiSecret));
 					if (tplValue != null)
-						parms.put(YunpianConstants.TPL_VALUE, DesUtil.decryptForYunpian(tplValue, apiSecret));
+						parms.put(YunpianConstant.TPL_VALUE, DesUtil.decryptForYunpian(tplValue, apiSecret));
 				}
-				parms.put(YunpianConstants.ENCRYPT, YunpianSdkConstants.DEFAULT_ENCRYPT);
-				parms.put(YunpianConstants.SIGN, SignUtil.getSign(parms, apiSecret));
+				parms.put(YunpianConstant.ENCRYPT, YunpianConstant.DEFAULT_ENCRYPT);
+				parms.put(YunpianConstant.SIGN, SignUtil.getSign(parms, apiSecret));
 			} catch (Exception e) {
 				logger.error("UnsupportedEncodingException" + "message:" + parms);
 				result.setE(e);
@@ -164,17 +170,17 @@ public class SmsOperator extends AbstractOperator {
 
 	public ResultDO<SendBatchSmsInfo> tplBatchSend(String mobile, String tplId, String tplValue) {
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.MOBILE, mobile);
-		parms.put(YunpianConstants.TPL_ID, tplId);
-		parms.put(YunpianConstants.TPL_VALUE, tplValue);
+		parms.put(YunpianConstant.MOBILE, mobile);
+		parms.put(YunpianConstant.TPL_ID, tplId);
+		parms.put(YunpianConstant.TPL_VALUE, tplValue);
 		return send(Config.URI_SEND_TPL_BATCH_SMS, parms, tplBatchType);
 	}
 
 	public ResultDO<SendSingleSmsInfo> tplSingleSend(String mobile, String tplId, String tplValue) {
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.MOBILE, mobile);
-		parms.put(YunpianConstants.TPL_ID, tplId);
-		parms.put(YunpianConstants.TPL_VALUE, tplValue);
+		parms.put(YunpianConstant.MOBILE, mobile);
+		parms.put(YunpianConstant.TPL_ID, tplId);
+		parms.put(YunpianConstant.TPL_VALUE, tplValue);
 		return send(Config.URI_SEND_TPL_SINGLE_SMS, parms, tplSingleType);
 	}
 
@@ -183,7 +189,7 @@ public class SmsOperator extends AbstractOperator {
 		Type t = new TypeToken<List<FlowStatusInfo>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.API_KEY, apikey);
+		parms.put(YunpianConstant.APIKEY, apikey);
 		try {
 			String ret = HttpUtil.post(Config.URI_PULL_SMS_STATUS, parms);
 			result.setData(JsonUtil.<List<SmsStatusInfo>>fromJson(ret, t));
@@ -199,7 +205,7 @@ public class SmsOperator extends AbstractOperator {
 		Type t = new TypeToken<List<FlowStatusInfo>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.API_KEY, apikey);
+		parms.put(YunpianConstant.APIKEY, apikey);
 		try {
 			String ret = HttpUtil.post(Config.URI_PULL_SMS_REPLY, parms);
 			result.setData(JsonUtil.<List<SmsReplyInfo>>fromJson(ret, t));
@@ -216,12 +222,12 @@ public class SmsOperator extends AbstractOperator {
 		Type t = new TypeToken<List<FlowStatusInfo>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.API_KEY, apikey);
-		parms.put(YunpianConstants.START_TIME, sdf.format(startTime));
-		parms.put(YunpianConstants.END_TIME, sdf.format(endTime));
-		parms.put(YunpianConstants.MOBILE, mobile);
-		parms.put(YunpianConstants.PAGE_NUM, pageNum);
-		parms.put(YunpianConstants.PAGE_SIZE, pageSize);
+		parms.put(YunpianConstant.APIKEY, apikey);
+		parms.put(YunpianConstant.START_TIME, sdf.format(startTime));
+		parms.put(YunpianConstant.END_TIME, sdf.format(endTime));
+		parms.put(YunpianConstant.MOBILE, mobile);
+		parms.put(YunpianConstant.PAGE_NUM, pageNum);
+		parms.put(YunpianConstant.PAGE_SIZE, pageSize);
 		try {
 			String ret = HttpUtil.post(Config.URI_GET_SMS_REPLY, parms);
 			result.setData(JsonUtil.<List<SmsReplyInfo>>fromJson(ret, t));
@@ -238,12 +244,12 @@ public class SmsOperator extends AbstractOperator {
 		Type t = new TypeToken<List<FlowStatusInfo>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put(YunpianConstants.API_KEY, apikey);
-		parms.put(YunpianConstants.START_TIME, sdf.format(startTime));
-		parms.put(YunpianConstants.END_TIME, sdf.format(endTime));
-		parms.put(YunpianConstants.MOBILE, mobile);
-		parms.put(YunpianConstants.PAGE_NUM, pageNum);
-		parms.put(YunpianConstants.PAGE_SIZE, pageSize);
+		parms.put(YunpianConstant.APIKEY, apikey);
+		parms.put(YunpianConstant.START_TIME, sdf.format(startTime));
+		parms.put(YunpianConstant.END_TIME, sdf.format(endTime));
+		parms.put(YunpianConstant.MOBILE, mobile);
+		parms.put(YunpianConstant.PAGE_NUM, pageNum);
+		parms.put(YunpianConstant.PAGE_SIZE, pageSize);
 		try {
 			String ret = HttpUtil.post(Config.URI_PULL_SMS_REPLY, parms);
 			result.setData(JsonUtil.<List<SmsRecordInfo>>fromJson(ret, t));

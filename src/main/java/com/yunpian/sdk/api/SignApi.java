@@ -3,16 +3,13 @@
  */
 package com.yunpian.sdk.api;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 
 import com.yunpian.sdk.YunpianClient;
-import com.yunpian.sdk.constants.Code;
+import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.Sign;
 import com.yunpian.sdk.util.JsonUtil;
@@ -73,31 +70,10 @@ public class SignApi extends YunpianApi {
 	 */
 	public Result<Sign> add(Map<String, String> param) {
 		Result<Sign> r = new Result<>();
-		if (param == null || param.size() < 1) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-
-		List<NameValuePair> list = new LinkedList<NameValuePair>();
-		if (param.containsKey(SIGN)) {
-			list.add(new BasicNameValuePair(SIGN, param.get(SIGN)));
-		}
-		if (param.containsKey(NOTIFY)) {
-			list.add(new BasicNameValuePair(NOTIFY, param.get(NOTIFY)));
-		}
-		if (param.containsKey(APPLYVIP)) {
-			list.add(new BasicNameValuePair(APPLYVIP, param.get(APPLYVIP)));
-		}
-		if (param.containsKey(ISONLYGLOBAL)) {
-			list.add(new BasicNameValuePair(ISONLYGLOBAL, param.get(ISONLYGLOBAL)));
-		}
-		if (param.containsKey(INDUSTRYTYPE)) {
-			list.add(new BasicNameValuePair(INDUSTRYTYPE, param.get(INDUSTRYTYPE)));
-		}
-		if (list.size() == 0) {
-			return r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING));
-		}
-		list.add(new BasicNameValuePair(API_KEY, apikey()));
-		String data = URLEncodedUtils.format(list, charset());
+		List<NameValuePair> list = param2pair(param, r, APIKEY, SIGN);
+		if (r.getCode() != Code.OK)
+			return r;
+		String data = format2Form(list);
 
 		MapResultHandler<Sign> h = new MapResultHandler<Sign>() {
 			@Override
