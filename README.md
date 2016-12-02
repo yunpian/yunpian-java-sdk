@@ -22,7 +22,7 @@ yunpian-java-sdk
 YunpianClient clnt = new YunpianClient("apikey").init();
 
 //修改账户信息API
-Map<String, String> param = clnt.newParam(2);
+Map<String, String> param = clnt.newParam(3);
 //param.put(APIKEY,"apikey"); 优先级高于构造器apikey
 param.put(EMERGENCY_CONTACT, "dzh");
 param.put(EMERGENCY_MOBILE, "11111111111");
@@ -47,12 +47,12 @@ client.close()
 ## 源码说明 yunpian-java-sdk
 - 工程使用maven构造，jdk1.7 or higher
 - 可参考test/com.yunpian.sdk.api下的单元测试
-- 不推荐使用标注@Deprecated类，会在以后版本会删除
+- 不推荐使用标注@Deprecated类，以后版本会删除
 
 ## 联系我们
 [技术支持 QQ](https://static.meiqia.com/dist/standalone.html?eid=30951&groupid=0d20ab23ab4702939552b3f81978012f&metadata={"name":"github"})
 
 ## 文档链接
 - sdk说明
-- api文档
+- [api文档](https://www.yunpian.com/api2.0/guide.html)
 
