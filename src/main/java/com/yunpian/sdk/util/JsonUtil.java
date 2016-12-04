@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +65,7 @@ public class JsonUtil {
 				Map<String, String> map = new LinkedHashMap<>();
 				in.beginObject();
 				while (in.hasNext()) {
-					map.put(in.nextName(), read2Str(in).toString());
+					map.put(in.nextName(), read2Str(in, true).toString());
 				}
 				in.endObject();
 				return map;
@@ -74,33 +74,32 @@ public class JsonUtil {
 		}
 	}
 
-	private static Object read2Str(JsonReader in) throws IOException {
+	private static Object read2Str(JsonReader in, boolean str) throws IOException {
 		JsonToken token = in.peek();
 		switch (token) {
 		case BEGIN_ARRAY:
-			List<Object> list = new ArrayList<Object>();
+			List<Object> list = new LinkedList<Object>();
 			in.beginArray();
 			while (in.hasNext()) {
-				list.add(read2Str(in));
+				list.add(read2Str(in, false));
 			}
 			in.endArray();
-			return JsonUtil.toJson(list);
+			return str ? JsonUtil.toJson(list) : list;
 
 		case BEGIN_OBJECT:
 			Map<String, Object> map = new LinkedHashMap<String, Object>();
 			in.beginObject();
 			while (in.hasNext()) {
-				map.put(in.nextName(), read2Str(in));
+				map.put(in.nextName(), read2Str(in, false));
 			}
 			in.endObject();
-			return JsonUtil.toJson(map);
+			return str ? JsonUtil.toJson(map) : map;
 
 		case STRING:
 			return in.nextString();
 
 		case NUMBER:
 			return in.nextString();
-
 		case BOOLEAN:
 			return in.nextBoolean();
 

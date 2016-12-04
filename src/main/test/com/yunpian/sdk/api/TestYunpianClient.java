@@ -16,7 +16,7 @@ import com.yunpian.sdk.constant.YunpianConstant;
  */
 public class TestYunpianClient implements YunpianConstant {
 
-	static final String TESTKEY = "79a8b86cdd26312cfabb48267da86599";
+	static final String TESTKEY = "";
 
 	YunpianClient clnt;
 

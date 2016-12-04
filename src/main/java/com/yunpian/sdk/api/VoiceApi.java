@@ -3,6 +3,7 @@
  */
 package com.yunpian.sdk.api;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -149,6 +150,12 @@ public class VoiceApi extends YunpianApi {
 					return YunpianApi.code(rspMap, VoiceApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<VoiceStatus>>() {
+				}.getType();
 			}
 		};
 		try {

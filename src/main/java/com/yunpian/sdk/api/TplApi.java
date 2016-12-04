@@ -3,6 +3,7 @@
  */
 package com.yunpian.sdk.api;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -63,7 +64,7 @@ public class TplApi extends YunpianApi {
 			return r;
 		String data = format2Form(list);
 
-		ListResultHandler<Template, List<Template>> h = new ListResultHandler<Template, List<Template>>() {
+		SimpleListResultHandler<Template> h = new SimpleListResultHandler<Template>() {
 			@Override
 			public List<Template> data(List<Template> rsp) {
 				switch (version()) {
@@ -79,6 +80,12 @@ public class TplApi extends YunpianApi {
 					return YunpianApi.code(rspMap, TplApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<Template>>() {
+				}.getType();
 			}
 		};
 		try {
@@ -137,6 +144,12 @@ public class TplApi extends YunpianApi {
 					return YunpianApi.code(rspMap, TplApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<Template>>() {
+				}.getType();
 			}
 		};
 		try {

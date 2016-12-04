@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.CodingErrorAction;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -176,7 +177,7 @@ public class YunpianClient {
 	}
 
 	public final Map<String, String> newParam(int size) {
-		return new HashMap<String, String>(size, 1);
+		return size <= 0 ? Collections.<String, String>emptyMap() : new HashMap<String, String>(size, 1);
 	}
 
 	/**

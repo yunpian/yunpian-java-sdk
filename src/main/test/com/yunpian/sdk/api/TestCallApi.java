@@ -22,10 +22,9 @@ public class TestCallApi extends TestYunpianClient {
 
 	@Test
 	public void bindTest() {
-		Map<String, String> param = clnt.newParam(5);
-		param.put(APIKEY, TESTKEY);
-		param.put(FROM, "");
-		param.put(TO, "");
+		Map<String, String> param = clnt.newParam(4);
+		param.put(FROM, "11111111111");
+		param.put(TO, "22222222222");
 		param.put(DURATION, "600");
 		// param.put(AREA_CODE, "+8621");
 		Result<CallBind> r = clnt.call().bind(param);
@@ -34,10 +33,9 @@ public class TestCallApi extends TestYunpianClient {
 
 	@Test
 	public void unbindTest() {
-		Map<String, String> param = clnt.newParam(4);
-		param.put(APIKEY, TESTKEY);
-		param.put(FROM, "");
-		param.put(TO, "");
+		Map<String, String> param = clnt.newParam(3);
+		param.put(FROM, "11111111111");
+		param.put(TO, "22222222222");
 		// param.put(DURATION, "600");
 		Result<?> r = clnt.call().unbind(param);
 		System.out.println(r);
@@ -45,8 +43,7 @@ public class TestCallApi extends TestYunpianClient {
 
 	@Test
 	public void pullTest() {
-		Map<String, String> param = clnt.newParam(2);
-		param.put(APIKEY, TESTKEY);
+		Map<String, String> param = clnt.newParam(0);
 		// param.put(PAGE_SIZE, "20");
 		Result<List<CallBill>> r = clnt.call().pull(param);
 		System.out.println(r);

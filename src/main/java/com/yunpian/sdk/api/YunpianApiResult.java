@@ -3,12 +3,11 @@
  */
 package com.yunpian.sdk.api;
 
-import java.util.ArrayList;
+import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.Result;
@@ -184,13 +183,14 @@ public interface YunpianApiResult {
 			if (rsp == null)
 				return Collections.emptyList();
 			if (rsp.startsWith("["))
-				return JsonUtil.fromJson(rsp, new TypeToken<ArrayList<T>>() {
-				}.getType());
+				return JsonUtil.fromJson(rsp, rspType());
 			else {
 				rspMap = JsonUtil.fromJsonToMap(rsp);
 				return Collections.emptyList();
 			}
 		}
+
+		abstract Type rspType();
 
 		@Override
 		public Result<T> succ(Integer code, List<R> rsp, Result<T> r) {

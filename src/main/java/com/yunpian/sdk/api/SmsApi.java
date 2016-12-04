@@ -328,6 +328,12 @@ public class SmsApi extends YunpianApi {
 				}
 				return Code.OK;
 			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<SmsSingleSend>>() {
+				}.getType();
+			}
 		};
 		try {
 			return version(VERSION_V1).path("multi_send.json").post(uri(), data, h, r);
@@ -380,6 +386,12 @@ public class SmsApi extends YunpianApi {
 					return YunpianApi.code(rspMap, SmsApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<SmsStatus>>() {
+				}.getType();
 			}
 		};
 		try {
@@ -435,6 +447,12 @@ public class SmsApi extends YunpianApi {
 					return YunpianApi.code(rspMap, SmsApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<SmsReply>>() {
+				}.getType();
 			}
 		};
 		try {
@@ -509,6 +527,12 @@ public class SmsApi extends YunpianApi {
 				}
 				return Code.OK;
 			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<SmsReply>>() {
+				}.getType();
+			}
 		};
 		try {
 			return path("get_reply.json").post(uri(), data, h, r);
@@ -566,6 +590,12 @@ public class SmsApi extends YunpianApi {
 					return YunpianApi.code(rspMap, SmsApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<String>>() {
+				}.getType();
 			}
 		};
 		try {
@@ -634,6 +664,12 @@ public class SmsApi extends YunpianApi {
 					return YunpianApi.code(rspMap, SmsApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<SmsRecord>>() {
+				}.getType();
 			}
 		};
 		try {

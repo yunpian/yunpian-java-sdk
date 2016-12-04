@@ -3,12 +3,14 @@
  */
 package com.yunpian.sdk.api;
 
+import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
 
+import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.CallBill;
@@ -176,6 +178,12 @@ public class CallApi extends YunpianApi {
 					return YunpianApi.code(rspMap, CallApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<CallBill>>() {
+				}.getType();
 			}
 		};
 		try {

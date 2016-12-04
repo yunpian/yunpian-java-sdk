@@ -3,6 +3,7 @@
  */
 package com.yunpian.sdk.api;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,7 +74,7 @@ public class FlowApi extends YunpianApi {
 				case VERSION_V1:
 					if (rspMap != null) {
 						String flow = rspMap.get(FLOW_PACKAGE);
-						return JsonUtil.<ArrayList<FlowPackage>>fromJson(flow, new TypeToken<ArrayList<FlowPackage>>() {
+						return JsonUtil.<List<FlowPackage>>fromJson(flow, new TypeToken<ArrayList<FlowPackage>>() {
 						}.getType());
 					}
 				case VERSION_V2:
@@ -88,6 +89,12 @@ public class FlowApi extends YunpianApi {
 					return YunpianApi.code(rspMap, FlowApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<FlowPackage>>() {
+				}.getType();
 			}
 		};
 		try {
@@ -201,6 +208,12 @@ public class FlowApi extends YunpianApi {
 					return YunpianApi.code(rspMap, FlowApi.this.version());
 				}
 				return Code.OK;
+			}
+
+			@Override
+			Type rspType() {
+				return new TypeToken<List<FlowStatus>>() {
+				}.getType();
 			}
 		};
 		try {

@@ -4,37 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * https://test-web.yunpian.com/api2.0/recode.html
+ * TODO optimize storing
  * 
+ * https://test-web.yunpian.com/api2.0/recode.html
  */
 public class Code {
 	/**
 	 * ************************** 0.1版本的定义 **************************
 	 */
-	public static final int INVALID_ARGUMENT = 1;
-	public static final int MISSING_ARGUMENT = 2;
-	public static final int QUERY_FAIL = 3;
-	public static final int AUTH_FAIL = 4;
-	public static final int SUBMIT_FAIL = 5;
-	public static final int API_CALL_LIMIT = 6;
-
 	public static String getErrorMsg(int code) {
-		switch (code) {
-		case INVALID_ARGUMENT:
-			return Messages.getString("Code.invalid_argument"); //$NON-NLS-1$
-		case MISSING_ARGUMENT:
-			return Messages.getString("Code.miss_parameter"); //$NON-NLS-1$
-		case QUERY_FAIL:
-			return Messages.getString("Code.query_failure"); //$NON-NLS-1$
-		case AUTH_FAIL:
-			return Messages.getString("Code.auth_failure"); //$NON-NLS-1$
-		case SUBMIT_FAIL:
-			return Messages.getString("Code.submit_failure"); //$NON-NLS-1$
-		case API_CALL_LIMIT:
-			return Messages.getString("Code.api_call_limit"); //$NON-NLS-1$
-		default:
-			return codeMsgMap.get(code);
-		}
+		return codeMsgMap.get(code);
 	}
 
 	/*************** v2 重新定义的返回码 ******************/
