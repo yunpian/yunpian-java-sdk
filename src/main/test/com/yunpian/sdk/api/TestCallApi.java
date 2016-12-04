@@ -1,9 +1,11 @@
 package com.yunpian.sdk.api;
 
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 
+import com.yunpian.sdk.model.CallBill;
 import com.yunpian.sdk.model.CallBind;
 import com.yunpian.sdk.model.Result;
 
@@ -20,13 +22,33 @@ public class TestCallApi extends TestYunpianClient {
 
 	@Test
 	public void bindTest() {
+		Map<String, String> param = clnt.newParam(5);
+		param.put(APIKEY, TESTKEY);
+		param.put(FROM, "");
+		param.put(TO, "");
+		param.put(DURATION, "600");
+		// param.put(AREA_CODE, "+8621");
+		Result<CallBind> r = clnt.call().bind(param);
+		System.out.println(r);
+	}
+
+	@Test
+	public void unbindTest() {
+		Map<String, String> param = clnt.newParam(4);
+		param.put(APIKEY, TESTKEY);
+		param.put(FROM, "");
+		param.put(TO, "");
+		// param.put(DURATION, "600");
+		Result<?> r = clnt.call().unbind(param);
+		System.out.println(r);
+	}
+
+	@Test
+	public void pullTest() {
 		Map<String, String> param = clnt.newParam(2);
 		param.put(APIKEY, TESTKEY);
-		param.put(FROM, "18616020610");
-		param.put(TO, "13917162015");
-		param.put(DURATION, "60");
-		param.put(AREA_CODE, "+8621");
-		Result<CallBind> r = clnt.call().bind(param);
+		// param.put(PAGE_SIZE, "20");
+		Result<List<CallBill>> r = clnt.call().pull(param);
 		System.out.println(r);
 	}
 

@@ -11,11 +11,12 @@ import java.util.Map;
 import org.apache.http.NameValuePair;
 
 import com.google.gson.reflect.TypeToken;
+import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.FlowPackage;
+import com.yunpian.sdk.model.FlowSend;
 import com.yunpian.sdk.model.FlowStatus;
 import com.yunpian.sdk.model.Result;
-import com.yunpian.sdk.model.FlowSend;
 import com.yunpian.sdk.util.JsonUtil;
 
 /**
@@ -33,6 +34,12 @@ public class FlowApi extends YunpianApi {
 	@Override
 	public String name() {
 		return NAME;
+	}
+
+	@Override
+	public void init(YunpianClient clnt) {
+		super.init(clnt);
+		host(clnt.getConf().getConf(YP_FLOW_HOST, "https://flow.yunpian.com"));
 	}
 
 	/**
@@ -66,9 +73,8 @@ public class FlowApi extends YunpianApi {
 				case VERSION_V1:
 					if (rspMap != null) {
 						String flow = rspMap.get(FLOW_PACKAGE);
-						return JsonUtil.<ArrayList<FlowPackage>>fromJson(flow,
-								new TypeToken<ArrayList<FlowPackage>>() {
-								}.getType());
+						return JsonUtil.<ArrayList<FlowPackage>>fromJson(flow, new TypeToken<ArrayList<FlowPackage>>() {
+						}.getType());
 					}
 				case VERSION_V2:
 					return rsp;
@@ -180,9 +186,8 @@ public class FlowApi extends YunpianApi {
 				case VERSION_V1:
 					if (rspMap != null) {
 						String flow = rspMap.get(FLOW_STATUS);
-						return JsonUtil.<ArrayList<FlowStatus>>fromJson(flow,
-								new TypeToken<ArrayList<FlowStatus>>() {
-								}.getType());
+						return JsonUtil.<ArrayList<FlowStatus>>fromJson(flow, new TypeToken<ArrayList<FlowStatus>>() {
+						}.getType());
 					}
 				case VERSION_V2:
 					return rsp;
@@ -215,7 +220,7 @@ public class FlowApi extends YunpianApi {
 			info.setSid(rsp.get(SID));
 			return info;
 		} catch (Exception e) {
-			LOG.error(e.getMessage(),e.fillInStackTrace());
+			LOG.error(e.getMessage(), e.fillInStackTrace());
 		}
 		return null;
 	}

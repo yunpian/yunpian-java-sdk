@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.http.NameValuePair;
 
+import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.CallBill;
 import com.yunpian.sdk.model.CallBind;
@@ -28,6 +29,12 @@ public class CallApi extends YunpianApi {
 	@Override
 	public String name() {
 		return NAME;
+	}
+
+	@Override
+	public void init(YunpianClient clnt) {
+		super.init(clnt);
+		host(clnt.getConf().getConf(YP_CALL_HOST, "https://call.yunpian.com"));
 	}
 
 	/**
@@ -108,7 +115,7 @@ public class CallApi extends YunpianApi {
 	 */
 	public Result<Void> unbind(Map<String, String> param) {
 		Result<Void> r = new Result<>();
-		List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, TO, DURATION);
+		List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, TO);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);

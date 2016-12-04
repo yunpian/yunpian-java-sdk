@@ -12,12 +12,13 @@ import java.util.Map;
 import org.apache.http.NameValuePair;
 
 import com.google.gson.reflect.TypeToken;
+import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SmsBatchSend;
-import com.yunpian.sdk.model.SmsSingleSend;
 import com.yunpian.sdk.model.SmsRecord;
 import com.yunpian.sdk.model.SmsReply;
+import com.yunpian.sdk.model.SmsSingleSend;
 import com.yunpian.sdk.model.SmsStatus;
 import com.yunpian.sdk.util.JsonUtil;
 
@@ -35,6 +36,12 @@ public class SmsApi extends YunpianApi {
 	@Override
 	public String name() {
 		return NAME;
+	}
+
+	@Override
+	public void init(YunpianClient clnt) {
+		super.init(clnt);
+		host(clnt.getConf().getConf(YP_SMS_HOST, "https://sms.yunpian.com"));
 	}
 
 	/**

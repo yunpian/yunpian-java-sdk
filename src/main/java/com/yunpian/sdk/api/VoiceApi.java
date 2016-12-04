@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.http.NameValuePair;
 
 import com.google.gson.reflect.TypeToken;
+import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.VoiceSend;
@@ -32,6 +33,12 @@ public class VoiceApi extends YunpianApi {
 	@Override
 	public String name() {
 		return NAME;
+	}
+
+	@Override
+	public void init(YunpianClient clnt) {
+		super.init(clnt);
+		host(clnt.getConf().getConf(YP_VOICE_HOST, "https://voice.yunpian.com"));
 	}
 
 	/**
@@ -127,9 +134,8 @@ public class VoiceApi extends YunpianApi {
 				case VERSION_V1:
 					if (rspMap != null) {
 						String flow = rspMap.get(VOICE_STATUS);
-						return JsonUtil.<ArrayList<VoiceStatus>>fromJson(flow,
-								new TypeToken<ArrayList<VoiceStatus>>() {
-								}.getType());
+						return JsonUtil.<ArrayList<VoiceStatus>>fromJson(flow, new TypeToken<ArrayList<VoiceStatus>>() {
+						}.getType());
 					}
 				case VERSION_V2:
 					return rsp;

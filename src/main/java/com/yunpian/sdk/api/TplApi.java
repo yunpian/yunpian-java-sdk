@@ -37,7 +37,7 @@ public class TplApi extends YunpianApi {
 	@Override
 	public void init(YunpianClient clnt) {
 		super.init(clnt);
-		host(clnt.getConf().getConf(YP_SMS_HOST, "https://sms.yunpian.com"));
+		host(clnt.getConf().getConf(YP_TPL_HOST, "https://sms.yunpian.com"));
 	}
 
 	/**
