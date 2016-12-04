@@ -3,7 +3,7 @@ package com.yunpian.sdk.model;
 /**
  * Created by bingone on 16/1/12.
  */
-public class SmsStatusInfo extends BaseStatusInfo {
+public class SmsStatus extends BaseStatus {
 
 	private String uid;
 

@@ -10,8 +10,8 @@ import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.constant.Config;
 import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.ResultDO;
-import com.yunpian.sdk.model.SendVoiceInfo;
-import com.yunpian.sdk.model.VoiceStatusInfo;
+import com.yunpian.sdk.model.VoiceSend;
+import com.yunpian.sdk.model.VoiceStatus;
 import com.yunpian.sdk.util.HttpUtil;
 import com.yunpian.sdk.util.JsonUtil;
 import com.yunpian.sdk.util.SignUtil;
@@ -39,9 +39,9 @@ public class VoiceOperator extends AbstractOperator {
 		this.apiSecret = apiSecret;
 	}
 
-	public ResultDO<SendVoiceInfo> send(String mobile, String code) {
-		ResultDO<SendVoiceInfo> result = new ResultDO<SendVoiceInfo>();
-		Type t = new TypeToken<SendVoiceInfo>() {
+	public ResultDO<VoiceSend> send(String mobile, String code) {
+		ResultDO<VoiceSend> result = new ResultDO<VoiceSend>();
+		Type t = new TypeToken<VoiceSend>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
@@ -60,7 +60,7 @@ public class VoiceOperator extends AbstractOperator {
 		}
 		try {
 			String ret = HttpUtil.post(Config.URI_SEND_VOICE_SMS, parms);
-			result.setData((SendVoiceInfo) JsonUtil.fromJson(ret, t));
+			result.setData((VoiceSend) JsonUtil.fromJson(ret, t));
 			result.setSuccess(true);
 		} catch (Throwable e) {
 			result.setE(e);
@@ -68,15 +68,15 @@ public class VoiceOperator extends AbstractOperator {
 		return result;
 	}
 
-	public ResultDO<List<VoiceStatusInfo>> pullStatus() {
-		ResultDO<List<VoiceStatusInfo>> result = new ResultDO<List<VoiceStatusInfo>>();
-		Type t = new TypeToken<List<VoiceStatusInfo>>() {
+	public ResultDO<List<VoiceStatus>> pullStatus() {
+		ResultDO<List<VoiceStatus>> result = new ResultDO<List<VoiceStatus>>();
+		Type t = new TypeToken<List<VoiceStatus>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
 		try {
 			String ret = HttpUtil.post(Config.URI_PULL_VOICE_STATUS, parms);
-			result.setData(JsonUtil.<List<VoiceStatusInfo>>fromJson(ret, t));
+			result.setData(JsonUtil.<List<VoiceStatus>>fromJson(ret, t));
 			result.setSuccess(true);
 		} catch (Throwable e) {
 			result.setE(e);

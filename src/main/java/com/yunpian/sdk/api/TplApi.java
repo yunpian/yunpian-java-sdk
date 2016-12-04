@@ -15,7 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
-import com.yunpian.sdk.model.TemplateInfo;
+import com.yunpian.sdk.model.Template;
 import com.yunpian.sdk.util.JsonUtil;
 
 /**
@@ -56,16 +56,16 @@ public class TplApi extends YunpianApi {
 	 *            tpl_id
 	 * @return
 	 */
-	public Result<List<TemplateInfo>> get_default(Map<String, String> param) {
-		Result<List<TemplateInfo>> r = new Result<>();
+	public Result<List<Template>> get_default(Map<String, String> param) {
+		Result<List<Template>> r = new Result<>();
 		List<NameValuePair> list = param2pair(param, r, APIKEY);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);
 
-		ListResultHandler<TemplateInfo, List<TemplateInfo>> h = new ListResultHandler<TemplateInfo, List<TemplateInfo>>() {
+		ListResultHandler<Template, List<Template>> h = new ListResultHandler<Template, List<Template>>() {
 			@Override
-			public List<TemplateInfo> data(List<TemplateInfo> rsp) {
+			public List<Template> data(List<Template> rsp) {
 				switch (version()) {
 				case VERSION_V2:
 					return rsp;
@@ -74,7 +74,7 @@ public class TplApi extends YunpianApi {
 			}
 
 			@Override
-			public Integer code(List<TemplateInfo> rsp) {
+			public Integer code(List<Template> rsp) {
 				if (rspMap != null) {
 					return YunpianApi.code(rspMap, TplApi.this.version());
 				}
@@ -105,24 +105,24 @@ public class TplApi extends YunpianApi {
 	 *            tpl_id
 	 * @return
 	 */
-	public Result<List<TemplateInfo>> get(Map<String, String> param) {
-		Result<List<TemplateInfo>> r = new Result<>();
+	public Result<List<Template>> get(Map<String, String> param) {
+		Result<List<Template>> r = new Result<>();
 		List<NameValuePair> list = param2pair(param, r, APIKEY);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);
 
-		SimpleListResultHandler<TemplateInfo> h = new SimpleListResultHandler<TemplateInfo>() {
+		SimpleListResultHandler<Template> h = new SimpleListResultHandler<Template>() {
 			@Override
-			public List<TemplateInfo> data(List<TemplateInfo> rsp) {
+			public List<Template> data(List<Template> rsp) {
 				switch (version()) {
 				case VERSION_V1:
 					if (rspMap == null)
 						break;
 					String t = rspMap.get(TEMPLATE);
 					return t.startsWith("[")
-							? JsonUtil.<ArrayList<TemplateInfo>>fromJson(t, new TypeToken<ArrayList<TemplateInfo>>() {
-							}.getType()) : Arrays.asList(JsonUtil.fromJson(t, TemplateInfo.class));
+							? JsonUtil.<ArrayList<Template>>fromJson(t, new TypeToken<ArrayList<Template>>() {
+							}.getType()) : Arrays.asList(JsonUtil.fromJson(t, Template.class));
 				case VERSION_V2:
 					if (rspMap != null)
 						return Arrays.asList(map2Template(rspMap));
@@ -132,7 +132,7 @@ public class TplApi extends YunpianApi {
 			}
 
 			@Override
-			public Integer code(List<TemplateInfo> rsp) {
+			public Integer code(List<Template> rsp) {
 				if (rspMap != null) {
 					return YunpianApi.code(rspMap, TplApi.this.version());
 				}
@@ -170,19 +170,19 @@ public class TplApi extends YunpianApi {
 	 * @param param
 	 * @return
 	 */
-	public Result<TemplateInfo> add(Map<String, String> param) {
-		Result<TemplateInfo> r = new Result<>();
+	public Result<Template> add(Map<String, String> param) {
+		Result<Template> r = new Result<>();
 		List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_CONTENT);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);
 
-		MapResultHandler<TemplateInfo> h = new MapResultHandler<TemplateInfo>() {
+		MapResultHandler<Template> h = new MapResultHandler<Template>() {
 			@Override
-			public TemplateInfo data(Map<String, String> rsp) {
+			public Template data(Map<String, String> rsp) {
 				switch (version()) {
 				case VERSION_V1:
-					return JsonUtil.fromJson(rsp.get(TEMPLATE), TemplateInfo.class);
+					return JsonUtil.fromJson(rsp.get(TEMPLATE), Template.class);
 				case VERSION_V2:
 					return map2Template(rsp);
 				}
@@ -217,16 +217,16 @@ public class TplApi extends YunpianApi {
 	 * @param param
 	 * @return
 	 */
-	public Result<TemplateInfo> del(Map<String, String> param) {
-		Result<TemplateInfo> r = new Result<>();
+	public Result<Template> del(Map<String, String> param) {
+		Result<Template> r = new Result<>();
 		List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_ID);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);
 
-		MapResultHandler<TemplateInfo> h = new MapResultHandler<TemplateInfo>() {
+		MapResultHandler<Template> h = new MapResultHandler<Template>() {
 			@Override
-			public TemplateInfo data(Map<String, String> rsp) {
+			public Template data(Map<String, String> rsp) {
 				switch (version()) {
 				case VERSION_V2:
 					return map2Template(rsp);
@@ -274,23 +274,23 @@ public class TplApi extends YunpianApi {
 	 * @param param
 	 * @return
 	 */
-	public Result<TemplateInfo> update(Map<String, String> param) {
-		Result<TemplateInfo> r = new Result<>();
+	public Result<Template> update(Map<String, String> param) {
+		Result<Template> r = new Result<>();
 		List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_ID, TPL_CONTENT);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);
 
-		MapResultHandler<TemplateInfo> h = new MapResultHandler<TemplateInfo>() {
+		MapResultHandler<Template> h = new MapResultHandler<Template>() {
 			@Override
-			public TemplateInfo data(Map<String, String> rsp) {
+			public Template data(Map<String, String> rsp) {
 				switch (version()) {
 				case VERSION_V1:
 					if (rsp.containsKey(TEMPLATE))
-						return JsonUtil.fromJson(rsp.get(TEMPLATE), TemplateInfo.class);
+						return JsonUtil.fromJson(rsp.get(TEMPLATE), Template.class);
 				case VERSION_V2:
 					if (rsp.containsKey(TEMPLATE))
-						return JsonUtil.fromJson(rsp.get(TEMPLATE), TemplateInfo.class);
+						return JsonUtil.fromJson(rsp.get(TEMPLATE), Template.class);
 					return map2Template(rsp);
 				}
 				return null;
@@ -308,12 +308,12 @@ public class TplApi extends YunpianApi {
 		}
 	}
 
-	private TemplateInfo map2Template(Map<String, String> map) {
+	private Template map2Template(Map<String, String> map) {
 		if (map == null)
 			return null;
 
 		try {
-			TemplateInfo t = new TemplateInfo();
+			Template t = new Template();
 			t.setCheck_status(map.get(CHECK_STATUS));
 			t.setReason(map.get(REASON));
 			t.setTpl_content(map.get(TPL_CONTENT));

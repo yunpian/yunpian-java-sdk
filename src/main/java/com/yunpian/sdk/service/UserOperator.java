@@ -6,7 +6,7 @@ import java.util.Map;
 import com.yunpian.sdk.constant.Config;
 import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.ResultDO;
-import com.yunpian.sdk.model.UserInfo;
+import com.yunpian.sdk.model.User;
 import com.yunpian.sdk.util.HttpUtil;
 import com.yunpian.sdk.util.JsonUtil;
 
@@ -21,17 +21,17 @@ public class UserOperator {
 		this.apikey = apikey;
 	}
 
-	public ResultDO<UserInfo> get() {
+	public ResultDO<User> get() {
 		return get(Config.URI_GET_USER_INFO);
 	}
 
-	public ResultDO<UserInfo> get(String url) {
-		ResultDO<UserInfo> resultDO = new ResultDO<UserInfo>();
+	public ResultDO<User> get(String url) {
+		ResultDO<User> resultDO = new ResultDO<User>();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
 		try {
 			String ret = HttpUtil.post(url, parms);
-			resultDO.setData(JsonUtil.<UserInfo>fromJson(ret, UserInfo.class));
+			resultDO.setData(JsonUtil.<User>fromJson(ret, User.class));
 			resultDO.setSuccess(true);
 		} catch (Throwable e) {
 			resultDO.setE(e);

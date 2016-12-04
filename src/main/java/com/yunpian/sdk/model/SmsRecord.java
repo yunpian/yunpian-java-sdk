@@ -5,7 +5,7 @@ import com.yunpian.sdk.util.JsonUtil;
 /**
  * Created by bingone on 16/1/18.
  */
-public class SmsRecordInfo {
+public class SmsRecord {
 	private String sid;
 	private String mobile;
 	private String sendTime;

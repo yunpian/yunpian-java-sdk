@@ -7,18 +7,18 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.yunpian.sdk.model.FlowPackageInfo;
-import com.yunpian.sdk.model.FlowStatusInfo;
+import com.yunpian.sdk.model.FlowPackage;
+import com.yunpian.sdk.model.FlowStatus;
 import com.yunpian.sdk.model.ResultDO;
-import com.yunpian.sdk.model.SendBatchSmsInfo;
-import com.yunpian.sdk.model.SendFlowInfo;
-import com.yunpian.sdk.model.SendSingleSmsInfo;
-import com.yunpian.sdk.model.SendVoiceInfo;
-import com.yunpian.sdk.model.SmsReplyInfo;
-import com.yunpian.sdk.model.SmsStatusInfo;
-import com.yunpian.sdk.model.TemplateInfo;
-import com.yunpian.sdk.model.UserInfo;
-import com.yunpian.sdk.model.VoiceStatusInfo;
+import com.yunpian.sdk.model.SmsBatchSend;
+import com.yunpian.sdk.model.FlowSend;
+import com.yunpian.sdk.model.SmsSingleSend;
+import com.yunpian.sdk.model.VoiceSend;
+import com.yunpian.sdk.model.SmsReply;
+import com.yunpian.sdk.model.SmsStatus;
+import com.yunpian.sdk.model.Template;
+import com.yunpian.sdk.model.User;
+import com.yunpian.sdk.model.VoiceStatus;
 
 /**
  * Created by bingone on 16/1/19.
@@ -38,17 +38,17 @@ public class YunpianRestTest {
 		YunpianRestClient client = new YunpianRestClient("your apikey");
 		SmsOperator smsOperator = client.getSmsOperator();
 		// 单条发送
-		ResultDO<SendSingleSmsInfo> r1 = smsOperator.singleSend("18210374138", "【云片网】您的验证码是1234");
+		ResultDO<SmsSingleSend> r1 = smsOperator.singleSend("18210374138", "【云片网】您的验证码是1234");
 		System.out.println(r1);
 		// 批量发送
-		ResultDO<SendBatchSmsInfo> r2 = smsOperator.batchSend("13012312316,13112312312,123321,333,111",
+		ResultDO<SmsBatchSend> r2 = smsOperator.batchSend("13012312316,13112312312,123321,333,111",
 				"【云片网】您的验证码是1234");
 		System.out.println(r2);
 
 		List<String> mobile = Arrays.asList("13012312321,13012312322,13012312323,130123123".split(","));
 		List<String> text = Arrays.asList("【云片网】您的验证码是1234,【云片网】您的验证码是1234,【云片网】您的验证码是1234,【云片网】您的验证码是1234".split(","));
 		// 个性化发送
-		ResultDO<SendBatchSmsInfo> r3 = smsOperator.multiSend(mobile, text);
+		ResultDO<SmsBatchSend> r3 = smsOperator.multiSend(mobile, text);
 		System.out.println(r3);
 
 		// （不推荐使用）
@@ -78,21 +78,21 @@ public class YunpianRestTest {
 	@Test
 	public void testUser() {
 		UserOperator userOperator = client.getUserOperator();
-		ResultDO<UserInfo> resultDO = userOperator.get();
+		ResultDO<User> resultDO = userOperator.get();
 		System.out.println(resultDO);
 	}
 
 	@Test
 	public void testTpl() {
 		TplOperator tplOperator = client.getTplOperator();
-		ResultDO<List<TemplateInfo>> resultDO = tplOperator.getDefault();
+		ResultDO<List<Template>> resultDO = tplOperator.getDefault();
 		System.out.println(resultDO);
 		resultDO = tplOperator.get();
 		System.out.println(resultDO);
 		resultDO = tplOperator.getDefault("2");
 		System.out.println(resultDO);
 
-		ResultDO<TemplateInfo> result = tplOperator.add("【bbb】大倪#asdf#");
+		ResultDO<Template> result = tplOperator.add("【bbb】大倪#asdf#");
 		System.out.println(result);
 		resultDO = tplOperator.get(String.valueOf(result.getData().getTpl_id()));
 		System.out.println(resultDO);
@@ -105,15 +105,15 @@ public class YunpianRestTest {
 	@Test
 	public void testFlow() {
 		FlowOperator flowOperator = client.getFlowOperator();
-		ResultDO<List<FlowPackageInfo>> r1 = flowOperator.getPackage();
+		ResultDO<List<FlowPackage>> r1 = flowOperator.getPackage();
 		System.out.println(r1);
 		r1 = flowOperator.getPackage("10086");
 		System.out.println(r1);
 
-		ResultDO<SendFlowInfo> r2 = flowOperator.recharge("18700000000", "1008601");
+		ResultDO<FlowSend> r2 = flowOperator.recharge("18700000000", "1008601");
 		System.out.println(r2);
 
-		ResultDO<List<FlowStatusInfo>> r3 = flowOperator.pullStatus();
+		ResultDO<List<FlowStatus>> r3 = flowOperator.pullStatus();
 		System.out.println(r3);
 
 	}
@@ -121,18 +121,18 @@ public class YunpianRestTest {
 	@Test
 	public void testVoice() {
 		VoiceOperator voiceOperator = client.getVoiceOperator();
-		ResultDO<SendVoiceInfo> resultDO = voiceOperator.send("18700000000", "4325");
+		ResultDO<VoiceSend> resultDO = voiceOperator.send("18700000000", "4325");
 		System.out.println(resultDO);
-		ResultDO<List<VoiceStatusInfo>> result = voiceOperator.pullStatus();
+		ResultDO<List<VoiceStatus>> result = voiceOperator.pullStatus();
 		System.out.println(result);
 	}
 
 	@Test
 	public void testReport() {
 		SmsOperator smsOperator = client.getSmsOperator();
-		ResultDO<List<SmsReplyInfo>> r1 = smsOperator.pullReply();
+		ResultDO<List<SmsReply>> r1 = smsOperator.pullReply();
 		System.out.println(r1);
-		ResultDO<List<SmsStatusInfo>> r2 = smsOperator.pullStatus();
+		ResultDO<List<SmsStatus>> r2 = smsOperator.pullStatus();
 		System.out.println(r2);
 	}
 }

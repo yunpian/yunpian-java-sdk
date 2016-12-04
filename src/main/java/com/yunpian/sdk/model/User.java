@@ -7,7 +7,7 @@ import com.yunpian.sdk.util.JsonUtil;
 /**
  * Created by jiacheo on 15/5/23.
  */
-public class UserInfo {
+public class User {
 
 	private String nick;
 

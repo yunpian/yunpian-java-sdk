@@ -13,8 +13,8 @@ import org.apache.http.NameValuePair;
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
-import com.yunpian.sdk.model.SendVoiceInfo;
-import com.yunpian.sdk.model.VoiceStatusInfo;
+import com.yunpian.sdk.model.VoiceSend;
+import com.yunpian.sdk.model.VoiceStatus;
 import com.yunpian.sdk.util.JsonUtil;
 
 /**
@@ -66,19 +66,19 @@ public class VoiceApi extends YunpianApi {
 	 * @param param
 	 * @return
 	 */
-	public Result<SendVoiceInfo> send(Map<String, String> param) {
-		Result<SendVoiceInfo> r = new Result<>();
+	public Result<VoiceSend> send(Map<String, String> param) {
+		Result<VoiceSend> r = new Result<>();
 		List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, CODE);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);
 
-		MapResultHandler<SendVoiceInfo> h = new MapResultHandler<SendVoiceInfo>() {
+		MapResultHandler<VoiceSend> h = new MapResultHandler<VoiceSend>() {
 			@Override
-			public SendVoiceInfo data(Map<String, String> rsp) {
+			public VoiceSend data(Map<String, String> rsp) {
 				switch (version()) {
 				case VERSION_V1:
-					return JsonUtil.fromJson(rsp.get(RESULT), SendVoiceInfo.class);
+					return JsonUtil.fromJson(rsp.get(RESULT), VoiceSend.class);
 				case VERSION_V2:
 					return map2VoiceResult(rsp);
 				}
@@ -113,22 +113,22 @@ public class VoiceApi extends YunpianApi {
 	 * @param param
 	 * @return
 	 */
-	public Result<List<VoiceStatusInfo>> pull_status(Map<String, String> param) {
-		Result<List<VoiceStatusInfo>> r = new Result<>();
+	public Result<List<VoiceStatus>> pull_status(Map<String, String> param) {
+		Result<List<VoiceStatus>> r = new Result<>();
 		List<NameValuePair> list = param2pair(param, r, APIKEY);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);
 
-		SimpleListResultHandler<VoiceStatusInfo> h = new SimpleListResultHandler<VoiceStatusInfo>() {
+		SimpleListResultHandler<VoiceStatus> h = new SimpleListResultHandler<VoiceStatus>() {
 			@Override
-			public List<VoiceStatusInfo> data(List<VoiceStatusInfo> rsp) {
+			public List<VoiceStatus> data(List<VoiceStatus> rsp) {
 				switch (version()) {
 				case VERSION_V1:
 					if (rspMap != null) {
 						String flow = rspMap.get(VOICE_STATUS);
-						return JsonUtil.<ArrayList<VoiceStatusInfo>>fromJson(flow,
-								new TypeToken<ArrayList<VoiceStatusInfo>>() {
+						return JsonUtil.<ArrayList<VoiceStatus>>fromJson(flow,
+								new TypeToken<ArrayList<VoiceStatus>>() {
 								}.getType());
 					}
 				case VERSION_V2:
@@ -138,7 +138,7 @@ public class VoiceApi extends YunpianApi {
 			}
 
 			@Override
-			public Integer code(List<VoiceStatusInfo> rsp) {
+			public Integer code(List<VoiceStatus> rsp) {
 				if (rspMap != null) {
 					return YunpianApi.code(rspMap, VoiceApi.this.version());
 				}
@@ -152,11 +152,11 @@ public class VoiceApi extends YunpianApi {
 		}
 	}
 
-	protected SendVoiceInfo map2VoiceResult(Map<String, String> rsp) {
+	protected VoiceSend map2VoiceResult(Map<String, String> rsp) {
 		if (rsp == null || rsp.isEmpty())
 			return null;
 		try {
-			SendVoiceInfo voice = new SendVoiceInfo();
+			VoiceSend voice = new VoiceSend();
 			voice.setCount(rsp.get(COUNT));
 			voice.setFee(Double.parseDouble(rsp.get(FEE)));
 			voice.setSid(rsp.get(SID));

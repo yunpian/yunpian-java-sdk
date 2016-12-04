@@ -5,7 +5,7 @@ import com.yunpian.sdk.util.JsonUtil;
 /**
  * Created by bingone on 15/11/20.
  */
-public class SendSingleSmsInfo {
+public class SmsSingleSend {
 	private Integer code;
 	private String msg;
 	private Integer count;

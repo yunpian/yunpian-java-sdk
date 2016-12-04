@@ -3,7 +3,7 @@ package com.yunpian.sdk.model;
 /**
  * Created by bingone on 15/11/19.
  */
-public class TemplateInfo {
+public class Template {
 	private Long tpl_id;
 	private String tpl_content;
 	private String check_status;

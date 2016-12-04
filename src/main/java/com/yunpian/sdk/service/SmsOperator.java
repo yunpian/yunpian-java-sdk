@@ -16,13 +16,13 @@ import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianException;
 import com.yunpian.sdk.constant.Config;
 import com.yunpian.sdk.constant.YunpianConstant;
-import com.yunpian.sdk.model.FlowStatusInfo;
+import com.yunpian.sdk.model.FlowStatus;
 import com.yunpian.sdk.model.ResultDO;
-import com.yunpian.sdk.model.SendBatchSmsInfo;
-import com.yunpian.sdk.model.SendSingleSmsInfo;
-import com.yunpian.sdk.model.SmsRecordInfo;
-import com.yunpian.sdk.model.SmsReplyInfo;
-import com.yunpian.sdk.model.SmsStatusInfo;
+import com.yunpian.sdk.model.SmsBatchSend;
+import com.yunpian.sdk.model.SmsSingleSend;
+import com.yunpian.sdk.model.SmsRecord;
+import com.yunpian.sdk.model.SmsReply;
+import com.yunpian.sdk.model.SmsStatus;
 import com.yunpian.sdk.util.DesUtil;
 import com.yunpian.sdk.util.HttpUtil;
 import com.yunpian.sdk.util.JsonUtil;
@@ -45,15 +45,15 @@ public class SmsOperator extends AbstractOperator {
 	private static final long serialVersionUID = 1L;
 	private String apikey;
 	private String apiSecret;
-	private Type singleType = new TypeToken<SendSingleSmsInfo>() {
+	private Type singleType = new TypeToken<SmsSingleSend>() {
 	}.getType();
-	private Type batchType = new TypeToken<SendBatchSmsInfo>() {
+	private Type batchType = new TypeToken<SmsBatchSend>() {
 	}.getType();
-	private Type multiType = new TypeToken<SendBatchSmsInfo>() {
+	private Type multiType = new TypeToken<SmsBatchSend>() {
 	}.getType();
-	private Type tplBatchType = new TypeToken<SendBatchSmsInfo>() {
+	private Type tplBatchType = new TypeToken<SmsBatchSend>() {
 	}.getType();
-	private Type tplSingleType = new TypeToken<SendSingleSmsInfo>() {
+	private Type tplSingleType = new TypeToken<SmsSingleSend>() {
 	}.getType();
 	Logger logger = LoggerFactory.getLogger(SmsOperator.class);
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -64,7 +64,7 @@ public class SmsOperator extends AbstractOperator {
 	}
 
 	@SuppressWarnings("unchecked")
-	public ResultDO<SendBatchSmsInfo> multiSend(List<String> mobileList, List<String> textList) {
+	public ResultDO<SmsBatchSend> multiSend(List<String> mobileList, List<String> textList) {
 		String mobile = StringUtil.join(mobileList, ",");
 		// String text = StringUtil.join(textList, ",");
 		StringBuilder text = new StringBuilder();
@@ -83,26 +83,26 @@ public class SmsOperator extends AbstractOperator {
 		return multiSend(mobile, texts.substring(0, texts.length() - 1));
 	}
 
-	public ResultDO<SendBatchSmsInfo> batchSend(List<String> mobileList, String text) {
+	public ResultDO<SmsBatchSend> batchSend(List<String> mobileList, String text) {
 		String mobile = StringUtil.join(mobileList, ",");
 		return batchSend(mobile, text);
 	}
 
-	public ResultDO<SendSingleSmsInfo> singleSend(String mobile, String text) {
+	public ResultDO<SmsSingleSend> singleSend(String mobile, String text) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.MOBILE, mobile);
 		parms.put(YunpianConstant.TEXT, text);
 		return send(Config.URI_SEND_SINGLE_SMS, parms, singleType);
 	}
 
-	public ResultDO<SendBatchSmsInfo> batchSend(String mobile, String text) {
+	public ResultDO<SmsBatchSend> batchSend(String mobile, String text) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.MOBILE, mobile);
 		parms.put(YunpianConstant.TEXT, text);
 		return send(Config.URI_SEND_BATCH_SMS, parms, batchType);
 	}
 
-	public ResultDO<SendBatchSmsInfo> multiSend(String mobile, String text) {
+	public ResultDO<SmsBatchSend> multiSend(String mobile, String text) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.MOBILE, mobile);
 		parms.put(YunpianConstant.TEXT, text);
@@ -168,7 +168,7 @@ public class SmsOperator extends AbstractOperator {
 		return result;
 	}
 
-	public ResultDO<SendBatchSmsInfo> tplBatchSend(String mobile, String tplId, String tplValue) {
+	public ResultDO<SmsBatchSend> tplBatchSend(String mobile, String tplId, String tplValue) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.MOBILE, mobile);
 		parms.put(YunpianConstant.TPL_ID, tplId);
@@ -176,7 +176,7 @@ public class SmsOperator extends AbstractOperator {
 		return send(Config.URI_SEND_TPL_BATCH_SMS, parms, tplBatchType);
 	}
 
-	public ResultDO<SendSingleSmsInfo> tplSingleSend(String mobile, String tplId, String tplValue) {
+	public ResultDO<SmsSingleSend> tplSingleSend(String mobile, String tplId, String tplValue) {
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.MOBILE, mobile);
 		parms.put(YunpianConstant.TPL_ID, tplId);
@@ -184,15 +184,15 @@ public class SmsOperator extends AbstractOperator {
 		return send(Config.URI_SEND_TPL_SINGLE_SMS, parms, tplSingleType);
 	}
 
-	public ResultDO<List<SmsStatusInfo>> pullStatus() {
-		ResultDO<List<SmsStatusInfo>> result = new ResultDO<List<SmsStatusInfo>>();
-		Type t = new TypeToken<List<FlowStatusInfo>>() {
+	public ResultDO<List<SmsStatus>> pullStatus() {
+		ResultDO<List<SmsStatus>> result = new ResultDO<List<SmsStatus>>();
+		Type t = new TypeToken<List<FlowStatus>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
 		try {
 			String ret = HttpUtil.post(Config.URI_PULL_SMS_STATUS, parms);
-			result.setData(JsonUtil.<List<SmsStatusInfo>>fromJson(ret, t));
+			result.setData(JsonUtil.<List<SmsStatus>>fromJson(ret, t));
 			result.setSuccess(true);
 		} catch (Throwable e) {
 			result.setE(e);
@@ -200,15 +200,15 @@ public class SmsOperator extends AbstractOperator {
 		return result;
 	}
 
-	public ResultDO<List<SmsReplyInfo>> pullReply() {
-		ResultDO<List<SmsReplyInfo>> result = new ResultDO<List<SmsReplyInfo>>();
-		Type t = new TypeToken<List<FlowStatusInfo>>() {
+	public ResultDO<List<SmsReply>> pullReply() {
+		ResultDO<List<SmsReply>> result = new ResultDO<List<SmsReply>>();
+		Type t = new TypeToken<List<FlowStatus>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
 		try {
 			String ret = HttpUtil.post(Config.URI_PULL_SMS_REPLY, parms);
-			result.setData(JsonUtil.<List<SmsReplyInfo>>fromJson(ret, t));
+			result.setData(JsonUtil.<List<SmsReply>>fromJson(ret, t));
 			result.setSuccess(true);
 		} catch (Throwable e) {
 			result.setE(e);
@@ -216,10 +216,10 @@ public class SmsOperator extends AbstractOperator {
 		return result;
 	}
 
-	public ResultDO<List<SmsReplyInfo>> getReply(Date startTime, Date endTime, String mobile, String pageNum,
+	public ResultDO<List<SmsReply>> getReply(Date startTime, Date endTime, String mobile, String pageNum,
 			String pageSize) {
-		ResultDO<List<SmsReplyInfo>> result = new ResultDO<List<SmsReplyInfo>>();
-		Type t = new TypeToken<List<FlowStatusInfo>>() {
+		ResultDO<List<SmsReply>> result = new ResultDO<List<SmsReply>>();
+		Type t = new TypeToken<List<FlowStatus>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
@@ -230,7 +230,7 @@ public class SmsOperator extends AbstractOperator {
 		parms.put(YunpianConstant.PAGE_SIZE, pageSize);
 		try {
 			String ret = HttpUtil.post(Config.URI_GET_SMS_REPLY, parms);
-			result.setData(JsonUtil.<List<SmsReplyInfo>>fromJson(ret, t));
+			result.setData(JsonUtil.<List<SmsReply>>fromJson(ret, t));
 			result.setSuccess(true);
 		} catch (Throwable e) {
 			result.setE(e);
@@ -238,10 +238,10 @@ public class SmsOperator extends AbstractOperator {
 		return result;
 	}
 
-	public ResultDO<List<SmsRecordInfo>> getRecord(Date startTime, Date endTime, String mobile, String pageNum,
+	public ResultDO<List<SmsRecord>> getRecord(Date startTime, Date endTime, String mobile, String pageNum,
 			String pageSize) {
-		ResultDO<List<SmsRecordInfo>> result = new ResultDO<List<SmsRecordInfo>>();
-		Type t = new TypeToken<List<FlowStatusInfo>>() {
+		ResultDO<List<SmsRecord>> result = new ResultDO<List<SmsRecord>>();
+		Type t = new TypeToken<List<FlowStatus>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
@@ -252,7 +252,7 @@ public class SmsOperator extends AbstractOperator {
 		parms.put(YunpianConstant.PAGE_SIZE, pageSize);
 		try {
 			String ret = HttpUtil.post(Config.URI_PULL_SMS_REPLY, parms);
-			result.setData(JsonUtil.<List<SmsRecordInfo>>fromJson(ret, t));
+			result.setData(JsonUtil.<List<SmsRecord>>fromJson(ret, t));
 			result.setSuccess(true);
 		} catch (Throwable e) {
 			result.setE(e);

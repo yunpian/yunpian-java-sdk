@@ -5,7 +5,7 @@ import com.yunpian.sdk.util.JsonUtil;
 /**
  * Created by bingone on 15/11/6.
  */
-public class SmsReplyInfo {
+public class SmsReply {
 
 	// 用户自定义id
 	private String base_extend;

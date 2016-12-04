@@ -5,7 +5,7 @@ import com.yunpian.sdk.util.JsonUtil;
 /**
  * Created by bingone on 16/1/12.
  */
-public class VoiceStatusInfo extends BaseStatusInfo {
+public class VoiceStatus extends BaseStatus {
 	private String uid;
 	private String duration;
 

@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
-import com.yunpian.sdk.model.UserInfo;
+import com.yunpian.sdk.model.User;
 import com.yunpian.sdk.util.ApiUtil;
 import com.yunpian.sdk.util.JsonUtil;
 
@@ -49,19 +49,19 @@ public class UserApi extends YunpianApi {
 	 * 
 	 * @return
 	 */
-	public Result<UserInfo> get() {
-		Result<UserInfo> r = new Result<>();
+	public Result<User> get() {
+		Result<User> r = new Result<>();
 		List<NameValuePair> list = param2pair(null, r, APIKEY);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);
 
-		MapResultHandler<UserInfo> h = new MapResultHandler<UserInfo>() {
+		MapResultHandler<User> h = new MapResultHandler<User>() {
 			@Override
-			public UserInfo data(Map<String, String> rsp) {
+			public User data(Map<String, String> rsp) {
 				switch (version()) {
 				case VERSION_V1:
-					return JsonUtil.fromJson(rsp.get(USER), UserInfo.class);
+					return JsonUtil.fromJson(rsp.get(USER), User.class);
 				case VERSION_V2:
 					return map2User(rsp);
 				}
@@ -104,16 +104,16 @@ public class UserApi extends YunpianApi {
 	 *            emergency_contact emergency_mobile alarm_balance
 	 * @return
 	 */
-	public Result<UserInfo> set(Map<String, String> param) {
-		Result<UserInfo> r = new Result<>();
+	public Result<User> set(Map<String, String> param) {
+		Result<User> r = new Result<>();
 		List<NameValuePair> list = param2pair(param, r, APIKEY);
 		if (r.getCode() != Code.OK)
 			return r;
 		String data = format2Form(list);
 
-		MapResultHandler<UserInfo> h = new MapResultHandler<UserInfo>() {
+		MapResultHandler<User> h = new MapResultHandler<User>() {
 			@Override
-			public UserInfo data(Map<String, String> rsp) {
+			public User data(Map<String, String> rsp) {
 				switch (version()) {
 				case VERSION_V2:
 					return map2User(rsp);
@@ -133,11 +133,11 @@ public class UserApi extends YunpianApi {
 		}
 	}
 
-	public static final UserInfo map2User(Map<String, String> map) {
+	public static final User map2User(Map<String, String> map) {
 		if (map == null || map.isEmpty())
 			return null;
 		try {
-			UserInfo user = new UserInfo();
+			User user = new User();
 			user.setNick(map.get(NICK));
 			user.setAlarm_balance(Long.parseLong(map.get(ALARM_BALANCE)));
 			user.setBalance(Double.parseDouble(map.get(BALANCE)));

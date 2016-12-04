@@ -3,7 +3,7 @@ package com.yunpian.sdk.model;
 /**
  * Created by bingone on 16/1/12.
  */
-public class FlowPackageInfo {
+public class FlowPackage {
 
     private Long sn;
     private double carrier_price;

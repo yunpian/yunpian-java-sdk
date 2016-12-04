@@ -9,7 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.constant.Config;
 import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.ResultDO;
-import com.yunpian.sdk.model.TemplateInfo;
+import com.yunpian.sdk.model.Template;
 import com.yunpian.sdk.util.HttpUtil;
 import com.yunpian.sdk.util.JsonUtil;
 
@@ -33,20 +33,20 @@ public class TplOperator extends AbstractOperator {
 		this.apikey = apikey;
 	}
 
-	public ResultDO<List<TemplateInfo>> getDefault() {
+	public ResultDO<List<Template>> getDefault() {
 		return getDefault("");
 	}
 
-	public ResultDO<List<TemplateInfo>> getDefault(final String tplId) {
+	public ResultDO<List<Template>> getDefault(final String tplId) {
 		return send(Config.URI_GET_DEFAULT_TPL_SMS, new HashMap<String, String>() {
 			{
 				put(YunpianConstant.TPL_ID, tplId);
 			}
-		}, new TypeToken<List<TemplateInfo>>() {
+		}, new TypeToken<List<Template>>() {
 		}.getType());
 	}
 
-	public ResultDO<TemplateInfo> add(final String Tplcontent) {
+	public ResultDO<Template> add(final String Tplcontent) {
 		return send(Config.URI_ADD_TPL_SMS, new HashMap<String, String>() {
 			{
 				put(YunpianConstant.TPL_CONTENT, Tplcontent);
@@ -54,20 +54,20 @@ public class TplOperator extends AbstractOperator {
 		});
 	}
 
-	public ResultDO<List<TemplateInfo>> get(final String tplId) {
+	public ResultDO<List<Template>> get(final String tplId) {
 		return send(Config.URI_GET_TPL_SMS, new HashMap<String, String>() {
 			{
 				put(YunpianConstant.TPL_ID, tplId);
 			}
-		}, new TypeToken<List<TemplateInfo>>() {
+		}, new TypeToken<List<Template>>() {
 		}.getType());
 	}
 
-	public ResultDO<List<TemplateInfo>> get() {
+	public ResultDO<List<Template>> get() {
 		return get("");
 	}
 
-	public ResultDO<TemplateInfo> update(final String tplId, final String Tplcontent) {
+	public ResultDO<Template> update(final String tplId, final String Tplcontent) {
 		return send(Config.URI_UPD_TPL_SMS, new HashMap<String, String>() {
 			{
 				put(YunpianConstant.TPL_ID, tplId);
@@ -76,7 +76,7 @@ public class TplOperator extends AbstractOperator {
 		});
 	}
 
-	public ResultDO<TemplateInfo> del(final String tplId) {
+	public ResultDO<Template> del(final String tplId) {
 		return send(Config.URI_DEL_TPL_SMS, new HashMap<String, String>() {
 			{
 				put(YunpianConstant.TPL_ID, tplId);
@@ -85,7 +85,7 @@ public class TplOperator extends AbstractOperator {
 	}
 
 	public <T> ResultDO<T> send(String url, Map<String, String> parms) {
-		return send(url, parms, new TypeToken<TemplateInfo>() {
+		return send(url, parms, new TypeToken<Template>() {
 		}.getType());
 	}
 

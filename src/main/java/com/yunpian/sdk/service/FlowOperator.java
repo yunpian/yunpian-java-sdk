@@ -9,10 +9,10 @@ import java.util.Map;
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.constant.Config;
 import com.yunpian.sdk.constant.YunpianConstant;
-import com.yunpian.sdk.model.FlowPackageInfo;
-import com.yunpian.sdk.model.FlowStatusInfo;
+import com.yunpian.sdk.model.FlowPackage;
+import com.yunpian.sdk.model.FlowStatus;
 import com.yunpian.sdk.model.ResultDO;
-import com.yunpian.sdk.model.SendFlowInfo;
+import com.yunpian.sdk.model.FlowSend;
 import com.yunpian.sdk.util.HttpUtil;
 import com.yunpian.sdk.util.JsonUtil;
 import com.yunpian.sdk.util.SignUtil;
@@ -40,20 +40,20 @@ public class FlowOperator extends AbstractOperator {
 		this.apiSecret = apiSecret;
 	}
 
-	public ResultDO<List<FlowPackageInfo>> getPackage() {
+	public ResultDO<List<FlowPackage>> getPackage() {
 		return getPackage("");
 	}
 
-	public ResultDO<List<FlowPackageInfo>> getPackage(String carrier) {
-		ResultDO<List<FlowPackageInfo>> result = new ResultDO<List<FlowPackageInfo>>();
-		Type t = new TypeToken<List<FlowPackageInfo>>() {
+	public ResultDO<List<FlowPackage>> getPackage(String carrier) {
+		ResultDO<List<FlowPackage>> result = new ResultDO<List<FlowPackage>>();
+		Type t = new TypeToken<List<FlowPackage>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
 		parms.put(YunpianConstant.CARRIER, carrier);
 		try {
 			String ret = HttpUtil.post(Config.URI_GET_FLOW_PACKAGE, parms);
-			result.setData(JsonUtil.<List<FlowPackageInfo>>fromJson(ret, t));
+			result.setData(JsonUtil.<List<FlowPackage>>fromJson(ret, t));
 			result.setSuccess(true);
 		} catch (Throwable e) {
 			result.setE(e);
@@ -61,9 +61,9 @@ public class FlowOperator extends AbstractOperator {
 		return result;
 	}
 
-	public ResultDO<SendFlowInfo> recharge(String mobile, String sn) {
-		ResultDO<SendFlowInfo> result = new ResultDO<SendFlowInfo>();
-		Type t = new TypeToken<SendFlowInfo>() {
+	public ResultDO<FlowSend> recharge(String mobile, String sn) {
+		ResultDO<FlowSend> result = new ResultDO<FlowSend>();
+		Type t = new TypeToken<FlowSend>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
@@ -82,7 +82,7 @@ public class FlowOperator extends AbstractOperator {
 		}
 		try {
 			String ret = HttpUtil.post(Config.URI_RECHARGE_FLOW, parms);
-			result.setData((SendFlowInfo) JsonUtil.fromJson(ret, t));
+			result.setData((FlowSend) JsonUtil.fromJson(ret, t));
 			result.setSuccess(true);
 		} catch (Throwable e) {
 			result.setE(e);
@@ -90,15 +90,15 @@ public class FlowOperator extends AbstractOperator {
 		return result;
 	}
 
-	public ResultDO<List<FlowStatusInfo>> pullStatus() {
-		ResultDO<List<FlowStatusInfo>> result = new ResultDO<List<FlowStatusInfo>>();
-		Type t = new TypeToken<List<FlowStatusInfo>>() {
+	public ResultDO<List<FlowStatus>> pullStatus() {
+		ResultDO<List<FlowStatus>> result = new ResultDO<List<FlowStatus>>();
+		Type t = new TypeToken<List<FlowStatus>>() {
 		}.getType();
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put(YunpianConstant.APIKEY, apikey);
 		try {
 			String ret = HttpUtil.post(Config.URI_PULL_FLOW_STATUS, parms);
-			result.setData(JsonUtil.<List<FlowStatusInfo>>fromJson(ret, t));
+			result.setData(JsonUtil.<List<FlowStatus>>fromJson(ret, t));
 			result.setSuccess(true);
 		} catch (Throwable e) {
 			result.setE(e);

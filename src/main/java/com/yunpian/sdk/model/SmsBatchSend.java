@@ -7,7 +7,7 @@ import com.yunpian.sdk.util.JsonUtil;
 /**
  * Created by bingone on 15/11/20.
  */
-public class SendBatchSmsInfo {
+public class SmsBatchSend {
 
 	private Integer total_count;
 
@@ -15,13 +15,13 @@ public class SendBatchSmsInfo {
 
 	private String unit;
 
-	private List<SendSingleSmsInfo> data;
+	private List<SmsSingleSend> data;
 
-	public List<SendSingleSmsInfo> getData() {
+	public List<SmsSingleSend> getData() {
 		return data;
 	}
 
-	public void setData(List<SendSingleSmsInfo> data) {
+	public void setData(List<SmsSingleSend> data) {
 		this.data = data;
 	}
 

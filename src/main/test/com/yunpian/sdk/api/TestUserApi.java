@@ -8,10 +8,12 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.yunpian.sdk.model.Result;
-import com.yunpian.sdk.model.UserInfo;
+import com.yunpian.sdk.model.User;
 
 /**
  * 账户API
+ * 
+ * https://www.yunpian.com/api2.0/api-user.html
  * 
  * @author dzh
  * @date Dec 3, 2016 12:09:10 AM
@@ -21,7 +23,7 @@ public class TestUserApi extends TestYunpianClient {
 
 	@Test
 	public void getTest() {
-		Result<UserInfo> r = null;
+		Result<User> r = null;
 
 		r = clnt.user().get();
 		System.out.println(r);
@@ -36,7 +38,7 @@ public class TestUserApi extends TestYunpianClient {
 		param.put(EMERGENCY_CONTACT, "dzh");
 		param.put(EMERGENCY_MOBILE, "18610101010");
 		param.put(ALARM_BALANCE, "10");
-		Result<UserInfo> r = clnt.user().set(param);
+		Result<User> r = clnt.user().set(param);
 		System.out.println(r);
 
 		r = ((UserApi) clnt.user().version(VERSION_V1)).set(param);
