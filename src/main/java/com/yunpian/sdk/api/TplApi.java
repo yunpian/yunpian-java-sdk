@@ -131,8 +131,10 @@ public class TplApi extends YunpianApi {
 							? JsonUtil.<ArrayList<Template>>fromJson(t, new TypeToken<ArrayList<Template>>() {
 							}.getType()) : Arrays.asList(JsonUtil.fromJson(t, Template.class));
 				case VERSION_V2:
-					if (rspMap != null)
-						return Arrays.asList(map2Template(rspMap));
+					if (rspMap != null) {
+						Template tpl = map2Template(rspMap);
+						return tpl == null ? null : Arrays.asList(tpl);
+					}
 					return rsp;
 				}
 				return Collections.emptyList();

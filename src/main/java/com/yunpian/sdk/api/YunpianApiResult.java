@@ -176,7 +176,7 @@ public interface YunpianApiResult {
 		/**
 		 * list解析错误时，按map方式解析
 		 */
-		protected Map<String, String> rspMap = Collections.emptyMap();
+		protected Map<String, String> rspMap;
 
 		@Override
 		public List<R> response(String rsp) throws Exception {
@@ -218,7 +218,7 @@ public interface YunpianApiResult {
 			if (r == null) {
 				r = new Result<>();
 			}
-			Map<String, String> map = rspMap;
+			Map<String, String> map = rspMap == null ? Collections.<String, String>emptyMap() : rspMap;
 			return r.setCode(code).setMsg(map.containsKey(MSG) ? map.get(MSG) : Code.getErrorMsg(code))
 					.setDetail(map.get(DETAIL));
 		}
