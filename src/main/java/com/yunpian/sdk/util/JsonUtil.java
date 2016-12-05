@@ -15,9 +15,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
-/**
- * json格式化工具
- */
 public class JsonUtil {
 	private static final Gson Gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 

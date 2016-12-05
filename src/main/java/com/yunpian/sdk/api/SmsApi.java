@@ -4,7 +4,6 @@
 package com.yunpian.sdk.api;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,7 @@ import org.apache.http.NameValuePair;
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
+import com.yunpian.sdk.model.Blackword;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SmsBatchSend;
 import com.yunpian.sdk.model.SmsRecord;
@@ -571,12 +571,8 @@ public class SmsApi extends YunpianApi {
 				case VERSION_V1:
 					if (rspMap != null) {
 						String result = rspMap.get(RESULT);
-						if (result != null) {
-							if (result.startsWith("["))
-								return JsonUtil.fromJson(result, TypeListReply);
-							else
-								return Arrays.asList(result);
-						}
+						if (result != null)
+							return JsonUtil.fromJson(result, Blackword.class).toList();
 					}
 				case VERSION_V2:
 					return rsp;
