@@ -1,6 +1,6 @@
 yunpian-java-sdk
 ================================
-云片推荐SDK（Java实现）
+云片推荐SDK
 
 ## 快速开始
 
@@ -13,7 +13,7 @@ yunpian-java-sdk
     <version>1.2.0</version>
 </dependency>
 ```
-**注**: [查找最新版](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)
+**注**: master是最新稳定版，本地可直接构建使用。我们尽快更新到[Maven](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)
 
 - 使用YunpianClient
 
@@ -34,7 +34,7 @@ Result<UserInfo> r = clnt.user().set(param);
 //最后释放client
 client.close() 
 ```
-**注**: v1.2.0不兼容以前的sdk版本(但升级十分简单)，我们做了重新设计，改进性能、扩展性、便利性。。。
+**注**: v1.2.0开始使用YunpianClient，我们做了重新设计，改进性能、扩展性、便利性等。YunpianRestClient暂时保留并可用,请尽快升级。
 
 ## 配置说明 (默认配置就行)
 
@@ -46,13 +46,12 @@ client.close()
 
 ## 源码说明 yunpian-java-sdk
 - 工程使用maven构造，jdk1.7 or higher
-- 开发可参考单元测试 test/com.yunpian.sdk.api
+- 开发API可参考单元测试 test/com.yunpian.sdk.api
 - 不推荐使用标注@Deprecated类
 
 ## 联系我们
 [技术支持 QQ](https://static.meiqia.com/dist/standalone.html?eid=30951&groupid=0d20ab23ab4702939552b3f81978012f&metadata={"name":"github"})
 
 ## 文档链接
-- sdk说明
 - [api文档](https://www.yunpian.com/api2.0/guide.html)
 

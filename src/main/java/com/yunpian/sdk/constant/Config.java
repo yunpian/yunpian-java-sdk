@@ -11,6 +11,19 @@ public class Config {
 
 	public static final Properties properties = new Properties();
 
+	static {
+		try {
+			properties.load(
+					Thread.currentThread().getContextClassLoader().getResourceAsStream("yunpian_rest.properties"));
+			// properties.load(Thread.currentThread().getContextClassLoader()
+			// .getResourceAsStream("yunpian_log.properties"));
+			// PropertyConfigurator.configure(properties);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+
 	public static final String APIKEY = properties.getProperty("APIKEY");
 
 	public static final String API_SECRET = properties.getProperty("API_SECRET");

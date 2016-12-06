@@ -13,7 +13,7 @@ import com.yunpian.sdk.util.JsonUtil;
 /**
  * Created by bingone on 16/1/19.
  */
-@SuppressWarnings("deprecation")
+@Deprecated
 public class UserOperator {
 	private String apikey;
 
