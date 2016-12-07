@@ -5,14 +5,14 @@ package com.yunpian.sdk.model;
  */
 public class SmsStatus extends BaseStatus {
 
-	private String uid;
+    private String uid;
 
-	public String getUid() {
-		return uid;
-	}
+    public String getUid() {
+        return uid;
+    }
 
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
 }

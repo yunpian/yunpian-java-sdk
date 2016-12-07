@@ -23,32 +23,32 @@ import com.yunpian.sdk.constant.YunpianConstant;
  */
 public class ApiUtil {
 
-	static final Logger LOG = LoggerFactory.getLogger(ApiUtil.class);
+    static final Logger LOG = LoggerFactory.getLogger(ApiUtil.class);
 
-	static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-	public static final Date str2date(String date) {
-		if (date == null || "".equals(date))
-			return null;
+    public static final Date str2date(String date) {
+        if (date == null || "".equals(date))
+            return null;
 
-		SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
-		try {
-			return format.parse(date);
-		} catch (ParseException e) {
-			LOG.error(date + "-" + e.getMessage(), e.fillInStackTrace());
-		}
-		return null;
-	}
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        try {
+            return format.parse(date);
+        } catch (ParseException e) {
+            LOG.error(date + "-" + e.getMessage(), e.fillInStackTrace());
+        }
+        return null;
+    }
 
-	public static final String urlEncode(String text, String charset) {
-		if (charset == null || "".equals(charset))
-			charset = YunpianConstant.HTTP_CHARSET_DEFAULT;
-		try {
-			return URLEncoder.encode(text, charset);
-		} catch (UnsupportedEncodingException e) {
-			LOG.error(e.getMessage(), e.fillInStackTrace());
-		}
-		return text;
-	}
+    public static final String urlEncode(String text, String charset) {
+        if (charset == null || "".equals(charset))
+            charset = YunpianConstant.HTTP_CHARSET_DEFAULT;
+        try {
+            return URLEncoder.encode(text, charset);
+        } catch (UnsupportedEncodingException e) {
+            LOG.error(e.getMessage(), e.fillInStackTrace());
+        }
+        return text;
+    }
 
 }

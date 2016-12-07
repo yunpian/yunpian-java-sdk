@@ -13,25 +13,25 @@ import org.apache.http.impl.nio.client.HttpAsyncClients;
 
 public class AsyncClientPipelined {
 
-	public static void main(final String[] args) throws Exception {
-		CloseableHttpPipeliningClient httpclient = HttpAsyncClients.createPipelining();
-		try {
-			httpclient.start();
+    public static void main(final String[] args) throws Exception {
+        CloseableHttpPipeliningClient httpclient = HttpAsyncClients.createPipelining();
+        try {
+            httpclient.start();
 
-			HttpHost targetHost = new HttpHost("localhost", 8080);
-			HttpGet[] resquests = { new HttpGet("/docs/index.html"), new HttpGet("/docs/introduction.html"),
-					new HttpGet("/docs/setup.html"), new HttpGet("/docs/config/index.html") };
+            HttpHost targetHost = new HttpHost("localhost", 8080);
+            HttpGet[] resquests = { new HttpGet("/docs/index.html"), new HttpGet("/docs/introduction.html"),
+                    new HttpGet("/docs/setup.html"), new HttpGet("/docs/config/index.html") };
 
-			Future<List<HttpResponse>> future = httpclient.execute(targetHost, Arrays.<HttpRequest>asList(resquests),
-					null);
-			List<HttpResponse> responses = future.get();
-			System.out.println(responses);
+            Future<List<HttpResponse>> future = httpclient.execute(targetHost, Arrays.<HttpRequest>asList(resquests),
+                    null);
+            List<HttpResponse> responses = future.get();
+            System.out.println(responses);
 
-			System.out.println("Shutting down");
-		} finally {
-			httpclient.close();
-		}
-		System.out.println("Done");
-	}
+            System.out.println("Shutting down");
+        } finally {
+            httpclient.close();
+        }
+        System.out.println("Done");
+    }
 
 }

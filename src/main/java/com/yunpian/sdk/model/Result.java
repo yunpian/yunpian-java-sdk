@@ -15,62 +15,62 @@ import com.yunpian.sdk.util.JsonUtil;
  */
 public class Result<T> {
 
-	private Integer code = Code.OK;
-	private String msg;
-	private String detail;
+    private Integer code = Code.OK;
+    private String msg;
+    private String detail;
 
-	private Throwable e;
+    private Throwable e;
 
-	private T data;
+    private T data;
 
-	public T getData() {
-		return data;
-	}
+    public T getData() {
+        return data;
+    }
 
-	public String getDetail() {
-		return detail;
-	}
+    public String getDetail() {
+        return detail;
+    }
 
-	public Result<T> setDetail(String detail) {
-		this.detail = detail;
-		return this;
-	}
+    public Result<T> setDetail(String detail) {
+        this.detail = detail;
+        return this;
+    }
 
-	public Result<T> setData(T data) {
-		this.data = data;
-		return this;
-	}
+    public Result<T> setData(T data) {
+        this.data = data;
+        return this;
+    }
 
-	public Integer getCode() {
-		return code;
-	}
+    public Integer getCode() {
+        return code;
+    }
 
-	public Result<T> setCode(Integer code) {
-		this.code = code;
-		return this;
-	}
+    public Result<T> setCode(Integer code) {
+        this.code = code;
+        return this;
+    }
 
-	public String getMsg() {
-		return msg;
-	}
+    public String getMsg() {
+        return msg;
+    }
 
-	public Result<T> setMsg(String msg) {
-		this.msg = msg;
-		return this;
-	}
+    public Result<T> setMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
 
-	public Throwable getThrowable() {
-		return e;
-	}
+    public Throwable getThrowable() {
+        return e;
+    }
 
-	public Result<T> setThrowable(Throwable e) {
-		this.e = e;
-		return this;
-	}
+    public Result<T> setThrowable(Throwable e) {
+        this.e = e;
+        return this;
+    }
 
-	@Override
-	public String toString() {
-		return JsonUtil.toJson(this);
-	}
+    @Override
+    public String toString() {
+        return JsonUtil.toJson(this);
+    }
 
 }

@@ -16,19 +16,19 @@ import com.yunpian.sdk.constant.YunpianConstant;
  */
 public class TestYunpianClient implements YunpianConstant {
 
-	static final String TESTKEY = "";
+    static final String TESTKEY = "";
 
-	YunpianClient clnt;
+    YunpianClient clnt;
 
-	@Before
-	public void init() {
-		clnt = new YunpianClient(TestYunpianClient.TESTKEY,
-				TestYunpianClient.class.getResourceAsStream("yunpian.properties")).init();
-	}
+    @Before
+    public void init() {
+        clnt = new YunpianClient(TestYunpianClient.TESTKEY,
+                TestYunpianClient.class.getResourceAsStream("yunpian.properties")).init();
+    }
 
-	@After
-	public void close() {
-		clnt.close();
-	}
+    @After
+    public void close() {
+        clnt.close();
+    }
 
 }

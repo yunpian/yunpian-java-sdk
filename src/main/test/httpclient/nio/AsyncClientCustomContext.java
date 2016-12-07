@@ -25,7 +25,7 @@ public class AsyncClientCustomContext {
 			// Bind custom cookie store to the local context
 			localContext.setCookieStore(cookieStore);
 
-			HttpGet httpget = new HttpGet("http://localhost/");
+            HttpGet httpget = new HttpGet("http://localhost/");
 			System.out.println("Executing request " + httpget.getRequestLine());
 
 			httpclient.start();

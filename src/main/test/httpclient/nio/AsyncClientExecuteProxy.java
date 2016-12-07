@@ -11,21 +11,21 @@ import org.apache.http.impl.nio.client.HttpAsyncClients;
 
 public class AsyncClientExecuteProxy {
 
-	public static void main(String[] args) throws Exception {
-		CloseableHttpAsyncClient httpclient = HttpAsyncClients.createDefault();
-		try {
-			httpclient.start();
-			HttpHost proxy = new HttpHost("someproxy", 8080);
-			RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
-			HttpGet request = new HttpGet("https://issues.apache.org/");
-			request.setConfig(config);
-			Future<HttpResponse> future = httpclient.execute(request, null);
-			HttpResponse response = future.get();
-			System.out.println("Response: " + response.getStatusLine());
-			System.out.println("Shutting down");
-		} finally {
-			httpclient.close();
-		}
-	}
+    public static void main(String[] args) throws Exception {
+        CloseableHttpAsyncClient httpclient = HttpAsyncClients.createDefault();
+        try {
+            httpclient.start();
+            HttpHost proxy = new HttpHost("someproxy", 8080);
+            RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
+            HttpGet request = new HttpGet("https://issues.apache.org/");
+            request.setConfig(config);
+            Future<HttpResponse> future = httpclient.execute(request, null);
+            HttpResponse response = future.get();
+            System.out.println("Response: " + response.getStatusLine());
+            System.out.println("Shutting down");
+        } finally {
+            httpclient.close();
+        }
+    }
 
 }

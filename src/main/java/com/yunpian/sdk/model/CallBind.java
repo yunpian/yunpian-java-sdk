@@ -12,24 +12,24 @@ package com.yunpian.sdk.model;
  */
 public class CallBind {
 
-	private String message_id;
+    private String message_id;
 
-	private String anonymous_number;
+    private String anonymous_number;
 
-	public String getMessage_id() {
-		return message_id;
-	}
+    public String getMessage_id() {
+        return message_id;
+    }
 
-	public void setMessage_id(String message_id) {
-		this.message_id = message_id;
-	}
+    public void setMessage_id(String message_id) {
+        this.message_id = message_id;
+    }
 
-	public String getAnonymous_number() {
-		return anonymous_number;
-	}
+    public String getAnonymous_number() {
+        return anonymous_number;
+    }
 
-	public void setAnonymous_number(String anonymous_number) {
-		this.anonymous_number = anonymous_number;
-	}
+    public void setAnonymous_number(String anonymous_number) {
+        this.anonymous_number = anonymous_number;
+    }
 
 }

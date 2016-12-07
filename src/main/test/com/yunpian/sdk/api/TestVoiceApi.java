@@ -20,29 +20,29 @@ import com.yunpian.sdk.model.VoiceStatus;
  */
 public class TestVoiceApi extends TestYunpianClient {
 
-	@Test
-	public void sendTest() {
-		Map<String, String> param = clnt.newParam(4);
-		param.put(MOBILE, "11111111111");
-		param.put(CODE, "123412");
-		// param.put(CALLBACK_URL, "");
-		// param.put(DISPLAY_NUM, "");
-		Result<VoiceSend> r = clnt.voice().send(param);
-		System.out.println(r);
+    @Test
+    public void sendTest() {
+        Map<String, String> param = clnt.newParam(4);
+        param.put(MOBILE, "11111111111");
+        param.put(CODE, "123412");
+        // param.put(CALLBACK_URL, "");
+        // param.put(DISPLAY_NUM, "");
+        Result<VoiceSend> r = clnt.voice().send(param);
+        System.out.println(r);
 
-		// r = ((VoiceApi) clnt.voice().version(VERSION_V1)).send(param);
-		// System.out.println(r);
-	}
+        // r = ((VoiceApi) clnt.voice().version(VERSION_V1)).send(param);
+        // System.out.println(r);
+    }
 
-	@Test
-	public void pull_statusTest() {
-		Map<String, String> param = clnt.newParam(1);
-		// param.put(page_size, "20");
-		Result<List<VoiceStatus>> r = clnt.voice().pull_status(param);
-		System.out.println(r);
+    @Test
+    public void pull_statusTest() {
+        Map<String, String> param = clnt.newParam(1);
+        // param.put(page_size, "20");
+        Result<List<VoiceStatus>> r = clnt.voice().pull_status(param);
+        System.out.println(r);
 
-		// r = ((VoiceApi) clnt.voice().version(VERSION_V1)).pull_status(param);
-		// System.out.println(r);
-	}
+        // r = ((VoiceApi) clnt.voice().version(VERSION_V1)).pull_status(param);
+        // System.out.println(r);
+    }
 
 }

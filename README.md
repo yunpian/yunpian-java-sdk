@@ -13,7 +13,7 @@ yunpian-java-sdk
     <version>1.2.0</version>
 </dependency>
 ```
-**注**: master是最新稳定版，本地可直接构建使用。我们尽快更新到[Maven](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)
+**注**: master是最新稳定版，本地可直接构建使用。我们尽快上传到[Maven](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)
 
 - 使用YunpianClient
 
@@ -24,7 +24,7 @@ YunpianClient clnt = new YunpianClient("apikey").init();
 //修改账户信息API
 Map<String, String> param = clnt.newParam(3);
 //param.put(APIKEY,"apikey"); 优先级高于构造器apikey
-param.put(EMERGENCY_CONTACT, "dzh");
+param.put(EMERGENCY_CONTACT, "yunpian");
 param.put(EMERGENCY_MOBILE, "11111111111");
 param.put(ALARM_BALANCE, "10");
 Result<UserInfo> r = clnt.user().set(param);
@@ -51,6 +51,10 @@ client.close()
 
 ## 联系我们
 [技术支持 QQ](https://static.meiqia.com/dist/standalone.html?eid=30951&groupid=0d20ab23ab4702939552b3f81978012f&metadata={"name":"github"})
+
+SDK开源QQ群(非官方，找个地方交流)
+
+<img src="doc/sdk_qq.jpeg" width="15%" alt="SDK开源QQ群"/>
 
 ## 文档链接
 - [api文档](https://www.yunpian.com/api2.0/guide.html)
