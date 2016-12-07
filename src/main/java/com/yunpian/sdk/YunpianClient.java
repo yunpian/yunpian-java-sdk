@@ -69,153 +69,153 @@ import com.yunpian.sdk.api.VoiceApi;
  */
 public class YunpianClient {
 
-	static final Logger LOG = LoggerFactory.getLogger(YunpianClient.class);
+    static final Logger LOG = LoggerFactory.getLogger(YunpianClient.class);
 
-	private CloseableHttpAsyncClient clnt;
+    private CloseableHttpAsyncClient clnt;
 
-	private YunpianConf conf = new YunpianConf();
+    private YunpianConf conf = new YunpianConf();
 
-	private ApiFactory api;
+    private ApiFactory api;
 
-	/**
-	 * 构造器里的key作为默认值,方法请求时可以自定义
-	 */
-	public YunpianClient() {
-		this(System.getProperty(YunpianConf.YP_APIKEY), System.getProperty(YunpianConf.YP_FILE));
-	}
+    /**
+     * 构造器里的key作为默认值,方法请求时可以自定义
+     */
+    public YunpianClient() {
+        this(System.getProperty(YunpianConf.YP_APIKEY), System.getProperty(YunpianConf.YP_FILE));
+    }
 
-	public YunpianClient(String apikey) {
-		this(apikey, System.getProperty(YunpianConf.YP_FILE));
-	}
+    public YunpianClient(String apikey) {
+        this(apikey, System.getProperty(YunpianConf.YP_FILE));
+    }
 
-	public YunpianClient(String apikey, String file) {
-		conf.with(apikey);
-		if (file != null)
-			conf.with(new File(System.getProperty(YunpianConf.YP_FILE, file)));
-	}
+    public YunpianClient(String apikey, String file) {
+        conf.with(apikey);
+        if (file != null)
+            conf.with(new File(System.getProperty(YunpianConf.YP_FILE, file)));
+    }
 
-	public YunpianClient(String apikey, InputStream in) {
-		conf.with(apikey).with(in);
-	}
+    public YunpianClient(String apikey, InputStream in) {
+        conf.with(apikey).with(in);
+    }
 
-	public YunpianClient(String apikey, Properties props) {
-		conf.with(apikey).with(props);
-	}
+    public YunpianClient(String apikey, Properties props) {
+        conf.with(apikey).with(props);
+    }
 
-	public UserApi user() {
-		return api.<UserApi>api(UserApi.NAME);
-	}
+    public UserApi user() {
+        return api.<UserApi>api(UserApi.NAME);
+    }
 
-	public CallApi call() {
-		return api.<CallApi>api(CallApi.NAME);
-	}
+    public CallApi call() {
+        return api.<CallApi>api(CallApi.NAME);
+    }
 
-	public FlowApi flow() {
-		return api.<FlowApi>api(FlowApi.NAME);
-	}
+    public FlowApi flow() {
+        return api.<FlowApi>api(FlowApi.NAME);
+    }
 
-	public SignApi sign() {
-		return api.<SignApi>api(SignApi.NAME);
-	}
+    public SignApi sign() {
+        return api.<SignApi>api(SignApi.NAME);
+    }
 
-	public SmsApi sms() {
-		return api.<SmsApi>api(SmsApi.NAME);
-	}
+    public SmsApi sms() {
+        return api.<SmsApi>api(SmsApi.NAME);
+    }
 
-	public TplApi tpl() {
-		return api.<TplApi>api(TplApi.NAME);
-	}
+    public TplApi tpl() {
+        return api.<TplApi>api(TplApi.NAME);
+    }
 
-	public VoiceApi voice() {
-		return api.<VoiceApi>api(VoiceApi.NAME);
-	}
+    public VoiceApi voice() {
+        return api.<VoiceApi>api(VoiceApi.NAME);
+    }
 
-	private static ContentType DefaultContentType;
+    private static ContentType DefaultContentType;
 
-	@PostConstruct
-	public YunpianClient init() {
-		LOG.info("YunpianClient is initing!");
-		try {
-			clnt = createHttpAsyncClient(conf.build());
-			DefaultContentType = ContentType.create("application/x-www-form-urlencoded",
-					Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, "utf-8")));
-			api = new ApiFactory(this);
-		} catch (Exception e) {
-			LOG.error(e.getMessage(), e.fillInStackTrace());
-		}
-		return this;
-	}
+    @PostConstruct
+    public YunpianClient init() {
+        LOG.info("YunpianClient is initing!");
+        try {
+            clnt = createHttpAsyncClient(conf.build());
+            DefaultContentType = ContentType.create("application/x-www-form-urlencoded",
+                    Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, "utf-8")));
+            api = new ApiFactory(this);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e.fillInStackTrace());
+        }
+        return this;
+    }
 
-	public YunpianConf getConf() {
-		return conf;
-	}
+    public YunpianConf getConf() {
+        return conf;
+    }
 
-	private CloseableHttpAsyncClient createHttpAsyncClient(YunpianConf conf) throws IOReactorException {
-		IOReactorConfig ioReactorConfig = IOReactorConfig.custom()
-				.setIoThreadCount(Runtime.getRuntime().availableProcessors())
-				.setConnectTimeout(conf.getConfInt(YunpianConf.HTTP_CONN_TIMEOUT, "10000"))
-				.setSoTimeout(conf.getConfInt(YunpianConf.HTTP_SO_TIMEOUT, "30000")).build();
-		ConnectingIOReactor ioReactor = new DefaultConnectingIOReactor(ioReactorConfig);
+    private CloseableHttpAsyncClient createHttpAsyncClient(YunpianConf conf) throws IOReactorException {
+        IOReactorConfig ioReactorConfig = IOReactorConfig.custom()
+                .setIoThreadCount(Runtime.getRuntime().availableProcessors())
+                .setConnectTimeout(conf.getConfInt(YunpianConf.HTTP_CONN_TIMEOUT, "10000"))
+                .setSoTimeout(conf.getConfInt(YunpianConf.HTTP_SO_TIMEOUT, "30000")).build();
+        ConnectingIOReactor ioReactor = new DefaultConnectingIOReactor(ioReactorConfig);
 
-		PoolingNHttpClientConnectionManager connManager = new PoolingNHttpClientConnectionManager(ioReactor);
-		ConnectionConfig connectionConfig = ConnectionConfig.custom().setMalformedInputAction(CodingErrorAction.IGNORE)
-				.setUnmappableInputAction(CodingErrorAction.IGNORE)
-				.setCharset(Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, YunpianConf.HTTP_CHARSET_DEFAULT)))
-				.build();
-		connManager.setDefaultConnectionConfig(connectionConfig);
-		connManager.setMaxTotal(conf.getConfInt(YunpianConf.HTTP_CONN_MAXTOTAL, "100"));
-		connManager.setDefaultMaxPerRoute(conf.getConfInt(YunpianConf.HTTP_CONN_MAXPREROUTE, "10"));
+        PoolingNHttpClientConnectionManager connManager = new PoolingNHttpClientConnectionManager(ioReactor);
+        ConnectionConfig connectionConfig = ConnectionConfig.custom().setMalformedInputAction(CodingErrorAction.IGNORE)
+                .setUnmappableInputAction(CodingErrorAction.IGNORE)
+                .setCharset(Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, YunpianConf.HTTP_CHARSET_DEFAULT)))
+                .build();
+        connManager.setDefaultConnectionConfig(connectionConfig);
+        connManager.setMaxTotal(conf.getConfInt(YunpianConf.HTTP_CONN_MAXTOTAL, "100"));
+        connManager.setDefaultMaxPerRoute(conf.getConfInt(YunpianConf.HTTP_CONN_MAXPREROUTE, "10"));
 
-		CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom().setConnectionManager(connManager).build();
-		httpclient.start();
-		return httpclient;
-	}
+        CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom().setConnectionManager(connManager).build();
+        httpclient.start();
+        return httpclient;
+    }
 
-	static Map<String, String> Headers = new HashMap<>(1, 1);
-	static {
-		Headers.put("Api-Lang", "java");
-	}
+    static Map<String, String> Headers = new HashMap<>(1, 1);
+    static {
+        Headers.put("Api-Lang", "java");
+    }
 
-	public final Map<String, String> newParam(int size) {
-		return size <= 0 ? Collections.<String, String>emptyMap() : new HashMap<String, String>(size, 1);
-	}
+    public final Map<String, String> newParam(int size) {
+        return size <= 0 ? Collections.<String, String>emptyMap() : new HashMap<String, String>(size, 1);
+    }
 
-	/**
-	 * 
-	 * @param uri
-	 * @param param
-	 */
-	public Future<HttpResponse> post(String uri, String data) {
-		return post(uri, data, DefaultContentType.getMimeType(), DefaultContentType.getCharset(), Headers);
-	}
+    /**
+     * 
+     * @param uri
+     * @param param
+     */
+    public Future<HttpResponse> post(String uri, String data) {
+        return post(uri, data, DefaultContentType.getMimeType(), DefaultContentType.getCharset(), Headers);
+    }
 
-	public void closeResponse(HttpResponse rsp) {
-		EntityUtils.consumeQuietly(rsp.getEntity());
-	}
+    public void closeResponse(HttpResponse rsp) {
+        EntityUtils.consumeQuietly(rsp.getEntity());
+    }
 
-	protected Future<HttpResponse> post(String uri, String data, String mimeType, Charset charset,
-			Map<String, String> headers) {
-		HttpPost req = new HttpPost(uri);
-		req.setEntity(new StringEntity(data, ContentType.create(mimeType, charset)));
-		for (Entry<String, String> e : headers.entrySet()) {
-			req.setHeader(e.getKey(), e.getKey());
-		}
-		return clnt.execute(req, null);
-	}
+    protected Future<HttpResponse> post(String uri, String data, String mimeType, Charset charset,
+            Map<String, String> headers) {
+        HttpPost req = new HttpPost(uri);
+        req.setEntity(new StringEntity(data, ContentType.create(mimeType, charset)));
+        for (Entry<String, String> e : headers.entrySet()) {
+            req.setHeader(e.getKey(), e.getKey());
+        }
+        return clnt.execute(req, null);
+    }
 
-	@PreDestroy
-	public void close() {
-		LOG.info("YunpianClient is closing!");
-		if (clnt != null) {
-			try {
-				clnt.close();
-			} catch (Exception e) {
-			}
-		}
-	}
+    @PreDestroy
+    public void close() {
+        LOG.info("YunpianClient is closing!");
+        if (clnt != null) {
+            try {
+                clnt.close();
+            } catch (Exception e) {
+            }
+        }
+    }
 
-	@Override
-	public String toString() {
-		return conf.toString();
-	}
+    @Override
+    public String toString() {
+        return conf.toString();
+    }
 }

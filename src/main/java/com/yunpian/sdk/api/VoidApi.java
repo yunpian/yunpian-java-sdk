@@ -11,9 +11,9 @@ package com.yunpian.sdk.api;
 @Deprecated
 public class VoidApi extends YunpianApi {
 
-	@Override
-	public String name() {
-		return "void";
-	}
+    @Override
+    public String name() {
+        return "void";
+    }
 
 }

@@ -60,14 +60,9 @@ public class FlowPackage {
         this.sn = sn;
     }
 
-    @Override public String toString() {
-        return "FlowPackageInfo{" +
-            "capacity=" + capacity +
-            ", sn=" + sn +
-            ", carrier_price=" + carrier_price +
-            ", discount=" + discount +
-            ", carrier=" + carrier +
-            ", name='" + name + '\'' +
-            '}';
+    @Override
+    public String toString() {
+        return "FlowPackageInfo{" + "capacity=" + capacity + ", sn=" + sn + ", carrier_price=" + carrier_price
+                + ", discount=" + discount + ", carrier=" + carrier + ", name='" + name + '\'' + '}';
     }
 }

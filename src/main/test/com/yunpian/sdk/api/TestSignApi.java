@@ -21,16 +21,16 @@ import com.yunpian.sdk.model.Sign;
  */
 public class TestSignApi extends TestYunpianClient {
 
-	@Test
-	public void addTest() {
-		Map<String, String> param = clnt.newParam(5);
-		param.put(SIGN, "你好吗");
-		// param.put(NOTIFY, "true");
-		// param.put(APPLYVIP, "false");
-		// param.put(ISONLYGLOBAL, "false");
-		// param.put(INDUSTRYTYPE, "other");
-		Result<Sign> r = clnt.sign().add(param);
-		System.out.println(r);
-	}
+    @Test
+    public void addTest() {
+        Map<String, String> param = clnt.newParam(5);
+        param.put(SIGN, "你好吗");
+        // param.put(NOTIFY, "true");
+        // param.put(APPLYVIP, "false");
+        // param.put(ISONLYGLOBAL, "false");
+        // param.put(INDUSTRYTYPE, "other");
+        Result<Sign> r = clnt.sign().add(param);
+        System.out.println(r);
+    }
 
 }
