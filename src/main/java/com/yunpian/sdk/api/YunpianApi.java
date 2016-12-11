@@ -23,13 +23,12 @@ import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.Result;
 
 /**
- * 
- * <p>
  * TODO 优化:
+ * <ul>
  * <li>返回值处理，接口设计问题，1小时代码现在1天</li>
  * <li>去除冗余字段,如api_version</li>
  * <li>时间处理，国际化</li>
- * </p>
+ * </ul>
  * 
  * @mutable
  * @author dzh
@@ -58,7 +57,6 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
 
     /**
      * @param clnt
-     * @param ext
      */
     public synchronized void init(YunpianClient clnt) {
         if (clnt == null)

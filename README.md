@@ -1,19 +1,19 @@
 yunpian-java-sdk
 ================================
-云片推荐SDK
+[云片](https://www.yunpian.com/) SDK
 
 ## 快速开始
 
 - 添加Maven依赖
 
-```
+```xml
 <dependency>
 	<groupId>com.yunpian.sdk</groupId>
     <artifactId>yunpian-java-sdk</artifactId>
     <version>1.2.0</version>
 </dependency>
 ```
-**注**: master是最新稳定版，本地可直接构建使用。我们尽快上传到[Maven](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)
+**注**: master是最新稳定版，可以本地直接构建使用。我们尽快上传到[Maven](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)
 
 - 使用YunpianClient
 
@@ -34,7 +34,7 @@ Result<UserInfo> r = clnt.user().set(param);
 //最后释放client
 client.close() 
 ```
-**注**: v1.2.0开始使用YunpianClient，我们做了重新设计，改进性能、扩展性、便利性等。YunpianRestClient暂时保留并可用,请尽快升级。
+**注**: v1.2.0开始使用YunpianClient，做了重新设计，改进性能、扩展性、便利性等。兼容v1.1.*版本，YunpianRestClient暂时保留,请尽快升级。
 
 ## 配置说明 (默认配置就行)
 
@@ -50,9 +50,9 @@ client.close()
 - 不推荐使用标注@Deprecated类
 
 ## 联系我们
-[技术支持 QQ](https://static.meiqia.com/dist/standalone.html?eid=30951&groupid=0d20ab23ab4702939552b3f81978012f&metadata={"name":"github"})
+[云片支持 QQ](https://static.meiqia.com/dist/standalone.html?eid=30951&groupid=0d20ab23ab4702939552b3f81978012f&metadata={"name":"github"})
 
-SDK开源QQ群(非官方，找个地方交流)
+SDK开源QQ群
 
 <img src="doc/sdk_qq.jpeg" width="15%" alt="SDK开源QQ群"/>
 

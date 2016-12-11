@@ -43,7 +43,6 @@ import com.yunpian.sdk.api.UserApi;
 import com.yunpian.sdk.api.VoiceApi;
 
 /**
- * <p>
  * 开始使用:
  * 
  * <pre>
@@ -57,11 +56,6 @@ import com.yunpian.sdk.api.VoiceApi;
  * yp.call().*
  * yp.close();
  * </pre>
- * </p>
- * <p>
- * 自定义功能:
- * 
- * </p>
  * 
  * @author dzh
  * @date Nov 17, 2016 5:17:47 PM
@@ -183,7 +177,7 @@ public class YunpianClient {
     /**
      * 
      * @param uri
-     * @param param
+     * @param data
      */
     public Future<HttpResponse> post(String uri, String data) {
         return post(uri, data, DefaultContentType.getMimeType(), DefaultContentType.getCharset(), Headers);
