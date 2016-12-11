@@ -10,7 +10,7 @@ yunpian-java-sdk
 <dependency>
 	<groupId>com.yunpian.sdk</groupId>
     <artifactId>yunpian-java-sdk</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 **注**: master是最新稳定版，可以本地直接构建使用。我们尽快上传到[Maven](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)
@@ -34,7 +34,7 @@ Result<User> r = clnt.user().set(param);
 //最后释放client
 clnt.close() 
 ```
-**注**: v1.2.0开始使用YunpianClient，做了重新设计，改进性能、扩展性、便利性等。兼容v1.1.*版本，YunpianRestClient暂时保留,请尽快升级。
+**注**: v1.2开始使用YunpianClient，做了重新设计，改进性能、扩展性、便利性等。兼容v1.1.*版本，YunpianRestClient暂时保留,请尽快升级。
 
 ## 配置说明 (默认配置就行)
 

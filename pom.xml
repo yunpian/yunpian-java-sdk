@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.yunpian.sdk</groupId>
 	<artifactId>yunpian-java-sdk</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<url>https://github.com/yunpian/yunpian-java-sdk</url>
 	<name>yunpian-java-sdk</name>
 	<description>yunpian java sdk</description>
