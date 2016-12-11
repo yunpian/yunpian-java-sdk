@@ -277,7 +277,7 @@ public class TplApi extends YunpianApi {
      * tpl_content String 是
      * 模板id，64位长整形。指定id时返回id对应的模板。未指定时返回所有模板模板内容，必须以带符号【】的签名开头 【云片网】您的验证码是#code#
      * </p>
-     * </p>
+     * <p>
      * notify_type Integer 否 审核结果短信通知的方式: 0表示需要通知,默认; 1表示仅审核不通过时通知; 2表示仅审核通过时通知;
      * 3表示不需要通知 1
      * </p>

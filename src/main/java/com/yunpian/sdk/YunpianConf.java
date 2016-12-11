@@ -78,7 +78,7 @@ public class YunpianConf implements YunpianConstant {
     }
 
     /**
-     * 覆盖次序 props > in > file
+     * 覆盖次序 props &gt; in &gt; file
      * 
      * @return
      */
@@ -140,7 +140,7 @@ public class YunpianConf implements YunpianConstant {
     }
 
     /**
-     * 查找顺序: 系统配置->云片配置->默认值
+     * 查找顺序: 系统配置-&gt;云片配置-&gt;默认值
      * 
      * @param key
      * @param defVal
@@ -163,13 +163,11 @@ public class YunpianConf implements YunpianConstant {
 
     /**
      * apikey优先级:
-     * <p>
      * <ol type="1">
      * <li>System.getProperty("yp.apikey")</li>
      * <li>yunpian.properties</li>
      * <li>new YunpianClient(apikey)</li>
      * </ol>
-     * </p>
      */
     public String getApikey() {
         return System.getProperty(YP_APIKEY, _conf.getProperty(YP_APIKEY, apikey));

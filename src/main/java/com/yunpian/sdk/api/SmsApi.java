@@ -676,8 +676,7 @@ public class SmsApi extends YunpianApi {
     }
 
     /**
-     * <h1>统计短信条数
-     * <h1>
+     * <h1>统计短信条数</h1>
      * 
      * <p>
      * 参数名 类型 是否必须 描述 示例
@@ -751,9 +750,9 @@ public class SmsApi extends YunpianApi {
      * <p>
      * tpl_value String 是 变量名和变量值对。请先对您的变量名和变量值分别进行urlencode再传递。使用参考：代码示例。
      * 注：变量名和变量值都不能为空 模板： 【#company#】您的验证码是#code#。 最终发送结果： 【云片网】您的验证码是1234。
-     * tplvalue=urlencode("#code#") + "=" + urlencode("1234") + "&" +
+     * tplvalue=urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
      * urlencode("#company#") + "=" + urlencode("云片网"); 若您直接发送报文请求则使用下面这种形式
-     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") + "&" +
+     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
      * urlencode("#company#") + "=" + urlencode("云片网"));
      * </p>
      * <p>
@@ -819,9 +818,9 @@ public class SmsApi extends YunpianApi {
      * <p>
      * tpl_value String 是 变量名和变量值对。请先对您的变量名和变量值分别进行urlencode再传递。使用参考：代码示例。
      * 注：变量名和变量值都不能为空 模板： 【#company#】您的验证码是#code#。 最终发送结果： 【云片网】您的验证码是1234。
-     * tplvalue=urlencode("#code#") + "=" + urlencode("1234") + "&" +
+     * tplvalue=urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
      * urlencode("#company#") + "=" + urlencode("云片网"); 若您直接发送报文请求则使用下面这种形式
-     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") + "&" +
+     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
      * urlencode("#company#") + "=" + urlencode("云片网"));
      * </p>
      * <p>
@@ -884,9 +883,9 @@ public class SmsApi extends YunpianApi {
      * <p>
      * tpl_value String 是 变量名和变量值对。请先对您的变量名和变量值分别进行urlencode再传递。使用参考：代码示例。
      * 注：变量名和变量值都不能为空 模板： 【#company#】您的验证码是#code#。 最终发送结果： 【云片网】您的验证码是1234。
-     * tplvalue=urlencode("#code#") + "=" + urlencode("1234") + "&" +
+     * tplvalue=urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
      * urlencode("#company#") + "=" + urlencode("云片网"); 若您直接发送报文请求则使用下面这种形式
-     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") + "&" +
+     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
      * urlencode("#company#") + "=" + urlencode("云片网"));
      * </p>
      * <p>

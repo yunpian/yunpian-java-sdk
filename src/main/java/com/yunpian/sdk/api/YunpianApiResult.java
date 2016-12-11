@@ -16,11 +16,6 @@ import com.yunpian.sdk.util.JsonUtil;
 /**
  * YunpianApi 结果处理
  * 
- * <p>
- * note:
- * <li>tpl成功返回array，失败返回map</li>
- * </p>
- * 
  * @author dzh
  * @date Nov 25, 2016 2:48:27 PM
  * @since 1.2.0
@@ -116,8 +111,6 @@ public interface YunpianApiResult {
      * @author dzh
      * @date Nov 25, 2016 8:31:07 PM
      * @since 1.2.0
-     * @param <R>
-     * @param <T>
      */
     public static abstract class MapResultHandler<T> extends AbstractResultHandler<Map<String, String>, T>
             implements YunpianConstant {
@@ -167,8 +160,6 @@ public interface YunpianApiResult {
      * @author dzh
      * @date Nov 25, 2016 6:05:18 PM
      * @since 1.2.0
-     * @param <R>
-     * @param <T>
      */
     public static abstract class ListResultHandler<R, T> extends AbstractResultHandler<List<R>, T>
             implements YunpianConstant {
