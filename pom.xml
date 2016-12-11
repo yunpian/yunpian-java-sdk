@@ -37,7 +37,7 @@
 
 	<profiles>
 		<profile>
-			<id>release</id>
+			<id>maven2-release</id>
 			<distributionManagement>
 				<snapshotRepository>
 					<id>oss</id>
