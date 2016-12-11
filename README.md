@@ -24,10 +24,10 @@ YunpianClient clnt = new YunpianClient("apikey").init();
 //修改账户信息API
 Map<String, String> param = clnt.newParam(3);
 //param.put(APIKEY,"apikey"); 优先级高于构造器apikey
-param.put(EMERGENCY_CONTACT, "yunpian");
-param.put(EMERGENCY_MOBILE, "11111111111");
-param.put(ALARM_BALANCE, "10");
-Result<UserInfo> r = clnt.user().set(param);
+param.put(YunpianConf.EMERGENCY_CONTACT, "yunpian");
+param.put(YunpianConf.EMERGENCY_MOBILE, "11111111111");
+param.put(YunpianConf.ALARM_BALANCE, "10");
+Result<User> r = clnt.user().set(param);
 
 //账户 clnt.user().* 签名 clnt.sign().* 模版 clnt.tpl().* 短信 clnt.sms().* 语音 clnt.voice().* 流量 clnt.flow().* 隐私通话 clnt.call().*
 
