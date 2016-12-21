@@ -27,6 +27,7 @@ import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.impl.nio.conn.PoolingNHttpClientConnectionManager;
 import org.apache.http.impl.nio.reactor.DefaultConnectingIOReactor;
 import org.apache.http.impl.nio.reactor.IOReactorConfig;
+import org.apache.http.nio.client.HttpAsyncClient;
 import org.apache.http.nio.reactor.ConnectingIOReactor;
 import org.apache.http.nio.reactor.IOReactorException;
 import org.apache.http.util.EntityUtils;
@@ -41,6 +42,7 @@ import com.yunpian.sdk.api.SmsApi;
 import com.yunpian.sdk.api.TplApi;
 import com.yunpian.sdk.api.UserApi;
 import com.yunpian.sdk.api.VoiceApi;
+import com.yunpian.sdk.constant.YunpianConstant;
 
 /**
  * 开始使用:
@@ -61,7 +63,7 @@ import com.yunpian.sdk.api.VoiceApi;
  * @date Nov 17, 2016 5:17:47 PM
  * @since 1.2.0
  */
-public class YunpianClient {
+public class YunpianClient implements YunpianConstant {
 
     static final Logger LOG = LoggerFactory.getLogger(YunpianClient.class);
 
@@ -97,31 +99,31 @@ public class YunpianClient {
     }
 
     public UserApi user() {
-        return api.<UserApi>api(UserApi.NAME);
+        return api.<UserApi> api(UserApi.NAME);
     }
 
     public CallApi call() {
-        return api.<CallApi>api(CallApi.NAME);
+        return api.<CallApi> api(CallApi.NAME);
     }
 
     public FlowApi flow() {
-        return api.<FlowApi>api(FlowApi.NAME);
+        return api.<FlowApi> api(FlowApi.NAME);
     }
 
     public SignApi sign() {
-        return api.<SignApi>api(SignApi.NAME);
+        return api.<SignApi> api(SignApi.NAME);
     }
 
     public SmsApi sms() {
-        return api.<SmsApi>api(SmsApi.NAME);
+        return api.<SmsApi> api(SmsApi.NAME);
     }
 
     public TplApi tpl() {
-        return api.<TplApi>api(TplApi.NAME);
+        return api.<TplApi> api(TplApi.NAME);
     }
 
     public VoiceApi voice() {
-        return api.<VoiceApi>api(VoiceApi.NAME);
+        return api.<VoiceApi> api(VoiceApi.NAME);
     }
 
     private static ContentType DefaultContentType;
@@ -145,8 +147,7 @@ public class YunpianClient {
     }
 
     private CloseableHttpAsyncClient createHttpAsyncClient(YunpianConf conf) throws IOReactorException {
-        IOReactorConfig ioReactorConfig = IOReactorConfig.custom()
-                .setIoThreadCount(Runtime.getRuntime().availableProcessors())
+        IOReactorConfig ioReactorConfig = IOReactorConfig.custom().setIoThreadCount(Runtime.getRuntime().availableProcessors())
                 .setConnectTimeout(conf.getConfInt(YunpianConf.HTTP_CONN_TIMEOUT, "10000"))
                 .setSoTimeout(conf.getConfInt(YunpianConf.HTTP_SO_TIMEOUT, "30000")).build();
         ConnectingIOReactor ioReactor = new DefaultConnectingIOReactor(ioReactorConfig);
@@ -154,8 +155,7 @@ public class YunpianClient {
         PoolingNHttpClientConnectionManager connManager = new PoolingNHttpClientConnectionManager(ioReactor);
         ConnectionConfig connectionConfig = ConnectionConfig.custom().setMalformedInputAction(CodingErrorAction.IGNORE)
                 .setUnmappableInputAction(CodingErrorAction.IGNORE)
-                .setCharset(Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, YunpianConf.HTTP_CHARSET_DEFAULT)))
-                .build();
+                .setCharset(Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, YunpianConf.HTTP_CHARSET_DEFAULT))).build();
         connManager.setDefaultConnectionConfig(connectionConfig);
         connManager.setMaxTotal(conf.getConfInt(YunpianConf.HTTP_CONN_MAXTOTAL, "100"));
         connManager.setDefaultMaxPerRoute(conf.getConfInt(YunpianConf.HTTP_CONN_MAXPREROUTE, "10"));
@@ -171,7 +171,7 @@ public class YunpianClient {
     }
 
     public final Map<String, String> newParam(int size) {
-        return size <= 0 ? Collections.<String, String>emptyMap() : new HashMap<String, String>(size, 1);
+        return size <= 0 ? Collections.<String, String> emptyMap() : new HashMap<String, String>(size, 1);
     }
 
     /**
@@ -187,14 +187,17 @@ public class YunpianClient {
         EntityUtils.consumeQuietly(rsp.getEntity());
     }
 
-    protected Future<HttpResponse> post(String uri, String data, String mimeType, Charset charset,
-            Map<String, String> headers) {
+    protected Future<HttpResponse> post(String uri, String data, String mimeType, Charset charset, Map<String, String> headers) {
         HttpPost req = new HttpPost(uri);
         req.setEntity(new StringEntity(data, ContentType.create(mimeType, charset)));
         for (Entry<String, String> e : headers.entrySet()) {
             req.setHeader(e.getKey(), e.getKey());
         }
         return clnt.execute(req, null);
+    }
+
+    public HttpAsyncClient http() {
+        return clnt;
     }
 
     @PreDestroy
@@ -212,4 +215,5 @@ public class YunpianClient {
     public String toString() {
         return conf.toString();
     }
+
 }

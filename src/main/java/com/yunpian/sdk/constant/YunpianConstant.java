@@ -147,5 +147,7 @@ public interface YunpianConstant {
      */
     String TOTAL_COUNT = "total_count";
     String TOTAL_FEE = "total_fee";
+    
+    String SEPERATOR_COMMA = ",";
 
 }

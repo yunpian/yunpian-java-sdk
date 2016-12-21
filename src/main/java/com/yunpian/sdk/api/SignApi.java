@@ -73,7 +73,7 @@ public class SignApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, SIGN);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<Sign> h = new MapResultHandler<Sign>() {
             @Override

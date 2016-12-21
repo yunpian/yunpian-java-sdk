@@ -84,7 +84,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<SmsSingleSend> h = new MapResultHandler<SmsSingleSend>() {
             @Override
@@ -148,7 +148,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<SmsSingleSend> h = new MapResultHandler<SmsSingleSend>() {
             @Override
@@ -209,7 +209,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<SmsBatchSend> h = new MapResultHandler<SmsBatchSend>() {
             @Override
@@ -274,7 +274,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<SmsBatchSend> h = new MapResultHandler<SmsBatchSend>() {
             @Override
@@ -309,7 +309,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<Result<SmsSingleSend>> h = new SimpleListResultHandler<Result<SmsSingleSend>>() {
             @Override
@@ -363,7 +363,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<SmsStatus> h = new SimpleListResultHandler<SmsStatus>() {
             @Override
@@ -422,7 +422,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<SmsReply> h = new SimpleListResultHandler<SmsReply>() {
             @Override
@@ -501,7 +501,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, START_TIME, END_TIME, PAGE_NUM, PAGE_SIZE);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<SmsReply> h = new SimpleListResultHandler<SmsReply>() {
             @Override
@@ -562,7 +562,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, TEXT);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<String> h = new SimpleListResultHandler<String>() {
             @Override
@@ -634,7 +634,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, START_TIME, END_TIME);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<SmsRecord> h = new SimpleListResultHandler<SmsRecord>() {
             @Override
@@ -708,7 +708,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, START_TIME, END_TIME);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<Integer> h = new MapResultHandler<Integer>() {
             @Override
@@ -771,7 +771,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<SmsSingleSend> h = new MapResultHandler<SmsSingleSend>() {
             @Override
@@ -839,7 +839,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<SmsSingleSend> h = new MapResultHandler<SmsSingleSend>() {
             @Override
@@ -904,7 +904,7 @@ public class SmsApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<SmsBatchSend> h = new MapResultHandler<SmsBatchSend>() {
             @Override

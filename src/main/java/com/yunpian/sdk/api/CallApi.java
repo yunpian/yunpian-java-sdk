@@ -69,7 +69,7 @@ public class CallApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, TO, DURATION);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<CallBind> h = new MapResultHandler<CallBind>() {
             @Override
@@ -120,7 +120,7 @@ public class CallApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, TO);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<Void> h = new MapResultHandler<Void>() {
             @Override
@@ -160,7 +160,7 @@ public class CallApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<CallBill> h = new SimpleListResultHandler<CallBill>() {
             @Override
