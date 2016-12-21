@@ -271,7 +271,7 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
     }
 
     /**
-     * 
+     * @since 1.2.2
      * @param text
      * @return
      */

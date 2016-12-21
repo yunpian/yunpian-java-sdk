@@ -52,7 +52,7 @@ public class ApiUtil {
     }
 
     /**
-     * 
+     * @since 1.2.2
      * @param charset
      * @param seperator
      * @param text
