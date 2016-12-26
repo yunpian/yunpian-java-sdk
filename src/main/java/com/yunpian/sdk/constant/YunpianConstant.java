@@ -64,6 +64,7 @@ public interface YunpianConstant {
     String APPLYVIP = "applyVip";
     String ISONLYGLOBAL = "isOnlyGlobal";
     String INDUSTRYTYPE = "industryType";
+    String OLD_SIGN = "oldSign";
 
     // tpl
     /**
@@ -123,6 +124,8 @@ public interface YunpianConstant {
     String START_TIME = "start_time";
     String END_TIME = "end_time";
     String PAGE_NUM = "page_num";
+    String PAGE_NO_ = "pageNo";
+    String PAGE_SIZE_ = "pageSize";
 
     @Deprecated
     String ENCRYPT = "encrypt";
