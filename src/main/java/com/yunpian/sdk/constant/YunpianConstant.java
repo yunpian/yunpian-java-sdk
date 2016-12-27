@@ -61,10 +61,10 @@ public interface YunpianConstant {
     // sign
     String SIGN = "sign";
     String NOTIFY = "notify";
-    String APPLYVIP = "applyVip";
-    String ISONLYGLOBAL = "isOnlyGlobal";
-    String INDUSTRYTYPE = "industryType";
-    String OLD_SIGN = "oldSign";
+    String APPLYVIP = "apply_vip";
+    String ISONLYGLOBAL = "is_only_global";
+    String INDUSTRYTYPE = "industry_type";
+    String OLD_SIGN = "old_sign";
 
     // tpl
     /**
@@ -124,8 +124,6 @@ public interface YunpianConstant {
     String START_TIME = "start_time";
     String END_TIME = "end_time";
     String PAGE_NUM = "page_num";
-    String PAGE_NO_ = "pageNo";
-    String PAGE_SIZE_ = "pageSize";
 
     @Deprecated
     String ENCRYPT = "encrypt";

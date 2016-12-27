@@ -25,10 +25,10 @@ public class TestSignApi extends TestYunpianClient {
     public void addTest() {
         Map<String, String> param = clnt.newParam(5);
         param.put(SIGN, "你好吗");
-        // param.put(NOTIFY, "true");
-        // param.put(APPLYVIP, "false");
-        // param.put(ISONLYGLOBAL, "false");
-        // param.put(INDUSTRYTYPE, "其它");
+         param.put(NOTIFY, "true");
+         param.put(APPLYVIP, "false");
+         param.put(ISONLYGLOBAL, "false");
+         param.put(INDUSTRYTYPE, "其它");
         Result<Sign> r = clnt.sign().add(param);
         System.out.println(r);
     }
@@ -38,10 +38,10 @@ public class TestSignApi extends TestYunpianClient {
         Map<String, String> param = clnt.newParam(5);
         param.put(OLD_SIGN, "你好吗");
         param.put(SIGN, "我很好");
-        // param.put(NOTIFY, "true");
-        // param.put(APPLYVIP, "false");
-        // param.put(ISONLYGLOBAL, "false");
-        // param.put(INDUSTRYTYPE, "其它");
+        param.put(NOTIFY, "true");
+        param.put(APPLYVIP, "false");
+        param.put(ISONLYGLOBAL, "false");
+        param.put(INDUSTRYTYPE, "其它");
         Result<Sign> r = clnt.sign().update(param);
         System.out.println(r);
     }
@@ -50,8 +50,8 @@ public class TestSignApi extends TestYunpianClient {
     public void getTest() {
         Map<String, String> param = clnt.newParam(5);
         param.put(SIGN, "");
-//        param.put(PAGE_NO_, "1");
-//        param.put(PAGE_SIZE_, "3");
+        param.put(PAGE_NUM, "1");
+        param.put(PAGE_SIZE, "3");
         Result<SignRecord> r = clnt.sign().get(param);
         System.out.println(r);
     }
