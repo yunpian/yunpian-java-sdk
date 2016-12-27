@@ -55,13 +55,13 @@ public class SignApi extends YunpianApi {
      * notify Boolean 否 是否短信通知结果，默认true true
      * </p>
      * <p>
-     * applyVip Boolean 否 是否申请专用通道，默认false false
+     * apply_vip Boolean 否 是否申请专用通道，默认false false
      * </p>
      * <p>
-     * isOnlyGlobal Boolean 否 是否仅发国际短信，默认false false
+     * is_only_global Boolean 否 是否仅发国际短信，默认false false
      * </p>
      * <p>
-     * industryType String 否 所属行业，默认“其它” 物联网 其他值例如:1. 游戏 2. 移动应用 3. 视频 4. 教育 5.
+     * industry_type String 否 所属行业，默认“其它” 物联网 其他值例如:1. 游戏 2. 移动应用 3. 视频 4. 教育 5.
      * IT/通信/电子服务 6. 电子商务 7. 金融 8. 网站 9. 商业服务 10. 房地产/建筑 11. 零售/租赁/贸易 12.
      * 生产/加工/制造 13. 交通/物流 14. 文化传媒 15. 能源/电气 16. 政府企业 17. 农业 18. 物联网 19. 其它
      * </p>
@@ -105,7 +105,7 @@ public class SignApi extends YunpianApi {
      * 仅“审核中”或者“审核失败”的签名可以进行修改，修改后会重新提交给客服审核。
      * </p>
      * <p>
-     * 参数notify，applyVip，isOnlyGlobal如果没有将会修改为默认值
+     * 参数notify，apply_vip，is_only_global如果没有将会修改为默认值
      * </p>
      *
      * <p>
@@ -116,7 +116,7 @@ public class SignApi extends YunpianApi {
      * apikey String 是 用户唯一标识 9b11127a9701975c734b8aee81ee3526
      * </p>
      * <p>
-     * oldSign String 是 完整签名内容，用于指定修改哪个签名，可以加【】也可不加 云片网
+     * old_sign String 是 完整签名内容，用于指定修改哪个签名，可以加【】也可不加 云片网
      * </p>
      * <p>
      * sign String 否 修改后的签名内容（如果要改签名内容） 云片网
@@ -125,13 +125,13 @@ public class SignApi extends YunpianApi {
      * notify Boolean 否 是否短信通知结果，无此参数默认true true
      * </p>
      * <p>
-     * applyVip Boolean 否 是否申请专用通道，无此参数默认false false
+     * apply_vip Boolean 否 是否申请专用通道，无此参数默认false false
      * </p>
      * <p>
-     * isOnlyGlobal Boolean 否 是否仅发国际短信，无此参数默认false false
+     * is_only_global Boolean 否 是否仅发国际短信，无此参数默认false false
      * </p>
      * <p>
-     * industryType String 否 所属行业，默认“其它” 物联网 其他值例如:1. 游戏 2. 移动应用 3. 视频 4. 教育 5.
+     * industry_type String 否 所属行业，默认“其它” 物联网 其他值例如:1. 游戏 2. 移动应用 3. 视频 4. 教育 5.
      * IT/通信/电子服务 6. 电子商务 7. 金融 8. 网站 9. 商业服务 10. 房地产/建筑 11. 零售/租赁/贸易 12.
      * 生产/加工/制造 13. 交通/物流 14. 文化传媒 15. 能源/电气 16. 政府企业 17. 农业 18. 物联网 19. 其它
      * </p>
