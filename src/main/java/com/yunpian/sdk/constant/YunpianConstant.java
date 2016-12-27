@@ -61,9 +61,10 @@ public interface YunpianConstant {
     // sign
     String SIGN = "sign";
     String NOTIFY = "notify";
-    String APPLYVIP = "applyVip";
-    String ISONLYGLOBAL = "isOnlyGlobal";
-    String INDUSTRYTYPE = "industryType";
+    String APPLYVIP = "apply_vip";
+    String ISONLYGLOBAL = "is_only_global";
+    String INDUSTRYTYPE = "industry_type";
+    String OLD_SIGN = "old_sign";
 
     // tpl
     /**
