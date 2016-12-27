@@ -67,7 +67,7 @@ public class SignApi extends YunpianApi {
      * </p>
      *
      * @param param
-     *            sign notify applyVip isOnlyGlobal industryType
+     *            sign notify apply_vip is_only_global industry_type
      * @return
      */
     public Result<Sign> add(Map<String, String> param) {
@@ -136,7 +136,7 @@ public class SignApi extends YunpianApi {
      * 生产/加工/制造 13. 交通/物流 14. 文化传媒 15. 能源/电气 16. 政府企业 17. 农业 18. 物联网 19. 其它
      * </p>
      *
-     * @param param oldSign sign notify applyVip isOnlyGlobal industryType
+     * @param param old_sign sign notify apply_vip is_only_global industry_type
      * @return
      */
     public Result<Sign> update(Map<String, String> param) {
@@ -184,13 +184,13 @@ public class SignApi extends YunpianApi {
      * sign String 是 签名内容 云片网
      * </p>
      * <p>
-     * pageNo Integer 否 页码，1开始，不带或者格式错误返回全部 1
+     * page_num Integer 否 页码，1开始，不带或者格式错误返回全部 1
      * </p>
      * <p>
-     * pageSize Integer 否 返回条数，必须大于0，不带或者格式错误返回全部 20
+     * page_size Integer 否 返回条数，必须大于0，不带或者格式错误返回全部 20
      * </p>
      *
-     * @param param sign notify applyVip isOnlyGlobal industryType
+     * @param param sign notify page_num page_size
      * @return
      */
     public Result<SignRecord> get(Map<String, String> param) {
