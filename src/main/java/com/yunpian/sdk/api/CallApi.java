@@ -52,7 +52,7 @@ public class CallApi extends YunpianApi {
      * from String 是 需要绑定的号码 +8615012341234
      * </p>
      * <p>
-     * to String 是 需要绑定的号码 +8615011112222
+     * to String 是 需要绑定的号码 +8615011112222。 AX模式时to为空
      * </p>
      * <p>
      * duration Intger 是 有效时长，单位：秒 600
@@ -66,7 +66,7 @@ public class CallApi extends YunpianApi {
      */
     public Result<CallBind> bind(Map<String, String> param) {
         Result<CallBind> r = new Result<>();
-        List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, TO, DURATION);
+        List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, DURATION);
         if (r.getCode() != Code.OK)
             return r;
         String data = urlEncode(list);
@@ -106,7 +106,7 @@ public class CallApi extends YunpianApi {
      * from String 是 需要绑定的号码 +8615012341234
      * </p>
      * <p>
-     * to String 是 需要绑定的号码 +8615011112222
+     * to String 是 需要绑定的号码 +8615011112222。 AX模式时to为空
      * </p>
      * <p>
      * duration Intger 是 延迟解绑的时间，单位：秒，0表示立即解除绑定 0
@@ -117,7 +117,7 @@ public class CallApi extends YunpianApi {
      */
     public Result<Void> unbind(Map<String, String> param) {
         Result<Void> r = new Result<>();
-        List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, TO);
+        List<NameValuePair> list = param2pair(param, r, APIKEY, FROM);
         if (r.getCode() != Code.OK)
             return r;
         String data = urlEncode(list);
@@ -192,7 +192,7 @@ public class CallApi extends YunpianApi {
             return h.catchExceptoin(e, r);
         }
     }
-
+    
     protected CallBind map2CallBind(Map<String, String> rsp) {
         if (rsp == null)
             return null;

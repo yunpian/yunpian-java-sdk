@@ -68,6 +68,10 @@ public class Result<T> {
         return this;
     }
 
+    public boolean isOK() {
+        return false;
+    }
+
     @Override
     public String toString() {
         return JsonUtil.toJson(this);

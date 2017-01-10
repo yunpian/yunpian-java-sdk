@@ -10,7 +10,7 @@ yunpian-java-sdk
 <dependency>
 	<groupId>com.yunpian.sdk</groupId>
     <artifactId>yunpian-java-sdk</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
 </dependency>
 ```
 **注**: master是最新稳定版，可以本地直接构建使用。我们尽快上传到[Maven](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)
@@ -24,9 +24,9 @@ YunpianClient clnt = new YunpianClient("apikey").init();
 //修改账户信息API
 Map<String, String> param = clnt.newParam(3);
 //param.put(APIKEY,"apikey"); 优先级高于构造器apikey
-param.put(YunpianConf.EMERGENCY_CONTACT, "yunpian");
-param.put(YunpianConf.EMERGENCY_MOBILE, "11111111111");
-param.put(YunpianConf.ALARM_BALANCE, "10");
+param.put(YunpianClient.EMERGENCY_CONTACT, "yunpian");
+param.put(YunpianClient.EMERGENCY_MOBILE, "11111111111");
+param.put(YunpianClient.ALARM_BALANCE, "10");
 Result<User> r = clnt.user().set(param);
 
 //账户 clnt.user().* 签名 clnt.sign().* 模版 clnt.tpl().* 短信 clnt.sms().* 语音 clnt.voice().* 流量 clnt.flow().* 隐私通话 clnt.call().*
