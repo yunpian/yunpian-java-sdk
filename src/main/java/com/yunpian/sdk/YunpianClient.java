@@ -165,9 +165,9 @@ public class YunpianClient implements YunpianConstant {
         return httpclient;
     }
 
-    static Map<String, String> Headers = new HashMap<>(1, 1);
+    static Map<String, String> HEADERS = new HashMap<>(1, 1);
     static {
-        Headers.put("Api-Lang", "java");
+        HEADERS.put("Api-Lang", "java");
     }
 
     public final Map<String, String> newParam(int size) {
@@ -180,18 +180,21 @@ public class YunpianClient implements YunpianConstant {
      * @param data
      */
     public Future<HttpResponse> post(String uri, String data) {
-        return post(uri, data, DefaultContentType.getMimeType(), DefaultContentType.getCharset(), Headers);
+        return post(uri, data, DefaultContentType.getMimeType(), DefaultContentType.getCharset(), HEADERS);
     }
 
     public void closeResponse(HttpResponse rsp) {
         EntityUtils.consumeQuietly(rsp.getEntity());
     }
 
-    protected Future<HttpResponse> post(String uri, String data, String mimeType, Charset charset, Map<String, String> headers) {
+    public Future<HttpResponse> post(String uri, String data, String mimeType, Charset charset, Map<String, String> headers) {
         HttpPost req = new HttpPost(uri);
-        req.setEntity(new StringEntity(data, ContentType.create(mimeType, charset)));
+        req.setEntity(new StringEntity(data, ContentType.create(mimeType == null ? DefaultContentType.getMimeType() : mimeType,
+                charset == null ? DefaultContentType.getCharset() : charset)));
+        if (headers == null)
+            headers = HEADERS;
         for (Entry<String, String> e : headers.entrySet()) {
-            req.setHeader(e.getKey(), e.getKey());
+            req.setHeader(e.getKey(), e.getValue());
         }
         return clnt.execute(req, null);
     }
