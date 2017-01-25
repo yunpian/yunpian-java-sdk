@@ -3,6 +3,11 @@
  */
 package com.yunpian.sdk.api;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
@@ -10,11 +15,6 @@ import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.Sign;
 import com.yunpian.sdk.model.SignRecord;
 import com.yunpian.sdk.util.JsonUtil;
-import org.apache.http.NameValuePair;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -136,7 +136,8 @@ public class SignApi extends YunpianApi {
      * 生产/加工/制造 13. 交通/物流 14. 文化传媒 15. 能源/电气 16. 政府企业 17. 农业 18. 物联网 19. 其它
      * </p>
      *
-     * @param param old_sign sign notify apply_vip is_only_global industry_type
+     * @param param
+     *            old_sign sign notify apply_vip is_only_global industry_type
      * @return
      */
     public Result<Sign> update(Map<String, String> param) {
@@ -144,14 +145,14 @@ public class SignApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, OLD_SIGN);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<Sign> h = new MapResultHandler<Sign>() {
             @Override
             public Sign data(Map<String, String> rsp) {
                 switch (version()) {
-                    case VERSION_V2:
-                        return JsonUtil.fromJson(rsp.get(SIGN), Sign.class);
+                case VERSION_V2:
+                    return JsonUtil.fromJson(rsp.get(SIGN), Sign.class);
                 }
                 return null;
             }
@@ -190,30 +191,30 @@ public class SignApi extends YunpianApi {
      * page_size Integer 否 返回条数，必须大于0，不带或者格式错误返回全部 20
      * </p>
      *
-     * @param param sign notify page_num page_size
+     * @param param
+     *            sign notify page_num page_size
      * @return
      */
     public Result<SignRecord> get(Map<String, String> param) {
         Result<SignRecord> r = new Result<>();
-        List<Sign> signList = new ArrayList<>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<SignRecord> h = new MapResultHandler<SignRecord>() {
             @Override
             public SignRecord data(Map<String, String> rsp) {
                 switch (version()) {
-                    case VERSION_V2:
-                        TypeToken<List<Sign>> token = new TypeToken<List<Sign>>() {
-                        };
-                        List<Sign> signs = JsonUtil.fromJson(rsp.get(SIGN), token.getType());
-                        int total = Integer.valueOf(rsp.get(TOTAL));
-                        SignRecord signRecord = new SignRecord();
-                        signRecord.setSign(signs);
-                        signRecord.setTotal(total);
-                        return signRecord;
+                case VERSION_V2:
+                    TypeToken<List<Sign>> token = new TypeToken<List<Sign>>() {
+                    };
+                    List<Sign> signs = JsonUtil.fromJson(rsp.get(SIGN), token.getType());
+                    int total = Integer.valueOf(rsp.get(TOTAL));
+                    SignRecord signRecord = new SignRecord();
+                    signRecord.setSign(signs);
+                    signRecord.setTotal(total);
+                    return signRecord;
                 }
                 return null;
             }
