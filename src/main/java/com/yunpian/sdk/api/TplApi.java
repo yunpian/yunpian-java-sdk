@@ -62,7 +62,7 @@ public class TplApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<Template> h = new SimpleListResultHandler<Template>() {
             @Override
@@ -117,7 +117,7 @@ public class TplApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<Template> h = new SimpleListResultHandler<Template>() {
             @Override
@@ -190,7 +190,7 @@ public class TplApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_CONTENT);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<Template> h = new MapResultHandler<Template>() {
             @Override
@@ -237,7 +237,7 @@ public class TplApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_ID);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<Template> h = new MapResultHandler<Template>() {
             @Override
@@ -294,7 +294,7 @@ public class TplApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_ID, TPL_CONTENT);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<Template> h = new MapResultHandler<Template>() {
             @Override

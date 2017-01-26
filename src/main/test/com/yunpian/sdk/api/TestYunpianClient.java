@@ -22,8 +22,7 @@ public class TestYunpianClient implements YunpianConstant {
 
     @Before
     public void init() {
-        clnt = new YunpianClient(TestYunpianClient.TESTKEY,
-                TestYunpianClient.class.getResourceAsStream("yunpian.properties")).init();
+        clnt = new YunpianClient(TestYunpianClient.TESTKEY, TestYunpianClient.class.getResourceAsStream("yunpian.properties")).init();
     }
 
     @After

@@ -21,6 +21,7 @@ import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.Result;
+import com.yunpian.sdk.util.ApiUtil;
 
 /**
  * TODO 优化:
@@ -80,8 +81,7 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
      * @return 请求全路径
      */
     public String uri() {
-        StringBuilder buf = new StringBuilder(
-                host().length() + version().length() + name().length() + path().length() + 3);
+        StringBuilder buf = new StringBuilder(host().length() + version().length() + name().length() + path().length() + 3);
         buf.append(host()).append("/").append(version()).append("/").append(name()).append("/").append(path());
         return buf.toString();
     }
@@ -264,10 +264,19 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
      * @param param
      * @return 'application/x-www-form-urlencoded' format
      */
-    protected String format2Form(List<NameValuePair> param) {
+    protected String urlEncode(List<NameValuePair> param) {
         if (param == null)
             return "";
         return URLEncodedUtils.format(param, charset());
+    }
+
+    /**
+     * @since 1.2.2
+     * @param text
+     * @return
+     */
+    public String urlEncode(String text) {
+        return ApiUtil.urlEncode(text, charset());
     }
 
 }

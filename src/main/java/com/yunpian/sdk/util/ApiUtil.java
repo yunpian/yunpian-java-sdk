@@ -51,4 +51,38 @@ public class ApiUtil {
         return text;
     }
 
+    /**
+     * @since 1.2.2
+     * @param charset
+     * @param seperator
+     * @param text
+     * @return encode(text[0],charset)+seperator+encode(text[1],charset)....seperator+encode(text[n],charset)
+     */
+    public static final String urlEncodeAndLink(String charset, String seperator, String... text) {
+        if (text.length == 0)
+            return "";
+        if (charset == null || "".equals(charset))
+            charset = YunpianConstant.HTTP_CHARSET_DEFAULT;
+        if (seperator == null) {
+            seperator = YunpianConstant.SEPERATOR_COMMA;
+        }
+
+        int len = 0;
+        for (String t : text) {
+            len += t.length();
+        }
+
+        StringBuilder buf = new StringBuilder(len + text.length - 1);
+        try {
+            buf.append(URLEncoder.encode(text[0], charset));
+            for (int i = 1; i < text.length; i++) {
+                buf.append(seperator);
+                buf.append(URLEncoder.encode(text[i], charset));
+            }
+        } catch (UnsupportedEncodingException e) {
+            LOG.error(e.getMessage(), e.fillInStackTrace());
+        }
+        return buf.toString();
+    }
+
 }

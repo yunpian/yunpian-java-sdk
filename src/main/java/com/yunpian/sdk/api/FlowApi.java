@@ -65,7 +65,7 @@ public class FlowApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<FlowPackage> h = new SimpleListResultHandler<FlowPackage>() {
             @Override
@@ -137,7 +137,7 @@ public class FlowApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, SN);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<FlowSend> h = new MapResultHandler<FlowSend>() {
             @Override
@@ -184,7 +184,7 @@ public class FlowApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<FlowStatus> h = new SimpleListResultHandler<FlowStatus>() {
             @Override

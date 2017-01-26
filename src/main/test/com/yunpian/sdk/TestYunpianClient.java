@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * @date Dec 6, 2016 1:05:20 AM
  * @since 1.2.0
  */
-public class TestYunpianClient {
+public class TestYunpianClient extends YunpianConf {
 
     static final Logger LOG = LoggerFactory.getLogger(TestYunpianClient.class);
 

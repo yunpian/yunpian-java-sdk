@@ -79,7 +79,7 @@ public class VoiceApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, CODE);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<VoiceSend> h = new MapResultHandler<VoiceSend>() {
             @Override
@@ -126,7 +126,7 @@ public class VoiceApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         SimpleListResultHandler<VoiceStatus> h = new SimpleListResultHandler<VoiceStatus>() {
             @Override

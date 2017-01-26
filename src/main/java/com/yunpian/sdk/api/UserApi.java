@@ -54,7 +54,7 @@ public class UserApi extends YunpianApi {
         List<NameValuePair> list = param2pair(null, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<User> h = new MapResultHandler<User>() {
             @Override
@@ -109,7 +109,7 @@ public class UserApi extends YunpianApi {
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
-        String data = format2Form(list);
+        String data = urlEncode(list);
 
         MapResultHandler<User> h = new MapResultHandler<User>() {
             @Override

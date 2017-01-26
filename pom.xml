@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.yunpian.sdk</groupId>
 	<artifactId>yunpian-java-sdk</artifactId>
-	<version>1.2.1</version>
+	<version>1.2.2</version>
 	<url>https://github.com/yunpian/yunpian-java-sdk</url>
 	<name>yunpian-java-sdk</name>
 	<description>yunpian java sdk</description>
@@ -167,6 +167,22 @@
 				<version>2.19.1</version>
 				<configuration>
 					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
 				</configuration>
 			</plugin>
 		</plugins>

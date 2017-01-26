@@ -8,7 +8,7 @@ import java.util.Map;
  * 
  * https://test-web.yunpian.com/api2.0/recode.html
  */
-public class Code {
+public final class Code {
     /**
      * ************************** 0.1版本的定义 **************************
      */
