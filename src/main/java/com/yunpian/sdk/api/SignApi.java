@@ -20,7 +20,7 @@ import com.yunpian.sdk.util.JsonUtil;
  *
  * https://www.yunpian.com/api2.0/sign.html
  *
- * @author dzh
+ * @author dzh liujie
  * @date Nov 23, 2016 1:11:12 PM
  * @since 1.2.0
  */
@@ -171,7 +171,7 @@ public class SignApi extends YunpianApi {
 
     /**
      * <h1>获取签名API</h1>
-     * <p>
+     * 
      * <p>
      * 参数名 类型 是否必须 描述 示例
      * </p>
@@ -182,7 +182,7 @@ public class SignApi extends YunpianApi {
      * id Long 否 签名id，暂未开放，如果传入此参数将会指定获取某个签名 9527
      * </p>
      * <p>
-     * sign String 是 签名内容 云片网
+     * sign String 否 签名内容 云片网
      * </p>
      * <p>
      * page_num Integer 否 页码，1开始，不带或者格式错误返回全部 1

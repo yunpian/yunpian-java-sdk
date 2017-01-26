@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 获取签名结果
- * <p>
+ * 
  * https://www.yunpian.com/api2.0/api-domestic/sign_get.html
  *
  * @author liujie
