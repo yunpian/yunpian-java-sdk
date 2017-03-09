@@ -792,7 +792,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("tpl_single_send.json").post(uri(), data, h, r);
+            return path("tpl_send.json").post(uri(), data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
