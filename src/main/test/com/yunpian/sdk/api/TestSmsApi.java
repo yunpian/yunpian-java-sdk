@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SmsBatchSend;
+import com.yunpian.sdk.model.SmsRecord;
 import com.yunpian.sdk.model.SmsReply;
 import com.yunpian.sdk.model.SmsSingleSend;
 import com.yunpian.sdk.model.SmsStatus;
@@ -117,10 +118,10 @@ public class TestSmsApi extends TestYunpianClient {
         param.put(PAGE_NUM, "1");
         param.put(PAGE_SIZE, "20");
         // param.put(MOBILE, "11111111111");
-        Result<List<SmsReply>> r = clnt.sms().pull_reply(param);
+        Result<List<SmsRecord>> r = clnt.sms().get_record(param);
         System.out.println(r);
 
-        r = ((SmsApi) clnt.sms().version(VERSION_V1)).pull_reply(param);
+        r = ((SmsApi) clnt.sms().version(VERSION_V1)).get_record(param);
         System.out.println(r);
     }
 
