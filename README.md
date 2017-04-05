@@ -8,7 +8,7 @@ yunpian-java-sdk
 
 ```xml
 <dependency>
-	<groupId>com.yunpian.sdk</groupId>
+    <groupId>com.yunpian.sdk</groupId>
     <artifactId>yunpian-java-sdk</artifactId>
     <version>1.2.2</version>
 </dependency>
