@@ -8,9 +8,9 @@ yunpian-java-sdk
 
 ```xml
 <dependency>
-	<groupId>com.yunpian.sdk</groupId>
+    <groupId>com.yunpian.sdk</groupId>
     <artifactId>yunpian-java-sdk</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 </dependency>
 ```
 **注**: master是最新稳定版，可以本地直接构建使用。我们尽快上传到[Maven](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)

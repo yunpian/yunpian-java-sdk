@@ -99,7 +99,7 @@ public class VoiceApi extends YunpianApi {
             }
         };
         try {
-            return path("send.json").post(uri(), data, h, r);
+            return path("send.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -135,7 +135,7 @@ public class VoiceApi extends YunpianApi {
                 case VERSION_V1:
                     if (rspMap != null) {
                         String flow = rspMap.get(VOICE_STATUS);
-                        return JsonUtil.<ArrayList<VoiceStatus>>fromJson(flow, new TypeToken<ArrayList<VoiceStatus>>() {
+                        return JsonUtil.<ArrayList<VoiceStatus>> fromJson(flow, new TypeToken<ArrayList<VoiceStatus>>() {
                         }.getType());
                     }
                 case VERSION_V2:
@@ -159,7 +159,7 @@ public class VoiceApi extends YunpianApi {
             }
         };
         try {
-            return path("pull_status.json").post(uri(), data, h, r);
+            return path("pull_status.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }

@@ -89,7 +89,7 @@ public class TplApi extends YunpianApi {
             }
         };
         try {
-            return path("get_default.json").post(uri(), data, h, r);
+            return path("get_default.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -127,9 +127,8 @@ public class TplApi extends YunpianApi {
                     if (rspMap == null)
                         break;
                     String t = rspMap.get(TEMPLATE);
-                    return t.startsWith("[")
-                            ? JsonUtil.<ArrayList<Template>>fromJson(t, new TypeToken<ArrayList<Template>>() {
-                            }.getType()) : Arrays.asList(JsonUtil.fromJson(t, Template.class));
+                    return t.startsWith("[") ? JsonUtil.<ArrayList<Template>> fromJson(t, new TypeToken<ArrayList<Template>>() {
+                    }.getType()) : Arrays.asList(JsonUtil.fromJson(t, Template.class));
                 case VERSION_V2:
                     if (rspMap != null) {
                         Template tpl = map2Template(rspMap);
@@ -155,7 +154,7 @@ public class TplApi extends YunpianApi {
             }
         };
         try {
-            return path("get.json").post(uri(), data, h, r);
+            return path("get.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -210,7 +209,7 @@ public class TplApi extends YunpianApi {
             }
         };
         try {
-            return path("add.json").post(uri(), data, h, r);
+            return path("add.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -255,7 +254,7 @@ public class TplApi extends YunpianApi {
             }
         };
         try {
-            return path("del.json").post(uri(), data, h, r);
+            return path("del.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -317,7 +316,7 @@ public class TplApi extends YunpianApi {
             }
         };
         try {
-            return path("update.json").post(uri(), data, h, r);
+            return path("update.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }

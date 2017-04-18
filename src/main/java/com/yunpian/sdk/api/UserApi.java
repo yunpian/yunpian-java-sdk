@@ -75,7 +75,7 @@ public class UserApi extends YunpianApi {
         };
 
         try {
-            return path("get.json").post(uri(), data, h);
+            return path("get.json").post(data, h);
         } catch (Exception e) {
             return h.catchExceptoin(e, null);
         }
@@ -127,7 +127,7 @@ public class UserApi extends YunpianApi {
             }
         };
         try {
-            return path("set.json").post(uri(), data, h, r);
+            return path("set.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -146,6 +146,7 @@ public class UserApi extends YunpianApi {
             user.setEmergency_mobile(map.get(EMERGENCY_MOBILE));
             user.setGmt_created(ApiUtil.str2date(map.get(GMT_CREATED)));
             user.setIp_whitelist(map.get(IP_WHITELIST));
+            user.setMobile(map.get(MOBILE));
             return user;
         } catch (Exception e) {
             LOG.error(e.getMessage(), e.fillInStackTrace());

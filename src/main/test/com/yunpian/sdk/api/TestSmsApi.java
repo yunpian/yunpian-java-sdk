@@ -2,11 +2,14 @@ package com.yunpian.sdk.api;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SmsBatchSend;
+import com.yunpian.sdk.model.SmsRecord;
 import com.yunpian.sdk.model.SmsReply;
 import com.yunpian.sdk.model.SmsSingleSend;
 import com.yunpian.sdk.model.SmsStatus;
@@ -115,10 +118,10 @@ public class TestSmsApi extends TestYunpianClient {
         param.put(PAGE_NUM, "1");
         param.put(PAGE_SIZE, "20");
         // param.put(MOBILE, "11111111111");
-        Result<List<SmsReply>> r = clnt.sms().pull_reply(param);
+        Result<List<SmsRecord>> r = clnt.sms().get_record(param);
         System.out.println(r);
 
-        r = ((SmsApi) clnt.sms().version(VERSION_V1)).pull_reply(param);
+        r = ((SmsApi) clnt.sms().version(VERSION_V1)).get_record(param);
         System.out.println(r);
     }
 
@@ -165,13 +168,40 @@ public class TestSmsApi extends TestYunpianClient {
     @Deprecated
     public void tpl_sendTest() {
         Map<String, String> param = clnt.newParam(5);
-        param.put(MOBILE, "11111111111");
+        int n = ThreadLocalRandom.current().nextInt(10);
+        param.put(MOBILE, "1861601112" + n);
         param.put(TPL_ID, "1");
         param.put(TPL_VALUE, "#company#=云片网");
         // param.put(EXTEND, "001");
         // param.put(UID, "10001");
-        Result<SmsSingleSend> r = clnt.sms().tpl_send(param);
-        System.out.println(r);
+        long s1 = System.currentTimeMillis();
+        Result<SmsSingleSend> r = ((SmsApi) clnt.sms().version(VERSION_V1)).tpl_send(param);
+        System.out.println(r + "time-" + (System.currentTimeMillis() - s1));
+    }
+
+    @Deprecated
+    public void tpl_sendPTest() {
+        int t = 6;
+        final CountDownLatch sl = new CountDownLatch(1);
+        final CountDownLatch el = new CountDownLatch(t);
+        for (int i = 0; i < t; i++) {
+            new Thread() {
+                public void run() {
+                    try {
+                        sl.await();
+                        tpl_sendTest();
+                    } catch (Exception e) {
+                    } finally {
+                        el.countDown();
+                    }
+                }
+            }.start();
+        }
+        sl.countDown();
+        try {
+            el.await();
+        } catch (InterruptedException e) {
+        }
     }
 
     @Test

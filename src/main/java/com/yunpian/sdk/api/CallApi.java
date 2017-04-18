@@ -94,7 +94,7 @@ public class CallApi extends YunpianApi {
             }
         };
         try {
-            return path("bind.json").post(uri(), data, h, r);
+            return path("bind.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -141,7 +141,7 @@ public class CallApi extends YunpianApi {
             }
         };
         try {
-            return path("unbind.json").post(uri(), data, h, r);
+            return path("unbind.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -194,7 +194,7 @@ public class CallApi extends YunpianApi {
             }
         };
         try {
-            return path("pull.json").post(uri(), data, h, r);
+            return path("pull.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -252,7 +252,7 @@ public class CallApi extends YunpianApi {
             }
         };
         try {
-            return path("record.json").post(uri(), data, h, r);
+            return path("record.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }

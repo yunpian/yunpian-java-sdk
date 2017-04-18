@@ -74,7 +74,7 @@ public class FlowApi extends YunpianApi {
                 case VERSION_V1:
                     if (rspMap != null) {
                         String flow = rspMap.get(FLOW_PACKAGE);
-                        return JsonUtil.<List<FlowPackage>>fromJson(flow, new TypeToken<ArrayList<FlowPackage>>() {
+                        return JsonUtil.<List<FlowPackage>> fromJson(flow, new TypeToken<ArrayList<FlowPackage>>() {
                         }.getType());
                     }
                 case VERSION_V2:
@@ -98,7 +98,7 @@ public class FlowApi extends YunpianApi {
             }
         };
         try {
-            return path("get_package.json").post(uri(), data, h, r);
+            return path("get_package.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -157,7 +157,7 @@ public class FlowApi extends YunpianApi {
             }
         };
         try {
-            return path("recharge.json").post(uri(), data, h, r);
+            return path("recharge.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -193,7 +193,7 @@ public class FlowApi extends YunpianApi {
                 case VERSION_V1:
                     if (rspMap != null) {
                         String flow = rspMap.get(FLOW_STATUS);
-                        return JsonUtil.<ArrayList<FlowStatus>>fromJson(flow, new TypeToken<ArrayList<FlowStatus>>() {
+                        return JsonUtil.<ArrayList<FlowStatus>> fromJson(flow, new TypeToken<ArrayList<FlowStatus>>() {
                         }.getType());
                     }
                 case VERSION_V2:
@@ -217,7 +217,7 @@ public class FlowApi extends YunpianApi {
             }
         };
         try {
-            return path("pull_status.json").post(uri(), data, h, r);
+            return path("pull_status.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }

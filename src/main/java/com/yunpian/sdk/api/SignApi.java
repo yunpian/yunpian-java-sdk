@@ -93,7 +93,7 @@ public class SignApi extends YunpianApi {
             }
         };
         try {
-            return path("add.json").post(uri(), data, h, r);
+            return path("add.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -163,7 +163,7 @@ public class SignApi extends YunpianApi {
             }
         };
         try {
-            return path("update.json").post(uri(), data, h, r);
+            return path("update.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -225,7 +225,7 @@ public class SignApi extends YunpianApi {
             }
         };
         try {
-            return path("get.json").post(uri(), data, h, r);
+            return path("get.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
