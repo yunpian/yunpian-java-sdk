@@ -171,8 +171,12 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
         return EntityUtils.toString(rsp.get().getEntity(), charset());
     }
 
-    public <R, T> Result<T> post(String uri, String data, ResultHandler<R, T> h) {
-        return post(uri, data, h, new Result<T>());
+    public <R, T> Result<T> post(String data, ResultHandler<R, T> h) {
+        return post(uri(), data, h, new Result<T>());
+    }
+
+    public <R, T> Result<T> post(String data, ResultHandler<R, T> h, Result<T> r) {
+        return post(uri(), data, h, r);
     }
 
     public <R, T> Result<T> post(String uri, String data, ResultHandler<R, T> h, Result<T> r) {
