@@ -102,7 +102,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("send.json").post(uri(), data, h, r);
+            return path("send.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -166,7 +166,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("single_send.json").post(uri(), data, h, r);
+            return path("single_send.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -227,7 +227,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("batch_send.json").post(uri(), data, h, r);
+            return path("batch_send.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -292,7 +292,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("multi_send.json").post(uri(), data, h, r);
+            return path("multi_send.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -336,7 +336,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return version(VERSION_V1).path("multi_send.json").post(uri(), data, h, r);
+            return version(VERSION_V1).path("multi_send.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -372,7 +372,7 @@ public class SmsApi extends YunpianApi {
                 case VERSION_V1:
                     if (rspMap != null) {
                         String flow = rspMap.get(SMS_STATUS);
-                        return JsonUtil.<List<SmsStatus>>fromJson(flow, TypeListStatus);
+                        return JsonUtil.<List<SmsStatus>> fromJson(flow, TypeListStatus);
                     }
                 case VERSION_V2:
                     return rsp;
@@ -395,7 +395,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("pull_status.json").post(uri(), data, h, r);
+            return path("pull_status.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -456,7 +456,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("pull_reply.json").post(uri(), data, h, r);
+            return path("pull_reply.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -535,7 +535,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("get_reply.json").post(uri(), data, h, r);
+            return path("get_reply.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -595,7 +595,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("get_black_word.json").post(uri(), data, h, r);
+            return path("get_black_word.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -669,7 +669,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("get_record.json").post(uri(), data, h, r);
+            return path("get_record.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -726,7 +726,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("count.json").post(uri(), data, h, r);
+            return path("count.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -752,8 +752,8 @@ public class SmsApi extends YunpianApi {
      * 注：变量名和变量值都不能为空 模板： 【#company#】您的验证码是#code#。 最终发送结果： 【云片网】您的验证码是1234。
      * tplvalue=urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
      * urlencode("#company#") + "=" + urlencode("云片网"); 若您直接发送报文请求则使用下面这种形式
-     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
-     * urlencode("#company#") + "=" + urlencode("云片网"));
+     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") +
+     * "&amp;" + urlencode("#company#") + "=" + urlencode("云片网"));
      * </p>
      * <p>
      * extend String 否 扩展号。默认不开放，如有需要请联系客服申请 001
@@ -792,7 +792,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("tpl_send.json").post(uri(), data, h, r);
+            return path("tpl_send.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -820,8 +820,8 @@ public class SmsApi extends YunpianApi {
      * 注：变量名和变量值都不能为空 模板： 【#company#】您的验证码是#code#。 最终发送结果： 【云片网】您的验证码是1234。
      * tplvalue=urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
      * urlencode("#company#") + "=" + urlencode("云片网"); 若您直接发送报文请求则使用下面这种形式
-     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
-     * urlencode("#company#") + "=" + urlencode("云片网"));
+     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") +
+     * "&amp;" + urlencode("#company#") + "=" + urlencode("云片网"));
      * </p>
      * <p>
      * extend String 否 扩展号。默认不开放，如有需要请联系客服申请 001
@@ -857,7 +857,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("tpl_single_send.json").post(uri(), data, h, r);
+            return path("tpl_single_send.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -885,8 +885,8 @@ public class SmsApi extends YunpianApi {
      * 注：变量名和变量值都不能为空 模板： 【#company#】您的验证码是#code#。 最终发送结果： 【云片网】您的验证码是1234。
      * tplvalue=urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
      * urlencode("#company#") + "=" + urlencode("云片网"); 若您直接发送报文请求则使用下面这种形式
-     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") + "&amp;" +
-     * urlencode("#company#") + "=" + urlencode("云片网"));
+     * tplvalue=urlencode(urlencode("#code#") + "=" + urlencode("1234") +
+     * "&amp;" + urlencode("#company#") + "=" + urlencode("云片网"));
      * </p>
      * <p>
      * extend String 否 扩展号。默认不开放，如有需要请联系客服申请 001
@@ -922,7 +922,7 @@ public class SmsApi extends YunpianApi {
             }
         };
         try {
-            return path("tpl_batch_send.json").post(uri(), data, h, r);
+            return path("tpl_batch_send.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
@@ -947,7 +947,7 @@ public class SmsApi extends YunpianApi {
 
                 String data = rsp.get(DATA);
                 if (data != null && data.startsWith("["))
-                    info.setData(JsonUtil.<List<SmsSingleSend>>fromJson(data, TypeListBatch));
+                    info.setData(JsonUtil.<List<SmsSingleSend>> fromJson(data, TypeListBatch));
                 return info;
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e.fillInStackTrace());
