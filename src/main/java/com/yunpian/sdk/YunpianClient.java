@@ -165,7 +165,7 @@ public class YunpianClient implements YunpianConstant {
         return httpclient;
     }
 
-    static Map<String, String> HEADERS = new HashMap<>(1, 1);
+    static Map<String, String> HEADERS = new HashMap<String, String>(1, 1);
     static {
         HEADERS.put("Api-Lang", "java");
     }

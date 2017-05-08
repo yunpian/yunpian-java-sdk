@@ -72,7 +72,7 @@ public class CallApi extends YunpianApi {
      * @return
      */
     public Result<CallBind> bind(Map<String, String> param) {
-        Result<CallBind> r = new Result<>();
+        Result<CallBind> r = new Result<CallBind>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, FROM, DURATION);
         if (r.getCode() != Code.OK)
             return r;
@@ -81,8 +81,7 @@ public class CallApi extends YunpianApi {
         MapResultHandler<CallBind> h = new MapResultHandler<CallBind>() {
             @Override
             public CallBind data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                if (VERSION_V2.equals(version())) {
                     return map2CallBind(rsp);
                 }
                 return null;
@@ -123,7 +122,7 @@ public class CallApi extends YunpianApi {
      * @return
      */
     public Result<Void> unbind(Map<String, String> param) {
-        Result<Void> r = new Result<>();
+        Result<Void> r = new Result<Void>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, FROM);
         if (r.getCode() != Code.OK)
             return r;
@@ -163,7 +162,7 @@ public class CallApi extends YunpianApi {
      * @return
      */
     public Result<List<CallBill>> pull(Map<String, String> param) {
-        Result<List<CallBill>> r = new Result<>();
+        Result<List<CallBill>> r = new Result<List<CallBill>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -172,8 +171,7 @@ public class CallApi extends YunpianApi {
         SimpleListResultHandler<CallBill> h = new SimpleListResultHandler<CallBill>() {
             @Override
             public List<CallBill> data(List<CallBill> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                if (VERSION_V2.equals(version())) {
                     return rsp;
                 }
                 return Collections.emptyList();
@@ -229,7 +227,7 @@ public class CallApi extends YunpianApi {
      * @return
      */
     public Result<List<CallRecord>> record(Map<String, String> param) {
-        Result<List<CallRecord>> r = new Result<>();
+        Result<List<CallRecord>> r = new Result<List<CallRecord>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MESSAGE_ID, START_TIME, END_TIME);
         if (r.getCode() != Code.OK)
             return r;
@@ -238,8 +236,7 @@ public class CallApi extends YunpianApi {
         MapResultHandler<List<CallRecord>> h = new MapResultHandler<List<CallRecord>>() {
             @Override
             public List<CallRecord> data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                if (VERSION_V2.equals(version())) {
                     return JsonUtil.fromJson(rsp.get(DATA), new TypeToken<List<CallRecord>>() {
                     }.getType());
                 }
@@ -280,7 +277,7 @@ public class CallApi extends YunpianApi {
      * @return
      */
     public Result<Void> get_record(Map<String, String> param, String file) {
-        Result<Void> r = new Result<>();
+        Result<Void> r = new Result<Void>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MESSAGE_ID, RECORD_ID);
         if (r.getCode() != Code.OK)
             return r;

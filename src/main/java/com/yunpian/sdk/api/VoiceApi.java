@@ -75,7 +75,7 @@ public class VoiceApi extends YunpianApi {
      * @return
      */
     public Result<VoiceSend> send(Map<String, String> param) {
-        Result<VoiceSend> r = new Result<>();
+        Result<VoiceSend> r = new Result<VoiceSend>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, CODE);
         if (r.getCode() != Code.OK)
             return r;
@@ -84,10 +84,10 @@ public class VoiceApi extends YunpianApi {
         MapResultHandler<VoiceSend> h = new MapResultHandler<VoiceSend>() {
             @Override
             public VoiceSend data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     return JsonUtil.fromJson(rsp.get(RESULT), VoiceSend.class);
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return map2VoiceResult(rsp);
                 }
                 return null;
@@ -122,7 +122,7 @@ public class VoiceApi extends YunpianApi {
      * @return
      */
     public Result<List<VoiceStatus>> pull_status(Map<String, String> param) {
-        Result<List<VoiceStatus>> r = new Result<>();
+        Result<List<VoiceStatus>> r = new Result<List<VoiceStatus>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -131,14 +131,14 @@ public class VoiceApi extends YunpianApi {
         SimpleListResultHandler<VoiceStatus> h = new SimpleListResultHandler<VoiceStatus>() {
             @Override
             public List<VoiceStatus> data(List<VoiceStatus> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     if (rspMap != null) {
                         String flow = rspMap.get(VOICE_STATUS);
                         return JsonUtil.<ArrayList<VoiceStatus>> fromJson(flow, new TypeToken<ArrayList<VoiceStatus>>() {
                         }.getType());
                     }
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return rsp;
                 }
                 return Collections.emptyList();

@@ -71,7 +71,7 @@ public class SignApi extends YunpianApi {
      * @return
      */
     public Result<Sign> add(Map<String, String> param) {
-        Result<Sign> r = new Result<>();
+        Result<Sign> r = new Result<Sign>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, SIGN);
         if (r.getCode() != Code.OK)
             return r;
@@ -80,8 +80,9 @@ public class SignApi extends YunpianApi {
         MapResultHandler<Sign> h = new MapResultHandler<Sign>() {
             @Override
             public Sign data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
+                } else if (VERSION_V2.equals(v)) {
                     return JsonUtil.fromJson(rsp.get(SIGN), Sign.class);
                 }
                 return null;
@@ -141,7 +142,7 @@ public class SignApi extends YunpianApi {
      * @return
      */
     public Result<Sign> update(Map<String, String> param) {
-        Result<Sign> r = new Result<>();
+        Result<Sign> r = new Result<Sign>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, OLD_SIGN);
         if (r.getCode() != Code.OK)
             return r;
@@ -150,8 +151,9 @@ public class SignApi extends YunpianApi {
         MapResultHandler<Sign> h = new MapResultHandler<Sign>() {
             @Override
             public Sign data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
+                } else if (VERSION_V2.equals(v)) {
                     return JsonUtil.fromJson(rsp.get(SIGN), Sign.class);
                 }
                 return null;
@@ -196,7 +198,7 @@ public class SignApi extends YunpianApi {
      * @return
      */
     public Result<SignRecord> get(Map<String, String> param) {
-        Result<SignRecord> r = new Result<>();
+        Result<SignRecord> r = new Result<SignRecord>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -205,8 +207,9 @@ public class SignApi extends YunpianApi {
         MapResultHandler<SignRecord> h = new MapResultHandler<SignRecord>() {
             @Override
             public SignRecord data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
+                } else if (VERSION_V2.equals(v)) {
                     TypeToken<List<Sign>> token = new TypeToken<List<Sign>>() {
                     };
                     List<Sign> signs = JsonUtil.fromJson(rsp.get(SIGN), token.getType());

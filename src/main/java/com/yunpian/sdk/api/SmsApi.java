@@ -80,7 +80,7 @@ public class SmsApi extends YunpianApi {
      */
     @Deprecated
     public Result<SmsSingleSend> send(Map<String, String> param) {
-        Result<SmsSingleSend> r = new Result<>();
+        Result<SmsSingleSend> r = new Result<SmsSingleSend>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
@@ -89,8 +89,8 @@ public class SmsApi extends YunpianApi {
         MapResultHandler<SmsSingleSend> h = new MapResultHandler<SmsSingleSend>() {
             @Override
             public SmsSingleSend data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     return JsonUtil.fromJson(rsp.get(RESULT), SmsSingleSend.class);
                 }
                 return null;
@@ -144,7 +144,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<SmsSingleSend> single_send(Map<String, String> param) {
-        Result<SmsSingleSend> r = new Result<>();
+        Result<SmsSingleSend> r = new Result<SmsSingleSend>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
@@ -153,8 +153,8 @@ public class SmsApi extends YunpianApi {
         MapResultHandler<SmsSingleSend> h = new MapResultHandler<SmsSingleSend>() {
             @Override
             public SmsSingleSend data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V2.equals(v)) {
                     return map2SendSingleSmsInfo(rsp);
                 }
                 return null;
@@ -205,7 +205,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<SmsBatchSend> batch_send(Map<String, String> param) {
-        Result<SmsBatchSend> r = new Result<>();
+        Result<SmsBatchSend> r = new Result<SmsBatchSend>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
@@ -214,8 +214,8 @@ public class SmsApi extends YunpianApi {
         MapResultHandler<SmsBatchSend> h = new MapResultHandler<SmsBatchSend>() {
             @Override
             public SmsBatchSend data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V2.equals(v)) {
                     return map2SendBatchSmsInfo(rsp);
                 }
                 return null;
@@ -270,7 +270,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<SmsBatchSend> multi_send(Map<String, String> param) {
-        Result<SmsBatchSend> r = new Result<>();
+        Result<SmsBatchSend> r = new Result<SmsBatchSend>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
@@ -279,8 +279,8 @@ public class SmsApi extends YunpianApi {
         MapResultHandler<SmsBatchSend> h = new MapResultHandler<SmsBatchSend>() {
             @Override
             public SmsBatchSend data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V2.equals(v)) {
                     return map2SendBatchSmsInfo(rsp);
                 }
                 return null;
@@ -305,7 +305,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<List<Result<SmsSingleSend>>> multi_send_v1(Map<String, String> param) {
-        Result<List<Result<SmsSingleSend>>> r = new Result<>();
+        Result<List<Result<SmsSingleSend>>> r = new Result<List<Result<SmsSingleSend>>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK)
             return r;
@@ -314,8 +314,8 @@ public class SmsApi extends YunpianApi {
         SimpleListResultHandler<Result<SmsSingleSend>> h = new SimpleListResultHandler<Result<SmsSingleSend>>() {
             @Override
             public List<Result<SmsSingleSend>> data(List<Result<SmsSingleSend>> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     return rsp;
                 }
                 return null;
@@ -359,7 +359,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<List<SmsStatus>> pull_status(Map<String, String> param) {
-        Result<List<SmsStatus>> r = new Result<>();
+        Result<List<SmsStatus>> r = new Result<List<SmsStatus>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -368,13 +368,13 @@ public class SmsApi extends YunpianApi {
         SimpleListResultHandler<SmsStatus> h = new SimpleListResultHandler<SmsStatus>() {
             @Override
             public List<SmsStatus> data(List<SmsStatus> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     if (rspMap != null) {
                         String flow = rspMap.get(SMS_STATUS);
                         return JsonUtil.<List<SmsStatus>> fromJson(flow, TypeListStatus);
                     }
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return rsp;
                 }
                 return Collections.emptyList();
@@ -418,7 +418,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<List<SmsReply>> pull_reply(Map<String, String> param) {
-        Result<List<SmsReply>> r = new Result<>();
+        Result<List<SmsReply>> r = new Result<List<SmsReply>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -427,15 +427,15 @@ public class SmsApi extends YunpianApi {
         SimpleListResultHandler<SmsReply> h = new SimpleListResultHandler<SmsReply>() {
             @Override
             public List<SmsReply> data(List<SmsReply> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     if (rspMap != null) {
                         String smsReply = rspMap.get(SMS_REPLY);
                         if (smsReply != null && smsReply.startsWith("[")) {
                             return JsonUtil.fromJson(smsReply, TypeListReply);
                         }
                     }
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return rsp;
                 }
                 return null;
@@ -497,7 +497,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<List<SmsReply>> get_reply(Map<String, String> param) {
-        Result<List<SmsReply>> r = new Result<>();
+        Result<List<SmsReply>> r = new Result<List<SmsReply>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, START_TIME, END_TIME, PAGE_NUM, PAGE_SIZE);
         if (r.getCode() != Code.OK)
             return r;
@@ -506,17 +506,18 @@ public class SmsApi extends YunpianApi {
         SimpleListResultHandler<SmsReply> h = new SimpleListResultHandler<SmsReply>() {
             @Override
             public List<SmsReply> data(List<SmsReply> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     if (rspMap != null) {
                         String smsReply = rspMap.get(SMS_REPLY);
                         if (smsReply != null && smsReply.startsWith("[")) {
                             return JsonUtil.fromJson(smsReply, TypeListReply);
                         }
                     }
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return rsp;
                 }
+
                 return null;
             }
 
@@ -558,7 +559,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<List<String>> get_black_word(Map<String, String> param) {
-        Result<List<String>> r = new Result<>();
+        Result<List<String>> r = new Result<List<String>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, TEXT);
         if (r.getCode() != Code.OK)
             return r;
@@ -567,14 +568,14 @@ public class SmsApi extends YunpianApi {
         SimpleListResultHandler<String> h = new SimpleListResultHandler<String>() {
             @Override
             public List<String> data(List<String> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     if (rspMap != null) {
                         String result = rspMap.get(RESULT);
                         if (result != null)
                             return JsonUtil.fromJson(result, Blackword.class).toList();
                     }
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return rsp;
                 }
                 return null;
@@ -630,7 +631,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<List<SmsRecord>> get_record(Map<String, String> param) {
-        Result<List<SmsRecord>> r = new Result<>();
+        Result<List<SmsRecord>> r = new Result<List<SmsRecord>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, START_TIME, END_TIME);
         if (r.getCode() != Code.OK)
             return r;
@@ -639,8 +640,8 @@ public class SmsApi extends YunpianApi {
         SimpleListResultHandler<SmsRecord> h = new SimpleListResultHandler<SmsRecord>() {
             @Override
             public List<SmsRecord> data(List<SmsRecord> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     if (rspMap != null) {
                         String sms = rspMap.get(SMS);
                         if (sms != null) {
@@ -648,7 +649,7 @@ public class SmsApi extends YunpianApi {
                                 return JsonUtil.fromJson(sms, TypeListReply);
                         }
                     }
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return rsp;
                 }
                 return null;
@@ -704,7 +705,7 @@ public class SmsApi extends YunpianApi {
      * @return
      */
     public Result<Integer> count(Map<String, String> param) {
-        Result<Integer> r = new Result<>();
+        Result<Integer> r = new Result<Integer>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, START_TIME, END_TIME);
         if (r.getCode() != Code.OK)
             return r;
@@ -767,7 +768,7 @@ public class SmsApi extends YunpianApi {
      */
     @Deprecated
     public Result<SmsSingleSend> tpl_send(Map<String, String> param) {
-        Result<SmsSingleSend> r = new Result<>();
+        Result<SmsSingleSend> r = new Result<SmsSingleSend>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
         if (r.getCode() != Code.OK)
             return r;
@@ -776,8 +777,8 @@ public class SmsApi extends YunpianApi {
         MapResultHandler<SmsSingleSend> h = new MapResultHandler<SmsSingleSend>() {
             @Override
             public SmsSingleSend data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     String result = rsp.get(RESULT);
                     if (result != null && result.startsWith("{")) {
                         return JsonUtil.fromJson(result, SmsSingleSend.class);
@@ -835,7 +836,7 @@ public class SmsApi extends YunpianApi {
      */
     @Deprecated
     public Result<SmsSingleSend> tpl_single_send(Map<String, String> param) {
-        Result<SmsSingleSend> r = new Result<>();
+        Result<SmsSingleSend> r = new Result<SmsSingleSend>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
         if (r.getCode() != Code.OK)
             return r;
@@ -844,8 +845,8 @@ public class SmsApi extends YunpianApi {
         MapResultHandler<SmsSingleSend> h = new MapResultHandler<SmsSingleSend>() {
             @Override
             public SmsSingleSend data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V2.equals(v)) {
                     return map2SendSingleSmsInfo(rsp);
                 }
                 return null;
@@ -900,7 +901,7 @@ public class SmsApi extends YunpianApi {
      */
     @Deprecated
     public Result<SmsBatchSend> tpl_batch_send(Map<String, String> param) {
-        Result<SmsBatchSend> r = new Result<>();
+        Result<SmsBatchSend> r = new Result<SmsBatchSend>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
         if (r.getCode() != Code.OK)
             return r;
@@ -909,8 +910,8 @@ public class SmsApi extends YunpianApi {
         MapResultHandler<SmsBatchSend> h = new MapResultHandler<SmsBatchSend>() {
             @Override
             public SmsBatchSend data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V2.equals(v)) {
                     return map2SendBatchSmsInfo(rsp);
                 }
                 return null;

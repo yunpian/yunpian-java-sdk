@@ -58,7 +58,7 @@ public class TplApi extends YunpianApi {
      * @return
      */
     public Result<List<Template>> get_default(Map<String, String> param) {
-        Result<List<Template>> r = new Result<>();
+        Result<List<Template>> r = new Result<List<Template>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -67,8 +67,7 @@ public class TplApi extends YunpianApi {
         SimpleListResultHandler<Template> h = new SimpleListResultHandler<Template>() {
             @Override
             public List<Template> data(List<Template> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                if (VERSION_V2.equals(version())) {
                     return rsp;
                 }
                 return Collections.emptyList();
@@ -113,7 +112,7 @@ public class TplApi extends YunpianApi {
      * @return
      */
     public Result<List<Template>> get(Map<String, String> param) {
-        Result<List<Template>> r = new Result<>();
+        Result<List<Template>> r = new Result<List<Template>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -122,20 +121,21 @@ public class TplApi extends YunpianApi {
         SimpleListResultHandler<Template> h = new SimpleListResultHandler<Template>() {
             @Override
             public List<Template> data(List<Template> rsp) {
-                switch (version()) {
-                case VERSION_V1:
-                    if (rspMap == null)
-                        break;
-                    String t = rspMap.get(TEMPLATE);
-                    return t.startsWith("[") ? JsonUtil.<ArrayList<Template>> fromJson(t, new TypeToken<ArrayList<Template>>() {
-                    }.getType()) : Arrays.asList(JsonUtil.fromJson(t, Template.class));
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
+                    if (rspMap != null) {
+                        String t = rspMap.get(TEMPLATE);
+                        return t.startsWith("[") ? JsonUtil.<ArrayList<Template>> fromJson(t, new TypeToken<ArrayList<Template>>() {
+                        }.getType()) : Arrays.asList(JsonUtil.fromJson(t, Template.class));
+                    }
+                } else if (VERSION_V2.equals(v)) {
                     if (rspMap != null) {
                         Template tpl = map2Template(rspMap);
                         return tpl == null ? null : Arrays.asList(tpl);
                     }
                     return rsp;
                 }
+
                 return Collections.emptyList();
             }
 
@@ -185,7 +185,7 @@ public class TplApi extends YunpianApi {
      * @return
      */
     public Result<Template> add(Map<String, String> param) {
-        Result<Template> r = new Result<>();
+        Result<Template> r = new Result<Template>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_CONTENT);
         if (r.getCode() != Code.OK)
             return r;
@@ -194,10 +194,10 @@ public class TplApi extends YunpianApi {
         MapResultHandler<Template> h = new MapResultHandler<Template>() {
             @Override
             public Template data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     return JsonUtil.fromJson(rsp.get(TEMPLATE), Template.class);
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return map2Template(rsp);
                 }
                 return null;
@@ -232,7 +232,7 @@ public class TplApi extends YunpianApi {
      * @return
      */
     public Result<Template> del(Map<String, String> param) {
-        Result<Template> r = new Result<>();
+        Result<Template> r = new Result<Template>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_ID);
         if (r.getCode() != Code.OK)
             return r;
@@ -241,8 +241,8 @@ public class TplApi extends YunpianApi {
         MapResultHandler<Template> h = new MapResultHandler<Template>() {
             @Override
             public Template data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                String v = version();
+                if (VERSION_V2.equals(v)) {
                     return map2Template(rsp);
                 }
                 return null;
@@ -289,7 +289,7 @@ public class TplApi extends YunpianApi {
      * @return
      */
     public Result<Template> update(Map<String, String> param) {
-        Result<Template> r = new Result<>();
+        Result<Template> r = new Result<Template>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_ID, TPL_CONTENT);
         if (r.getCode() != Code.OK)
             return r;
@@ -298,11 +298,11 @@ public class TplApi extends YunpianApi {
         MapResultHandler<Template> h = new MapResultHandler<Template>() {
             @Override
             public Template data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     if (rsp.containsKey(TEMPLATE))
                         return JsonUtil.fromJson(rsp.get(TEMPLATE), Template.class);
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     if (rsp.containsKey(TEMPLATE))
                         return JsonUtil.fromJson(rsp.get(TEMPLATE), Template.class);
                     return map2Template(rsp);

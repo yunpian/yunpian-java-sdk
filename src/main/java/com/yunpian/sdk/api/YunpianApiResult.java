@@ -99,7 +99,7 @@ public interface YunpianApiResult {
         @Override
         public Result<T> catchExceptoin(Throwable e, Result<T> r) {
             if (r == null) {
-                r = new Result<>();
+                r = new Result<T>();
             }
             return r.setCode(Code.UNKNOWN_EXCEPTION).setMsg(Code.getErrorMsg(Code.UNKNOWN_EXCEPTION)).setThrowable(e);
         }
@@ -112,8 +112,7 @@ public interface YunpianApiResult {
      * @date Nov 25, 2016 8:31:07 PM
      * @since 1.2.0
      */
-    public static abstract class MapResultHandler<T> extends AbstractResultHandler<Map<String, String>, T>
-            implements YunpianConstant {
+    public static abstract class MapResultHandler<T> extends AbstractResultHandler<Map<String, String>, T> implements YunpianConstant {
 
         @Override
         public Map<String, String> response(String rsp) throws Exception {
@@ -125,7 +124,7 @@ public interface YunpianApiResult {
         @Override
         public Result<T> succ(Integer code, Map<String, String> rsp, Result<T> r) {
             if (r == null) {
-                r = new Result<>();
+                r = new Result<T>();
             }
             r.setCode(code).setMsg(rsp.containsKey(MSG) ? rsp.get(MSG) : Code.getErrorMsg(code));
             T data = data(rsp);
@@ -146,10 +145,9 @@ public interface YunpianApiResult {
         @Override
         public Result<T> fail(Integer code, Map<String, String> rsp, Result<T> r) {
             if (r == null) {
-                r = new Result<>();
+                r = new Result<T>();
             }
-            return r.setCode(code).setMsg(rsp.containsKey(MSG) ? rsp.get(MSG) : Code.getErrorMsg(code))
-                    .setDetail(rsp.get(DETAIL));
+            return r.setCode(code).setMsg(rsp.containsKey(MSG) ? rsp.get(MSG) : Code.getErrorMsg(code)).setDetail(rsp.get(DETAIL));
         }
 
     }
@@ -161,8 +159,7 @@ public interface YunpianApiResult {
      * @date Nov 25, 2016 6:05:18 PM
      * @since 1.2.0
      */
-    public static abstract class ListResultHandler<R, T> extends AbstractResultHandler<List<R>, T>
-            implements YunpianConstant {
+    public static abstract class ListResultHandler<R, T> extends AbstractResultHandler<List<R>, T> implements YunpianConstant {
 
         /**
          * list解析错误时，按map方式解析
@@ -186,7 +183,7 @@ public interface YunpianApiResult {
         @Override
         public Result<T> succ(Integer code, List<R> rsp, Result<T> r) {
             if (r == null) {
-                r = new Result<>();
+                r = new Result<T>();
             }
             r.setCode(code).setMsg(Code.getErrorMsg(code));
             T data = data(rsp);
@@ -207,24 +204,22 @@ public interface YunpianApiResult {
         @Override
         public Result<T> fail(Integer code, List<R> rsp, Result<T> r) {
             if (r == null) {
-                r = new Result<>();
+                r = new Result<T>();
             }
-            Map<String, String> map = rspMap == null ? Collections.<String, String>emptyMap() : rspMap;
-            return r.setCode(code).setMsg(map.containsKey(MSG) ? map.get(MSG) : Code.getErrorMsg(code))
-                    .setDetail(map.get(DETAIL));
+            Map<String, String> map = rspMap == null ? Collections.<String, String> emptyMap() : rspMap;
+            return r.setCode(code).setMsg(map.containsKey(MSG) ? map.get(MSG) : Code.getErrorMsg(code)).setDetail(map.get(DETAIL));
         }
 
         @Override
         public Result<T> catchExceptoin(Throwable e, Result<T> r) {
             if (r == null) {
-                r = new Result<>();
+                r = new Result<T>();
             }
             return r.setCode(Code.UNKNOWN_EXCEPTION).setMsg(Code.getErrorMsg(Code.UNKNOWN_EXCEPTION)).setThrowable(e);
         }
 
     }
 
-    public static abstract class SimpleListResultHandler<T> extends ListResultHandler<T, List<T>>
-            implements YunpianConstant {
+    public static abstract class SimpleListResultHandler<T> extends ListResultHandler<T, List<T>> implements YunpianConstant {
     }
 }

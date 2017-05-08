@@ -26,30 +26,21 @@ public class ApiFactory {
     @SuppressWarnings("unchecked")
     public <T extends YunpianApi> T api(String name) {
         T t = null;
-        switch (name) {
-        case CallApi.NAME:
+        if (CallApi.NAME.equals(name)) {
             t = (T) new CallApi();
-            break;
-        case FlowApi.NAME:
+        } else if (FlowApi.NAME.equals(name)) {
             t = (T) new FlowApi();
-            break;
-        case SignApi.NAME:
+        } else if (SignApi.NAME.equals(name)) {
             t = (T) new SignApi();
-            break;
-        case SmsApi.NAME:
+        } else if (SmsApi.NAME.equals(name)) {
             t = (T) new SmsApi();
-            break;
-        case TplApi.NAME:
+        } else if (TplApi.NAME.equals(name)) {
             t = (T) new TplApi();
-            break;
-        case UserApi.NAME:
+        } else if (UserApi.NAME.equals(name)) {
             t = (T) new UserApi();
-            break;
-        case VoiceApi.NAME:
+        } else if (VoiceApi.NAME.equals(name)) {
             t = (T) new VoiceApi();
-            break;
         }
-
         if (t != null)
             t.init(clnt);
         return t;

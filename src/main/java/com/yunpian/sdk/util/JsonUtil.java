@@ -44,7 +44,7 @@ public class JsonUtil {
     }
 
     public static <T> T fromJsonToMap(Reader json, Type type) {
-        return Gson.<T>fromJson(json, type);
+        return Gson.<T> fromJson(json, type);
     }
 
     public static <T> T fromJson(String json, Type t) {
@@ -56,10 +56,12 @@ public class JsonUtil {
     }
 
     private static Map<String, String> toMapStr(String json) throws IOException {
-        try (JsonReader in = new JsonReader(new StringReader(json))) {
+        JsonReader in = null;
+        try {
+            in = new JsonReader(new StringReader(json));
             JsonToken token = in.peek();
             if (token.equals(JsonToken.BEGIN_OBJECT)) {
-                Map<String, String> map = new LinkedHashMap<>();
+                Map<String, String> map = new LinkedHashMap<String, String>();
                 in.beginObject();
                 while (in.hasNext()) {
                     map.put(in.nextName(), read2Str(in, true).toString());
@@ -68,6 +70,10 @@ public class JsonUtil {
                 return map;
             }
             return Collections.emptyMap();
+        } finally {
+            if (in != null) {
+                in.close();
+            }
         }
     }
 

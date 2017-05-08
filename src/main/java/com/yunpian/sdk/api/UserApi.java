@@ -50,7 +50,7 @@ public class UserApi extends YunpianApi {
      * @return
      */
     public Result<User> get() {
-        Result<User> r = new Result<>();
+        Result<User> r = new Result<User>();
         List<NameValuePair> list = param2pair(null, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -59,10 +59,10 @@ public class UserApi extends YunpianApi {
         MapResultHandler<User> h = new MapResultHandler<User>() {
             @Override
             public User data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     return JsonUtil.fromJson(rsp.get(USER), User.class);
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return map2User(rsp);
                 }
                 return null;
@@ -105,7 +105,7 @@ public class UserApi extends YunpianApi {
      * @return
      */
     public Result<User> set(Map<String, String> param) {
-        Result<User> r = new Result<>();
+        Result<User> r = new Result<User>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -114,8 +114,7 @@ public class UserApi extends YunpianApi {
         MapResultHandler<User> h = new MapResultHandler<User>() {
             @Override
             public User data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V2:
+                if (VERSION_V2.equals(version())) {
                     return map2User(rsp);
                 }
                 return null;

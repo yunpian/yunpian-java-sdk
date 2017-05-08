@@ -195,13 +195,10 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
             version = VERSION_V2;
         }
         if (rsp != null) {
-            switch (version) {
-            case VERSION_V1:
+            if (VERSION_V1.equals(version)) {
                 code = rsp.containsKey(CODE) ? (int) Double.parseDouble((rsp.get(CODE))) : Code.UNKNOWN_EXCEPTION;
-                break;
-            case VERSION_V2:
+            } else if (VERSION_V2.equals(version)) {
                 code = rsp.containsKey(CODE) ? (int) Double.parseDouble((rsp.get(CODE))) : Code.OK;
-                break;
             }
         }
         return code;

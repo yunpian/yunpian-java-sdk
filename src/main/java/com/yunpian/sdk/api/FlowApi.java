@@ -61,7 +61,7 @@ public class FlowApi extends YunpianApi {
      * @return
      */
     public Result<List<FlowPackage>> get_package(Map<String, String> param) {
-        Result<List<FlowPackage>> r = new Result<>();
+        Result<List<FlowPackage>> r = new Result<List<FlowPackage>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -70,14 +70,14 @@ public class FlowApi extends YunpianApi {
         SimpleListResultHandler<FlowPackage> h = new SimpleListResultHandler<FlowPackage>() {
             @Override
             public List<FlowPackage> data(List<FlowPackage> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     if (rspMap != null) {
                         String flow = rspMap.get(FLOW_PACKAGE);
                         return JsonUtil.<List<FlowPackage>> fromJson(flow, new TypeToken<ArrayList<FlowPackage>>() {
                         }.getType());
                     }
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return rsp;
                 }
                 return Collections.emptyList();
@@ -133,7 +133,7 @@ public class FlowApi extends YunpianApi {
      * @return
      */
     public Result<FlowSend> recharge(Map<String, String> param) {
-        Result<FlowSend> r = new Result<>();
+        Result<FlowSend> r = new Result<FlowSend>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, SN);
         if (r.getCode() != Code.OK)
             return r;
@@ -142,10 +142,10 @@ public class FlowApi extends YunpianApi {
         MapResultHandler<FlowSend> h = new MapResultHandler<FlowSend>() {
             @Override
             public FlowSend data(Map<String, String> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     return JsonUtil.fromJson(rsp.get(RESULT), FlowSend.class);
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return map2flowResult(rsp);
                 }
                 return null;
@@ -180,7 +180,7 @@ public class FlowApi extends YunpianApi {
      * @return
      */
     public Result<List<FlowStatus>> pull_status(Map<String, String> param) {
-        Result<List<FlowStatus>> r = new Result<>();
+        Result<List<FlowStatus>> r = new Result<List<FlowStatus>>();
         List<NameValuePair> list = param2pair(param, r, APIKEY);
         if (r.getCode() != Code.OK)
             return r;
@@ -189,14 +189,14 @@ public class FlowApi extends YunpianApi {
         SimpleListResultHandler<FlowStatus> h = new SimpleListResultHandler<FlowStatus>() {
             @Override
             public List<FlowStatus> data(List<FlowStatus> rsp) {
-                switch (version()) {
-                case VERSION_V1:
+                String v = version();
+                if (VERSION_V1.equals(v)) {
                     if (rspMap != null) {
                         String flow = rspMap.get(FLOW_STATUS);
                         return JsonUtil.<ArrayList<FlowStatus>> fromJson(flow, new TypeToken<ArrayList<FlowStatus>>() {
                         }.getType());
                     }
-                case VERSION_V2:
+                } else if (VERSION_V2.equals(v)) {
                     return rsp;
                 }
                 return Collections.emptyList();
