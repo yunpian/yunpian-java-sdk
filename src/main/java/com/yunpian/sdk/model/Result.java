@@ -68,8 +68,8 @@ public class Result<T> {
         return this;
     }
 
-    public boolean isOK() {
-        return false;
+    public boolean isSucc() {
+        return code == Code.OK;
     }
 
     @Override
