@@ -3,6 +3,7 @@ package com.yunpian.sdk.api;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.yunpian.sdk.model.Result;
@@ -21,6 +22,7 @@ import com.yunpian.sdk.model.VoiceStatus;
 public class TestVoiceApi extends TestYunpianClient {
 
     @Test
+    @Ignore
     public void sendTest() {
         Map<String, String> param = clnt.newParam(4);
         param.put(MOBILE, "11111111111");
@@ -35,6 +37,7 @@ public class TestVoiceApi extends TestYunpianClient {
     }
 
     @Test
+    @Ignore
     public void pull_statusTest() {
         Map<String, String> param = clnt.newParam(1);
         // param.put(page_size, "20");
@@ -43,6 +46,18 @@ public class TestVoiceApi extends TestYunpianClient {
 
         // r = ((VoiceApi) clnt.voice().version(VERSION_V1)).pull_status(param);
         // System.out.println(r);
+    }
+
+    @Test
+    @Ignore
+    public void tpl_notifyTest() {
+        Map<String, String> param = clnt.newParam(4);
+        param.put(MOBILE, "18616020610");
+        param.put(TPL_ID, "3373");
+        param.put(TPL_VALUE, "name=dzh&time=7");
+        // param.put(CALLBACK_URL, "");
+        Result<VoiceSend> r = clnt.voice().tpl_notify(param);
+        System.out.println(r);
     }
 
 }
