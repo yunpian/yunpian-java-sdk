@@ -122,7 +122,7 @@ public class VoiceApi extends YunpianApi {
      * </p>
      * <p>
      * tpl_value String 是 模版的变量值
-     * 如模版内容“课程#name#在#time#开始”，那么这里的值为name=计算机&time=17点，注意若出现特殊字符(如'=','&')则需要URLEncode内容
+     * 如模版内容&quot;课程#name#在#time#开始&quot;,那么这里的值为&quot;name=计算机&amp;time=17点&quot;,注意若出现特殊字符(如&#39;=&#39;,&#39;&amp;&#39;)则需要URLEncode内容
      * </p>
      * <p>
      * callback_url String 否 本条语音验证码状态报告推送地址 http://your_receive_url_address
