@@ -276,14 +276,6 @@ public class TplApi extends YunpianApi {
      * tpl_content String 是
      * 模板id，64位长整形。指定id时返回id对应的模板。未指定时返回所有模板模板内容，必须以带符号【】的签名开头 【云片网】您的验证码是#code#
      * </p>
-     * <p>
-     * notify_type Integer 否 审核结果短信通知的方式: 0表示需要通知,默认; 1表示仅审核不通过时通知; 2表示仅审核通过时通知;
-     * 3表示不需要通知 1
-     * </p>
-     * <p>
-     * lang String 否 国际短信模板所需参数，模板语言:简体 中文zh_cn; 英文en; 繁体中文 zh_tw; 韩文ko,日文 ja
-     * zh_cn
-     * </p>
      * 
      * @param param
      * @return
@@ -317,6 +309,106 @@ public class TplApi extends YunpianApi {
         };
         try {
             return path("update.json").post(data, h, r);
+        } catch (Exception e) {
+            return h.catchExceptoin(e, r);
+        }
+    }
+    
+    /**
+     * <h1>添加语音通知模版</h1>
+     * 
+     * <p>
+     * 参数名 类型 是否必须 描述 示例
+     * </p>
+     * <p>
+     * apikey String 是 用户唯一标识 9b11127a9701975c734b8aee81ee3526
+     * </p>
+     * <p>
+     * tpl_content String 是 模板内容，必须以带符号【】的签名开头 【云片网】您的验证码是#code#
+     * </p>
+     * <p>
+     * notify_type Integer 否 审核结果短信通知的方式: 0表示需要通知,默认; 1表示仅审核不通过时通知; 2表示仅审核通过时通知;
+     * 3表示不需要通知 1
+     * </p>
+     * 
+     * @param param
+     * @return
+     */
+    public Result<Template> add_voice_notify(Map<String, String> param) {
+        Result<Template> r = new Result<>();
+        List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_CONTENT);
+        if (r.getCode() != Code.OK)
+            return r;
+        String data = urlEncode(list);
+
+        MapResultHandler<Template> h = new MapResultHandler<Template>() {
+            @Override
+            public Template data(Map<String, String> rsp) {
+                switch (version()) {
+                case VERSION_V2:
+                    return map2Template(rsp);
+                }
+                return null;
+            }
+
+            @Override
+            public Integer code(Map<String, String> rsp) {
+                return YunpianApi.code(rsp, TplApi.this.version());
+            }
+        };
+        try {
+            return path("add_voice_notify.json").post(data, h, r);
+        } catch (Exception e) {
+            return h.catchExceptoin(e, r);
+        }
+    }
+    
+    /**
+     * <h1>修改语音通知模版</h1>
+     * 
+     * <p>
+     * 参数名 类型 是否必须 描述 示例
+     * </p>
+     * <p>
+     * apikey String 是 用户唯一标识 9b11127a9701975c734b8aee81ee3526
+     * </p>
+     * <p>
+     * tpl_id Long 是 模板id，64位长整形，指定id时返回id对应的模板。未指定时返回所有模板 9527
+     * </p>
+     * <p>
+     * tpl_content String 是
+     * 模板id，64位长整形。指定id时返回id对应的模板。未指定时返回所有模板模板内容，必须以带符号【】的签名开头 【云片网】您的验证码是#code#
+     * </p>
+     * 
+     * @param param
+     * @return
+     */
+    public Result<Template> update_voice_notify(Map<String, String> param) {
+        Result<Template> r = new Result<>();
+        List<NameValuePair> list = param2pair(param, r, APIKEY, TPL_ID, TPL_CONTENT);
+        if (r.getCode() != Code.OK)
+            return r;
+        String data = urlEncode(list);
+
+        MapResultHandler<Template> h = new MapResultHandler<Template>() {
+            @Override
+            public Template data(Map<String, String> rsp) {
+                switch (version()) {
+                case VERSION_V2:
+                    if (rsp.containsKey(TEMPLATE))
+                        return JsonUtil.fromJson(rsp.get(TEMPLATE), Template.class);
+                    return map2Template(rsp);
+                }
+                return null;
+            }
+
+            @Override
+            public Integer code(Map<String, String> rsp) {
+                return YunpianApi.code(rsp, TplApi.this.version());
+            }
+        };
+        try {
+            return path("update_voice_notify.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }

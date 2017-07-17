@@ -106,6 +106,61 @@ public class VoiceApi extends YunpianApi {
     }
 
     /**
+     * <h1>发送语音通知</h1>
+     * 
+     * <p>
+     * 参数名 类型 是否必须 描述 示例
+     * </p>
+     * <p>
+     * apikey String 是 用户唯一标识 9b11127a9701975c734b8aee81ee3526
+     * </p>
+     * <p>
+     * mobile String 是 接收的手机号、固话（需加区号） 15205201314 01088880000
+     * </p>
+     * <p>
+     * tpl_id Long 是 审核通过的模版ID 1136
+     * </p>
+     * <p>
+     * tpl_value String 是 模版的变量值
+     * 如模版内容“课程#name#在#time#开始”，那么这里的值为name=计算机&time=17点，注意若出现特殊字符(如'=','&')则需要URLEncode内容
+     * </p>
+     * <p>
+     * callback_url String 否 本条语音验证码状态报告推送地址 http://your_receive_url_address
+     * </p>
+     * 
+     * @param param
+     * @return
+     */
+    public Result<VoiceSend> tpl_notify(Map<String, String> param) {
+        Result<VoiceSend> r = new Result<>();
+        List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TPL_ID, TPL_VALUE);
+        if (r.getCode() != Code.OK)
+            return r;
+        String data = urlEncode(list);
+
+        MapResultHandler<VoiceSend> h = new MapResultHandler<VoiceSend>() {
+            @Override
+            public VoiceSend data(Map<String, String> rsp) {
+                switch (version()) {
+                case VERSION_V2:
+                    return map2VoiceResult(rsp);
+                }
+                return null;
+            }
+
+            @Override
+            public Integer code(Map<String, String> rsp) {
+                return YunpianApi.code(rsp, VoiceApi.this.version());
+            }
+        };
+        try {
+            return path("tpl_notify.json").post(data, h, r);
+        } catch (Exception e) {
+            return h.catchExceptoin(e, r);
+        }
+    }
+
+    /**
      * <h1>获取状态报告</h1>
      * 
      * <p>
@@ -116,6 +171,9 @@ public class VoiceApi extends YunpianApi {
      * </p>
      * <p>
      * page_size 否 每页个数，最大100个，默认20个 20
+     * </p>
+     * <p>
+     * type Integer 否 拉取类型，1-语音验证码 2-语音通知，默认type=1 1
      * </p>
      * 
      * @param param
