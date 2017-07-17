@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.yuanpian.sdk.util;
+package com.yunpian.sdk.util;
 
 import org.junit.Assert;
 import org.junit.Test;
