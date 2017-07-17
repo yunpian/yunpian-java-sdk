@@ -22,12 +22,11 @@ yunpian-java-sdk
 YunpianClient clnt = new YunpianClient("apikey").init();
 
 //修改账户信息API
-Map<String, String> param = clnt.newParam(3);
-//param.put(APIKEY,"apikey"); 优先级高于构造器apikey
-param.put(YunpianClient.EMERGENCY_CONTACT, "yunpian");
-param.put(YunpianClient.EMERGENCY_MOBILE, "11111111111");
-param.put(YunpianClient.ALARM_BALANCE, "10");
-Result<User> r = clnt.user().set(param);
+Map<String, String> param = clnt.newParam(2);
+param.put(YunpianClient.MOBILE, "18616020***");
+param.put(YunpianClient.TEXT, "【云片网】您的验证码是1234");
+Result<SmsSingleSend> r = clnt.sms().single_send(param);
+//获取返回结果，返回码:r.getCode(),返回码描述:r.getMsg(),API结果:r.getData(),其他说明:r.getDetail(),调用异常:r.getThrowable()
 
 //账户:clnt.user().* 签名:clnt.sign().* 模版:clnt.tpl().* 短信:clnt.sms().* 语音:clnt.voice().* 流量:clnt.flow().* 隐私通话:clnt.call().*
 
@@ -47,8 +46,9 @@ clnt.close()
 ## 源码说明 yunpian-java-sdk
 - 工程使用maven构造，jdk1.7 or higher
 - 开发API可参考单元测试 test/com.yunpian.sdk.api
-- 不推荐使用标注@Deprecated类
 - YunpianClient使用单例方式，不要每次new和close
+- 不推荐使用标注@Deprecated类
+- 分支说明: master是发布版本,develop是待发布的分支(开源贡献可以pull request到develop)
 
 ## 联系我们
 [云片支持 QQ](https://static.meiqia.com/dist/standalone.html?eid=30951&groupid=0d20ab23ab4702939552b3f81978012f&metadata={"name":"github"})
