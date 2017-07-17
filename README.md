@@ -29,7 +29,7 @@ param.put(YunpianClient.EMERGENCY_MOBILE, "11111111111");
 param.put(YunpianClient.ALARM_BALANCE, "10");
 Result<User> r = clnt.user().set(param);
 
-//账户 clnt.user().* 签名 clnt.sign().* 模版 clnt.tpl().* 短信 clnt.sms().* 语音 clnt.voice().* 流量 clnt.flow().* 隐私通话 clnt.call().*
+//账户:clnt.user().* 签名:clnt.sign().* 模版:clnt.tpl().* 短信:clnt.sms().* 语音:clnt.voice().* 流量:clnt.flow().* 隐私通话:clnt.call().*
 
 //最后释放client
 clnt.close() 
@@ -48,6 +48,7 @@ clnt.close()
 - 工程使用maven构造，jdk1.7 or higher
 - 开发API可参考单元测试 test/com.yunpian.sdk.api
 - 不推荐使用标注@Deprecated类
+- YunpianClient使用单例方式，不要每次new和close
 
 ## 联系我们
 [云片支持 QQ](https://static.meiqia.com/dist/standalone.html?eid=30951&groupid=0d20ab23ab4702939552b3f81978012f&metadata={"name":"github"})
