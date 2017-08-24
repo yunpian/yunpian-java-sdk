@@ -132,6 +132,8 @@ public class YunpianClient implements YunpianConstant {
     public YunpianClient init() {
         LOG.info("YunpianClient is initing!");
         try {
+            if (clnt != null)
+                close();
             clnt = createHttpAsyncClient(conf.build());
             DefaultContentType = ContentType.create("application/x-www-form-urlencoded",
                     Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, "utf-8")));
@@ -210,6 +212,7 @@ public class YunpianClient implements YunpianConstant {
             try {
                 clnt.close();
             } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
             }
         }
     }
