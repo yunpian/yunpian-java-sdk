@@ -18,9 +18,7 @@ public interface YunpianConstant {
 
     String HTTP_CHARSET_DEFAULT = "utf-8";
 
-    /****************************
-     * yunapian.properties
-     *************************************/
+    /**************************** yunapian.properties ***********************/
     String YP_FILE = "yp.file";
     String YP_APIKEY = "yp.apikey";
     String YP_VERSION = "yp.version";

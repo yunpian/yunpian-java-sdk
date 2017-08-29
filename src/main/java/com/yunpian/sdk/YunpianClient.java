@@ -133,8 +133,8 @@ public class YunpianClient implements YunpianConstant {
         try {
             if (clnt != null) close();
             clnt = createHttpAsyncClient(conf.build());
-            DefaultContentType =
-                    ContentType.create("application/x-www-form-urlencoded", Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, "utf-8")));
+            DefaultContentType = ContentType.create("application/x-www-form-urlencoded",
+                    Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, "utf-8")));
             api = new ApiFactory(this);
         } catch (Exception e) {
             LOG.error(e.getMessage(), e.fillInStackTrace());
@@ -153,9 +153,9 @@ public class YunpianClient implements YunpianConstant {
         ConnectingIOReactor ioReactor = new DefaultConnectingIOReactor(ioReactorConfig);
 
         PoolingNHttpClientConnectionManager connManager = new PoolingNHttpClientConnectionManager(ioReactor);
-        ConnectionConfig connectionConfig =
-                ConnectionConfig.custom().setMalformedInputAction(CodingErrorAction.IGNORE).setUnmappableInputAction(CodingErrorAction.IGNORE)
-                        .setCharset(Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, YunpianConf.HTTP_CHARSET_DEFAULT))).build();
+        ConnectionConfig connectionConfig = ConnectionConfig.custom().setMalformedInputAction(CodingErrorAction.IGNORE)
+                .setUnmappableInputAction(CodingErrorAction.IGNORE)
+                .setCharset(Charset.forName(conf.getConf(YunpianConf.HTTP_CHARSET, YunpianConf.HTTP_CHARSET_DEFAULT))).build();
         connManager.setDefaultConnectionConfig(connectionConfig);
         connManager.setMaxTotal(conf.getConfInt(YunpianConf.HTTP_CONN_MAXTOTAL, "100"));
         connManager.setDefaultMaxPerRoute(conf.getConfInt(YunpianConf.HTTP_CONN_MAXPERROUTE, "10"));
