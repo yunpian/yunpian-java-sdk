@@ -171,7 +171,7 @@ public class YunpianClient implements YunpianConstant {
     }
 
     public final Map<String, String> newParam(int size) {
-        return size <= 0 ? Collections.<String, String> emptyMap() : new HashMap<String, String>(size, 1);
+        return size <= 0 ? Collections.<String, String> emptyMap() : new HashMap<String, String>(size + 1, 1);
     }
 
     /**
