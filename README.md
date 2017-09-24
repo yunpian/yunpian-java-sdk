@@ -18,10 +18,10 @@ yunpian-java-sdk
 - 使用YunpianClient
 
 ```java
-//初始化client,apikey作为所有请求的默认值(可以为空)
+//初始化clnt,使用单例方式
 YunpianClient clnt = new YunpianClient("apikey").init();
 
-//修改账户信息API
+//发送短信API
 Map<String, String> param = clnt.newParam(2);
 param.put(YunpianClient.MOBILE, "18616020***");
 param.put(YunpianClient.TEXT, "【云片网】您的验证码是1234");
@@ -30,7 +30,7 @@ Result<SmsSingleSend> r = clnt.sms().single_send(param);
 
 //账户:clnt.user().* 签名:clnt.sign().* 模版:clnt.tpl().* 短信:clnt.sms().* 语音:clnt.voice().* 流量:clnt.flow().* 隐私通话:clnt.call().*
 
-//最后释放client
+//释放clnt
 clnt.close() 
 ```
 **注**: v1.2开始使用YunpianClient，做了重新设计，改进性能、扩展性、便利性等。兼容v1.1.*版本，YunpianRestClient暂时保留,请尽快升级。
