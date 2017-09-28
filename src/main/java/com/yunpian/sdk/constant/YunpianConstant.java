@@ -67,6 +67,7 @@ public interface YunpianConstant {
     String ISONLYGLOBAL = "is_only_global";
     String INDUSTRYTYPE = "industry_type";
     String OLD_SIGN = "old_sign";
+    String LICENSE_URL = "license_url";
 
     // tpl
     /**
