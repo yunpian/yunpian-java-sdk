@@ -214,14 +214,6 @@ public interface YunpianApiResult {
                     .setDetail(map.get(DETAIL));
         }
 
-        @Override
-        public Result<T> catchExceptoin(Throwable e, Result<T> r) {
-            if (r == null) {
-                r = new Result<>();
-            }
-            return r.setCode(Code.UNKNOWN_EXCEPTION).setMsg(Code.getErrorMsg(Code.UNKNOWN_EXCEPTION)).setThrowable(e);
-        }
-
     }
 
     public static abstract class SimpleListResultHandler<T> extends ListResultHandler<T, List<T>>
