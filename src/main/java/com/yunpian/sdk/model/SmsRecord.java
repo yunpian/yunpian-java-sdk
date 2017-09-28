@@ -1,5 +1,6 @@
 package com.yunpian.sdk.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.yunpian.sdk.util.JsonUtil;
 
 /**
@@ -8,11 +9,15 @@ import com.yunpian.sdk.util.JsonUtil;
 public class SmsRecord {
     private String sid;
     private String mobile;
+    @SerializedName("send_time")
     private String sendTime;
     private String text;
+    @SerializedName("report_status")
     private String reportStatus;
     private Double fee;
+    @SerializedName("user_receive_time")
     private String userReceiveTime;
+    @SerializedName("error_msg")
     private String errorMsg;
     private String uid;
 
