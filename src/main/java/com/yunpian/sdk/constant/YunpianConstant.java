@@ -9,14 +9,16 @@ public interface YunpianConstant {
     String HTTP_CONN_TIMEOUT = "http.conn.timeout";
     String HTTP_SO_TIMEOUT = "http.so.timeout";
     String HTTP_CHARSET = "http.charset";
-    String HTTP_CONN_MAXPREROUTE = "http.conn.maxpreroute";
+    String HTTP_CONN_MAXPERROUTE = "http.conn.maxperroute";
+    @Deprecated
+    String HTTP_CONN_MAXPREROUTE = HTTP_CONN_MAXPERROUTE;
     String HTTP_CONN_MAXTOTAL = "http.conn.maxtotal";
     String HTTP_SSL_KEYSTORE = "http.ssl.keystore";
     String HTTP_SSL_PASSWD = "http.ssl.passwd";
 
     String HTTP_CHARSET_DEFAULT = "utf-8";
 
-    /**************************** yunapian.properties *************************************/
+    /**************************** yunapian.properties ***********************/
     String YP_FILE = "yp.file";
     String YP_APIKEY = "yp.apikey";
     String YP_VERSION = "yp.version";
