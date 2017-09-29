@@ -1,15 +1,7 @@
 /**
- * 
+ *
  */
 package com.yunpian.sdk.api;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.http.NameValuePair;
 
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
@@ -19,11 +11,17 @@ import com.yunpian.sdk.model.FlowSend;
 import com.yunpian.sdk.model.FlowStatus;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.util.JsonUtil;
+import org.apache.http.NameValuePair;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
- * 
- * https://www.yunpian.com/api2.0/flow.html
- * 
+ * https://www.yunpian.com/api2.0/api-flow.html
+ *
  * @author dzh
  * @date Nov 23, 2016 1:13:27 PM
  * @since 1.2.0
@@ -45,7 +43,7 @@ public class FlowApi extends YunpianApi {
 
     /**
      * <h1>查询流量包</h1>
-     * 
+     *
      * <p>
      * 参数名 类型 是否必须 描述 示例
      * </p>
@@ -56,7 +54,7 @@ public class FlowApi extends YunpianApi {
      * carrier String 否 运营商ID 传入该参数则获取指定运营商的流量包， 否则获取所有运营商的流量包 移动：10086 联通：10010
      * 电信：10000
      * </p>
-     * 
+     *
      * @param param
      * @return
      */
@@ -106,7 +104,7 @@ public class FlowApi extends YunpianApi {
 
     /**
      * <h1>充值流量</h1>
-     * 
+     *
      * <p>
      * 参数名 类型 是否必须 描述 示例
      * </p>
@@ -128,7 +126,7 @@ public class FlowApi extends YunpianApi {
      * <p>
      * _sign String 否 签名字段 参考使用加密 393d079e0a00912335adfe46f4a2e10f (不再使用)
      * </p>
-     * 
+     *
      * @param param
      * @return
      */
@@ -165,7 +163,7 @@ public class FlowApi extends YunpianApi {
 
     /**
      * <h1>获取状态报告</h1>
-     * 
+     *
      * <p>
      * 参数名 是否必须 描述 示例
      * </p>
@@ -175,7 +173,7 @@ public class FlowApi extends YunpianApi {
      * <p>
      * page_size 否 每页个数，最大100个，默认20个 20
      * </p>
-     * 
+     *
      * @param param
      * @return
      */
