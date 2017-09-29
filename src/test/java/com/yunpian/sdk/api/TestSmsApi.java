@@ -223,7 +223,7 @@ public class TestSmsApi extends TestYunpianClient {
         Map<String, String> param = clnt.newParam(2);
         param.put(MOBILE, "13900001111");
         param.put(TIME, "2016-12-05 00:00:00");
-        Result<Integer> r = clnt.sms().reg_complete(param);
+        Result<Void> r = clnt.sms().reg_complete(param);
         System.out.println(r);
     }
 
