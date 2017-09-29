@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -60,8 +61,7 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
      * @param clnt
      */
     public synchronized void init(YunpianClient clnt) {
-        if (clnt == null)
-            return;
+        if (clnt == null) return;
         this.client = clnt;
         apikey(clnt.getConf().getApikey()).version(clnt.getConf().getConf(YP_VERSION, VERSION_V2))
                 .charset(clnt.getConf().getConf(HTTP_CHARSET, HTTP_CHARSET_DEFAULT));
@@ -133,9 +133,7 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof YunpianApi) {
-            return ((YunpianApi) obj).name().equals(name());
-        }
+        if (obj instanceof YunpianApi) { return ((YunpianApi) obj).name().equals(name()); }
         return false;
     }
 
@@ -168,7 +166,8 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
 
     public String post(String uri, String data) throws Exception {
         Future<HttpResponse> rsp = client().post(uri, data);
-        return EntityUtils.toString(rsp.get().getEntity(), charset());
+        return EntityUtils.toString(rsp.get(client().getConf().getConfLong(HTTP_SO_TIMEOUT, "10000"), TimeUnit.MILLISECONDS).getEntity(),
+                charset()); // TODO why rsp.get() maybe wait forever
     }
 
     public <R, T> Result<T> post(String data, ResultHandler<R, T> h) {
@@ -231,10 +230,8 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
      */
     protected <T> List<NameValuePair> param2pair(Map<String, String> param, Result<T> r, String... must) {
         LOG.debug("param2pair param-{} must-{}", param, must);
-        if (param == null)
-            param = Collections.emptyMap();
-        if (r == null)
-            r = new Result<T>();
+        if (param == null) param = Collections.emptyMap();
+        if (r == null) r = new Result<T>();
 
         List<NameValuePair> pair = new LinkedList<NameValuePair>();
         // validate apikey
@@ -250,8 +247,7 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
 
         // validate must
         for (String m : must) {
-            if (m.equals(APIKEY))
-                continue;
+            if (m.equals(APIKEY)) continue;
             if (param.get(m) == null) {
                 LOG.error("miss must-{} in param-{}", m, param);
                 r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING) + "-" + m);
@@ -269,8 +265,7 @@ public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
      * @return 'application/x-www-form-urlencoded' format
      */
     protected String urlEncode(List<NameValuePair> param) {
-        if (param == null)
-            return "";
+        if (param == null) return "";
         return URLEncodedUtils.format(param, charset());
     }
 

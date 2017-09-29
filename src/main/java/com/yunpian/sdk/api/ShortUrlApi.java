@@ -121,7 +121,7 @@ public class ShortUrlApi extends YunpianApi {
             public Map<String, Long> data(Map<String, String> rsp) {
                 switch (version()) {
                     case VERSION_V2:
-                        TypeToken typeToken = new TypeToken<Map<String, Long>>() {
+                        TypeToken<Map<String, Long>> typeToken = new TypeToken<Map<String, Long>>() {
                         };
                         return JsonUtil.fromJson(rsp.get(STAT), typeToken.getType());
                 }
