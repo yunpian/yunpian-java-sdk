@@ -155,6 +155,14 @@ public class YunpianConf implements YunpianConstant {
         return Integer.parseInt(v);
     }
 
+    /**
+     * @since 1.2.6
+     */
+    public long getConfLong(String key, String defVal) {
+        String v = getConf(key, defVal);
+        return Long.parseLong(v);
+    }
+
     // public static class EmptyYunpianConf extends YunpianConf {
     // public String getConf(String key, String defVal) {
     // return "";
