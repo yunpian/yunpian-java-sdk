@@ -3,19 +3,20 @@
  */
 package com.yunpian.sdk.api;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.User;
 import com.yunpian.sdk.util.ApiUtil;
 import com.yunpian.sdk.util.JsonUtil;
-import org.apache.http.NameValuePair;
-
-import java.util.List;
-import java.util.Map;
 
 /**
- * https://www.yunpian.com/api2.0/api-user.html
+ * https://www.yunpian.com/api2.0/user.html
  * 
  * @author dzh
  * @date Nov 23, 2016 1:10:42 PM

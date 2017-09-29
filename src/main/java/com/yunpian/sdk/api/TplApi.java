@@ -3,14 +3,6 @@
  */
 package com.yunpian.sdk.api;
 
-import com.google.gson.reflect.TypeToken;
-import com.yunpian.sdk.YunpianClient;
-import com.yunpian.sdk.constant.Code;
-import com.yunpian.sdk.model.Result;
-import com.yunpian.sdk.model.Template;
-import com.yunpian.sdk.util.JsonUtil;
-import org.apache.http.NameValuePair;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +10,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.NameValuePair;
+
+import com.google.gson.reflect.TypeToken;
+import com.yunpian.sdk.YunpianClient;
+import com.yunpian.sdk.constant.Code;
+import com.yunpian.sdk.model.Result;
+import com.yunpian.sdk.model.Template;
+import com.yunpian.sdk.util.JsonUtil;
+
 /**
- * https://www.yunpian.com/api2.0/api-domestic/tpl_add.html
+ * https://www.yunpian.com/api2.0/tpl.html
  * 
  * @author dzh
  * @date Nov 23, 2016 1:11:40 PM
