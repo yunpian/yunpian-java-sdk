@@ -29,6 +29,7 @@ public interface YunpianConstant {
     String YP_VOICE_HOST = "yp.voice.host";
     String YP_FLOW_HOST = "yp.flow.host";
     String YP_CALL_HOST = "yp.call.host";
+    String YP_SHORT_URL_HOST = "yp.short_url.host";
 
     /**************************** api *************************************/
     String VERSION_V1 = "v1";
@@ -127,6 +128,18 @@ public interface YunpianConstant {
     String START_TIME = "start_time";
     String END_TIME = "end_time";
     String PAGE_NUM = "page_num";
+    String TIME = "time";
+    String REGISTER = "register";
+    String MOBILE_STAT = "mobile_stat";
+
+    // short_url
+    String SHORT_URL = "short_url";
+    String LONG_URL = "long_url";
+    String STAT_DURATION = "stat_duration";
+    String PROVIDER = "provider";
+    String NAME = "name";
+    String STAT = "stat";
+
 
     @Deprecated
     String ENCRYPT = "encrypt";
