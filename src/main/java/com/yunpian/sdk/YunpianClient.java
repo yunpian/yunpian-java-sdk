@@ -3,16 +3,20 @@
  */
 package com.yunpian.sdk;
 
-import com.yunpian.sdk.api.ApiFactory;
-import com.yunpian.sdk.api.CallApi;
-import com.yunpian.sdk.api.FlowApi;
-import com.yunpian.sdk.api.ShortUrlApi;
-import com.yunpian.sdk.api.SignApi;
-import com.yunpian.sdk.api.SmsApi;
-import com.yunpian.sdk.api.TplApi;
-import com.yunpian.sdk.api.UserApi;
-import com.yunpian.sdk.api.VoiceApi;
-import com.yunpian.sdk.constant.YunpianConstant;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.CodingErrorAction;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.concurrent.Future;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.config.ConnectionConfig;
@@ -30,18 +34,15 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.io.File;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.CodingErrorAction;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.concurrent.Future;
+import com.yunpian.sdk.api.ApiFactory;
+import com.yunpian.sdk.api.CallApi;
+import com.yunpian.sdk.api.FlowApi;
+import com.yunpian.sdk.api.SignApi;
+import com.yunpian.sdk.api.SmsApi;
+import com.yunpian.sdk.api.TplApi;
+import com.yunpian.sdk.api.UserApi;
+import com.yunpian.sdk.api.VoiceApi;
+import com.yunpian.sdk.constant.YunpianConstant;
 
 /**
  * 开始使用:
@@ -122,10 +123,6 @@ public class YunpianClient implements YunpianConstant {
 
     public VoiceApi voice() {
         return api.<VoiceApi> api(VoiceApi.NAME);
-    }
-
-    public ShortUrlApi shortUrl() {
-        return api.<ShortUrlApi>api(ShortUrlApi.NAME);
     }
 
     private static ContentType DefaultContentType;

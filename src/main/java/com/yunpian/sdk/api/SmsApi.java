@@ -3,6 +3,13 @@
  */
 package com.yunpian.sdk.api;
 
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
@@ -14,16 +21,10 @@ import com.yunpian.sdk.model.SmsReply;
 import com.yunpian.sdk.model.SmsSingleSend;
 import com.yunpian.sdk.model.SmsStatus;
 import com.yunpian.sdk.util.JsonUtil;
-import org.apache.http.NameValuePair;
-
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 /**
- * https://www.yunpian.com/api2.0/api-domestic.html
- *
+ * https://www.yunpian.com/api2.0/sms.html
+ * 
  * @author dzh
  * @date Nov 23, 2016 1:12:05 PM
  * @since 1.2.0
@@ -137,14 +138,7 @@ public class SmsApi extends YunpianApi {
      * 本条短信状态报告推送地址。短信发送后将向这个地址推送短信发送报告。"后台-系统设置-数据推送与获取”可以做批量设置。如果后台已经设置地址的情况下，单次请求内也包含此参数，将以请求内的推送地址为准。
      * http://your_receive_url_address
      * </p>
-     * <p>
-     * register Boolean 否 是否为注册验证码短信，如果传入true，则该条短信作为注册验证码短信统计注册成功率。
-     * 默认不开放，如有需要请联系客服申请 true
-     * </p>
-     * <p>
-     * mobile_stat Boolean 否 按手机号统计短链接点击量，为手机号生成专属短链接，并自动替换短信中的短链接（限yp2.cn）。 true
-     * </p>
-     *
+     * 
      * @param param
      * @return
      */
@@ -831,7 +825,7 @@ public class SmsApi extends YunpianApi {
 
     /**
      * <h1>指定模板群发 only v2</h1>
-     *
+     * 
      * <p>
      * 参数名 类型 是否必须 描述 示例
      * </p>
@@ -860,7 +854,7 @@ public class SmsApi extends YunpianApi {
      * <p>
      * uid String 否 用户自定义唯一id。最大长度不超过256的字符串。 默认不开放，如有需要请联系客服申请 10001
      * </p>
-     *
+     * 
      * @param param
      * @return
      */
@@ -888,57 +882,6 @@ public class SmsApi extends YunpianApi {
         };
         try {
             return path("tpl_batch_send.json").post(data, h, r);
-        } catch (Exception e) {
-            return h.catchExceptoin(e, r);
-        }
-    }
-
-    /**
-     * <h1>注册成功回调 only v2</h1>
-     * <p>
-     * <p>
-     * 参数名 类型 是否必须 描述 示例
-     * </p>
-     * <p>
-     * apikey String 是 用户唯一标识 9b11127a9701975c734b8aee81ee3526
-     * </p>
-     * <p>
-     * mobile String 是
-     * 注册成功的手机号，请和调用接口的手机号一致 15205201314
-     * </p>
-     * <p>
-     * time String 否 注册成功的时间，格式yyyy-MM-dd HH:mm:ss，可以是一天前，超过时间无法记录，默认当前时间 2017-03-15 18:30:00
-     * </p>
-     * <p>
-     * 如果需要更准确的注册成功数据（排除找回密码等类型验证码产生的数据），
-     * 在注册页调用 single_send.json 接口时带上参数“register”（布尔类型），值为“true”，
-     * 则该条短信会被认定为注册验证码短信。
-     * 此功能需联系客服开通。
-     * </p>
-     *
-     * @see SmsApi#single_send(Map)
-     * @param param
-     * @return
-     */
-    public Result reg_complete(Map<String, String> param) {
-        Result r = new Result<>();
-        List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE);
-        if (r.getCode() != Code.OK) return r;
-        String data = urlEncode(list);
-        MapResultHandler<?> h = new MapResultHandler<Object>() {
-
-            @Override
-            public Object data(Map<String, String> rsp) {
-                return null;
-            }
-
-            @Override
-            public Integer code(Map<String, String> rsp) {
-                return YunpianApi.code(rsp, SmsApi.this.version());
-            }
-        };
-        try {
-            return path("reg_complete.json").post(data, h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }

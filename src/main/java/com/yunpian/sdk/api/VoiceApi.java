@@ -3,6 +3,14 @@
  */
 package com.yunpian.sdk.api;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
@@ -10,16 +18,10 @@ import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.VoiceSend;
 import com.yunpian.sdk.model.VoiceStatus;
 import com.yunpian.sdk.util.JsonUtil;
-import org.apache.http.NameValuePair;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 /**
- * https://www.yunpian.com/api2.0/api-voice.html
+ * 
+ * https://www.yunpian.com/api2.0/voice.html
  * 
  * @author dzh
  * @date Nov 23, 2016 1:12:57 PM

@@ -1,5 +1,12 @@
 package com.yunpian.sdk.api;
 
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.junit.Test;
+
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SmsBatchSend;
 import com.yunpian.sdk.model.SmsRecord;
@@ -7,12 +14,6 @@ import com.yunpian.sdk.model.SmsReply;
 import com.yunpian.sdk.model.SmsSingleSend;
 import com.yunpian.sdk.model.SmsStatus;
 import com.yunpian.sdk.util.ApiUtil;
-import org.junit.Test;
-
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 短信API
@@ -215,15 +216,6 @@ public class TestSmsApi extends TestYunpianClient {
         System.out.println(r);
 
         r = ((SmsApi) clnt.sms().version(VERSION_V1)).count(param);
-        System.out.println(r);
-    }
-
-    @Test
-    public void reg_completeTest() {
-        Map<String, String> param = clnt.newParam(2);
-        param.put(MOBILE, "13900001111");
-        param.put(TIME, "2016-12-05 00:00:00");
-        Result<Integer> r = clnt.sms().reg_complete(param);
         System.out.println(r);
     }
 

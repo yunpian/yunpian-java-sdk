@@ -3,6 +3,11 @@
  */
 package com.yunpian.sdk.api;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
@@ -10,13 +15,10 @@ import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.Sign;
 import com.yunpian.sdk.model.SignRecord;
 import com.yunpian.sdk.util.JsonUtil;
-import org.apache.http.NameValuePair;
-
-import java.util.List;
-import java.util.Map;
 
 /**
- * https://www.yunpian.com/api2.0/api-domestic/sign_add.html
+ *
+ * https://www.yunpian.com/api2.0/sign.html
  *
  * @author dzh liujie
  * @date Nov 23, 2016 1:11:12 PM
