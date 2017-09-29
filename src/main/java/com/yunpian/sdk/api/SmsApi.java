@@ -916,19 +916,19 @@ public class SmsApi extends YunpianApi {
      * 此功能需联系客服开通。
      * </p>
      *
-     * @see SmsApi#single_send(Map)
      * @param param
      * @return
+     * @see SmsApi#single_send(Map)
      */
-    public Result reg_complete(Map<String, String> param) {
-        Result r = new Result<>();
+    public Result<Void> reg_complete(Map<String, String> param) {
+        Result<Void> r = new Result<>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE);
         if (r.getCode() != Code.OK) return r;
         String data = urlEncode(list);
-        MapResultHandler<?> h = new MapResultHandler<Object>() {
+        MapResultHandler<Void> h = new MapResultHandler<Void>() {
 
             @Override
-            public Object data(Map<String, String> rsp) {
+            public Void data(Map<String, String> rsp) {
                 return null;
             }
 

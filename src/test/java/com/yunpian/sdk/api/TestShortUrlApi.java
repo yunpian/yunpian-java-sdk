@@ -1,6 +1,7 @@
 package com.yunpian.sdk.api;
 
 import com.yunpian.sdk.model.Result;
+import com.yunpian.sdk.model.ShortUrl;
 import org.junit.Test;
 
 import java.util.Map;
@@ -17,7 +18,7 @@ public class TestShortUrlApi extends TestYunpianClient {
         param.put(NAME, "sdk-test1");
         param.put(STAT_DURATION, "3");
         param.put(PROVIDER, "1");
-        Result r = clnt.shortUrl().shorten(param);
+        Result<ShortUrl> r = clnt.shortUrl().shorten(param);
         System.out.println(r);
     }
 
@@ -27,7 +28,7 @@ public class TestShortUrlApi extends TestYunpianClient {
         param.put(SID, "ckAclC");
         param.put(START_TIME, "2017-09-29 11:00:00");
 //        param.put(END_TIME, "2017-09-29 11:20:00");
-        Result r = clnt.shortUrl().stat(param);
+        Result<Map<String, Long>> r = clnt.shortUrl().stat(param);
         System.out.println(r);
     }
 }
