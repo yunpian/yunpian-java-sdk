@@ -39,243 +39,252 @@ import com.yunpian.sdk.util.ApiUtil;
  */
 public abstract class YunpianApi implements YunpianConstant, YunpianApiResult {
 
-    static final Logger LOG = LoggerFactory.getLogger(YunpianApi.class);
+	static final Logger LOG = LoggerFactory.getLogger(YunpianApi.class);
 
-    private YunpianClient client;
+	private YunpianClient client;
 
-    private String host;
+	private String host;
 
-    private String version;
+	private String version;
 
-    private String path;
+	private String path;
 
-    private String apikey;
+	private String apikey;
 
-    private String charset;
+	private String charset;
 
-    public YunpianClient client() {
-        return client;
-    }
+	public YunpianClient client() {
+		return client;
+	}
 
-    /**
-     * @param clnt
-     */
-    public synchronized void init(YunpianClient clnt) {
-        if (clnt == null) return;
-        this.client = clnt;
-        apikey(clnt.getConf().getApikey()).version(clnt.getConf().getConf(YP_VERSION, VERSION_V2))
-                .charset(clnt.getConf().getConf(HTTP_CHARSET, HTTP_CHARSET_DEFAULT));
-    }
+	/**
+	 * @param clnt
+	 */
+	public synchronized void init(YunpianClient clnt) {
+		if (clnt == null)
+			return;
+		this.client = clnt;
+		apikey(clnt.getConf().getApikey()).version(clnt.getConf().getConf(YP_VERSION, VERSION_V2))
+				.charset(clnt.getConf().getConf(HTTP_CHARSET, HTTP_CHARSET_DEFAULT));
+	}
 
-    public String charset() {
-        return this.charset;
-    }
+	public String charset() {
+		return this.charset;
+	}
 
-    public YunpianApi charset(String charset) {
-        this.charset = charset;
-        return this;
-    }
+	public YunpianApi charset(String charset) {
+		this.charset = charset;
+		return this;
+	}
 
-    /**
-     * 
-     * @return 请求全路径
-     */
-    public String uri() {
-        StringBuilder buf = new StringBuilder(host().length() + version().length() + name().length() + path().length() + 3);
-        buf.append(host()).append("/").append(version()).append("/").append(name()).append("/").append(path());
-        return buf.toString();
-    }
+	/**
+	 * 
+	 * @return 请求全路径
+	 */
+	public String uri() {
+		StringBuilder buf = new StringBuilder(
+				host().length() + version().length() + name().length() + path().length() + 3);
+		buf.append(host()).append("/").append(version()).append("/").append(name()).append("/").append(path());
+		return buf.toString();
+	}
 
-    /**
-     * Api名称,如UserApi的name就是https://sms.yunpian.com/v2/user/get.json里的user
-     * 
-     * @return
-     */
-    abstract public String name();
+	/**
+	 * Api名称,如UserApi的name就是https://sms.yunpian.com/v2/user/get.json里的user
+	 * 
+	 * @return
+	 */
+	abstract public String name();
 
-    /**
-     * @return 请求域名，如https://sms.yunpian.com
-     */
-    public String host() {
-        return host;
-    }
+	/**
+	 * @return 请求域名，如https://sms.yunpian.com
+	 */
+	public String host() {
+		return host;
+	}
 
-    public YunpianApi host(String host) {
-        this.host = host;
-        return this;
-    }
+	public YunpianApi host(String host) {
+		this.host = host;
+		return this;
+	}
 
-    /**
-     * 
-     * @return 接口版本，如v2
-     */
-    public String version() {
-        return version;
-    }
+	/**
+	 * 
+	 * @return 接口版本，如v2
+	 */
+	public String version() {
+		return version;
+	}
 
-    public YunpianApi version(String v) {
-        this.version = v;
-        return this;
-    }
+	public YunpianApi version(String v) {
+		this.version = v;
+		return this;
+	}
 
-    /**
-     * 
-     * @return 请求路径，如user/get.json
-     */
-    public String path() {
-        return path;
-    }
+	/**
+	 * 
+	 * @return 请求路径，如user/get.json
+	 */
+	public String path() {
+		return path;
+	}
 
-    public YunpianApi path(String path) {
-        this.path = path;
-        return this;
-    }
+	public YunpianApi path(String path) {
+		this.path = path;
+		return this;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof YunpianApi) { return ((YunpianApi) obj).name().equals(name()); }
-        return false;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof YunpianApi) {
+			return ((YunpianApi) obj).name().equals(name());
+		}
+		return false;
+	}
 
-    @Override
-    public String toString() {
-        return "YunpianApi-" + name();
-    }
+	@Override
+	public String toString() {
+		return "YunpianApi-" + name();
+	}
 
-    public String apikey() {
-        return apikey;
-    }
+	public String apikey() {
+		return apikey;
+	}
 
-    public YunpianApi apikey(String apikey) {
-        this.apikey = apikey;
-        return this;
-    }
+	public YunpianApi apikey(String apikey) {
+		this.apikey = apikey;
+		return this;
+	}
 
-    // public Map<String, String> post(String uri, String data) throws Exception
-    // {
-    // Future<HttpResponse> rsp = client().post(uri, data);
-    // try {
-    // return JsonUtil.fromJsonToMap(new
-    // InputStreamReader(rsp.get().getEntity().getContent(),
-    // client().getConf().getConf(HTTP_CHARSET, HTTP_CHARSET_DEFAULT)),
-    // JsonUtil.TypeMapString);
-    // } finally {
-    // EntityUtils.consumeQuietly(rsp.get().getEntity());
-    // }
-    // }
+	// public Map<String, String> post(String uri, String data) throws Exception
+	// {
+	// Future<HttpResponse> rsp = client().post(uri, data);
+	// try {
+	// return JsonUtil.fromJsonToMap(new
+	// InputStreamReader(rsp.get().getEntity().getContent(),
+	// client().getConf().getConf(HTTP_CHARSET, HTTP_CHARSET_DEFAULT)),
+	// JsonUtil.TypeMapString);
+	// } finally {
+	// EntityUtils.consumeQuietly(rsp.get().getEntity());
+	// }
+	// }
 
-    public String post(String uri, String data) throws Exception {
-        Future<HttpResponse> rsp = client().post(uri, data);
-        return EntityUtils.toString(rsp.get(client().getConf().getConfLong(HTTP_SO_TIMEOUT, "10000"), TimeUnit.MILLISECONDS).getEntity(),
-                charset()); // TODO why rsp.get() maybe wait forever
-    }
+	public String post(String uri, String data) throws Exception {
+		Future<HttpResponse> rsp = client().post(uri, data, charset());
+		return EntityUtils.toString(
+				rsp.get(client().getConf().getConfLong(HTTP_SO_TIMEOUT, "10000"), TimeUnit.MILLISECONDS).getEntity(),
+				charset()); // TODO why rsp.get() maybe wait forever
+	}
 
-    public <R, T> Result<T> post(String data, ResultHandler<R, T> h) {
-        return post(uri(), data, h, new Result<T>());
-    }
+	public <R, T> Result<T> post(String data, ResultHandler<R, T> h) {
+		return post(uri(), data, h, new Result<T>());
+	}
 
-    public <R, T> Result<T> post(String data, ResultHandler<R, T> h, Result<T> r) {
-        return post(uri(), data, h, r);
-    }
+	public <R, T> Result<T> post(String data, ResultHandler<R, T> h, Result<T> r) {
+		return post(uri(), data, h, r);
+	}
 
-    public <R, T> Result<T> post(String uri, String data, ResultHandler<R, T> h, Result<T> r) {
-        LOG.debug("post uri-{} data-{}", uri, data);
-        try {
-            String rsp = post(uri, data);
-            return result(rsp, h, r);
-        } catch (Exception e) {
-            return h.catchExceptoin(e, r);
-        }
-    }
+	public <R, T> Result<T> post(String uri, String data, ResultHandler<R, T> h, Result<T> r) {
+		LOG.debug("post uri-{} data-{}", uri, data);
+		try {
+			String rsp = post(uri, data);
+			return result(rsp, h, r);
+		} catch (Exception e) {
+			return h.catchExceptoin(e, r);
+		}
+	}
 
-    public static Integer code(Map<String, String> rsp, String version) {
-        Integer code = Code.UNKNOWN_EXCEPTION;
-        if (version == null) {
-            version = VERSION_V2;
-        }
-        if (rsp != null) {
-            switch (version) {
-            case VERSION_V1:
-                code = rsp.containsKey(CODE) ? (int) Double.parseDouble((rsp.get(CODE))) : Code.UNKNOWN_EXCEPTION;
-                break;
-            case VERSION_V2:
-                code = rsp.containsKey(CODE) ? (int) Double.parseDouble((rsp.get(CODE))) : Code.OK;
-                break;
-            }
-        }
-        return code;
-    }
+	public static Integer code(Map<String, String> rsp, String version) {
+		Integer code = Code.UNKNOWN_EXCEPTION;
+		if (version == null) {
+			version = VERSION_V2;
+		}
+		if (rsp != null) {
+			switch (version) {
+			case VERSION_V1:
+				code = rsp.containsKey(CODE) ? (int) Double.parseDouble((rsp.get(CODE))) : Code.UNKNOWN_EXCEPTION;
+				break;
+			case VERSION_V2:
+				code = rsp.containsKey(CODE) ? (int) Double.parseDouble((rsp.get(CODE))) : Code.OK;
+				break;
+			}
+		}
+		return code;
+	}
 
-    @Override
-    public <R, T> Result<T> result(String rspContent, ResultHandler<R, T> h, Result<T> r) {
-        try {
-            R rsp = h.response(rspContent);
-            Integer code = h.code(rsp);
-            return code == Code.OK ? h.succ(code, rsp, r) : h.fail(code, rsp, r);
-        } catch (Exception e) {
-            return h.catchExceptoin(e, r);
-        }
-    }
+	@Override
+	public <R, T> Result<T> result(String rspContent, ResultHandler<R, T> h, Result<T> r) {
+		try {
+			R rsp = h.response(rspContent);
+			Integer code = h.code(rsp);
+			return code == Code.OK ? h.succ(code, rsp, r) : h.fail(code, rsp, r);
+		} catch (Exception e) {
+			return h.catchExceptoin(e, r);
+		}
+	}
 
-    /**
-     * 
-     * @param param
-     *            http request
-     * 
-     * @param r
-     *            must be not null
-     * @param must
-     *            necessary parameters
-     * @return
-     */
-    protected <T> List<NameValuePair> param2pair(Map<String, String> param, Result<T> r, String... must) {
-        LOG.debug("param2pair param-{} must-{}", param, must);
-        if (param == null) param = Collections.emptyMap();
-        if (r == null) r = new Result<T>();
+	/**
+	 * 
+	 * @param param
+	 *            http request
+	 * 
+	 * @param r
+	 *            must be not null
+	 * @param must
+	 *            necessary parameters
+	 * @return
+	 */
+	protected <T> List<NameValuePair> param2pair(Map<String, String> param, Result<T> r, String... must) {
+		LOG.debug("param2pair param-{} must-{}", param, must);
+		if (param == null)
+			param = Collections.emptyMap();
+		if (r == null)
+			r = new Result<T>();
 
-        List<NameValuePair> pair = new LinkedList<NameValuePair>();
-        // validate apikey
-        if (!param.containsKey(APIKEY)) {
-            if (null == apikey()) {
-                LOG.error("apikey is null");
-                r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING) + "-" + APIKEY);
-                return pair;
-            }
-            // default apikey
-            pair.add(new BasicNameValuePair(APIKEY, apikey()));
-        }
+		List<NameValuePair> pair = new LinkedList<NameValuePair>();
+		// validate apikey
+		if (!param.containsKey(APIKEY)) {
+			if (null == apikey()) {
+				LOG.error("apikey is null");
+				r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING) + "-" + APIKEY);
+				return pair;
+			}
+			// default apikey
+			pair.add(new BasicNameValuePair(APIKEY, apikey()));
+		}
 
-        // validate must
-        for (String m : must) {
-            if (m.equals(APIKEY)) continue;
-            if (param.get(m) == null) {
-                LOG.error("miss must-{} in param-{}", m, param);
-                r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING) + "-" + m);
-                return pair;
-            }
-        }
-        for (java.util.Map.Entry<String, String> e : param.entrySet())
-            pair.add(new BasicNameValuePair(e.getKey(), e.getValue()));
-        return pair;
-    }
+		// validate must
+		for (String m : must) {
+			if (m.equals(APIKEY))
+				continue;
+			if (param.get(m) == null) {
+				LOG.error("miss must-{} in param-{}", m, param);
+				r.setCode(Code.ARGUMENT_MISSING).setMsg(Code.getErrorMsg(Code.ARGUMENT_MISSING) + "-" + m);
+				return pair;
+			}
+		}
+		for (java.util.Map.Entry<String, String> e : param.entrySet())
+			pair.add(new BasicNameValuePair(e.getKey(), e.getValue()));
+		return pair;
+	}
 
-    /**
-     * 
-     * @param param
-     * @return 'application/x-www-form-urlencoded' format
-     */
-    protected String urlEncode(List<NameValuePair> param) {
-        if (param == null) return "";
-        return URLEncodedUtils.format(param, charset());
-    }
+	/**
+	 * 
+	 * @param param
+	 * @return 'application/x-www-form-urlencoded' format
+	 */
+	protected String urlEncode(List<NameValuePair> param) {
+		if (param == null)
+			return "";
+		return URLEncodedUtils.format(param, charset());
+	}
 
-    /**
-     * @since 1.2.2
-     * @param text
-     * @return
-     */
-    public String urlEncode(String text) {
-        return ApiUtil.urlEncode(text, charset());
-    }
+	/**
+	 * @since 1.2.2
+	 * @param text
+	 * @return
+	 */
+	public String urlEncode(String text) {
+		return ApiUtil.urlEncode(text, charset());
+	}
 
 }
