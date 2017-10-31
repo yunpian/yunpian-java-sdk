@@ -3,6 +3,13 @@
  */
 package com.yunpian.sdk.api;
 
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+
 import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.constant.Code;
@@ -14,12 +21,6 @@ import com.yunpian.sdk.model.SmsReply;
 import com.yunpian.sdk.model.SmsSingleSend;
 import com.yunpian.sdk.model.SmsStatus;
 import com.yunpian.sdk.util.JsonUtil;
-import org.apache.http.NameValuePair;
-
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 /**
  * https://www.yunpian.com/api2.0/api-domestic.html
@@ -306,15 +307,15 @@ public class SmsApi extends YunpianApi {
      * @param param
      * @return
      */
-    public Result<List<Result<SmsSingleSend>>> multi_send_v1(Map<String, String> param) {
-        Result<List<Result<SmsSingleSend>>> r = new Result<>();
+    public Result<List<SmsSingleSend>> multi_send_v1(Map<String, String> param) {
+        Result<List<SmsSingleSend>> r = new Result<>();
         List<NameValuePair> list = param2pair(param, r, APIKEY, MOBILE, TEXT);
         if (r.getCode() != Code.OK) return r;
         String data = urlEncode(list);
 
-        SimpleListResultHandler<Result<SmsSingleSend>> h = new SimpleListResultHandler<Result<SmsSingleSend>>() {
+        SimpleListResultHandler<SmsSingleSend> h = new SimpleListResultHandler<SmsSingleSend>() {
             @Override
-            public List<Result<SmsSingleSend>> data(List<Result<SmsSingleSend>> rsp) {
+            public List<SmsSingleSend> data(List<SmsSingleSend> rsp) {
                 switch (version()) {
                 case VERSION_V1:
                     return rsp;
@@ -323,7 +324,7 @@ public class SmsApi extends YunpianApi {
             }
 
             @Override
-            public Integer code(List<Result<SmsSingleSend>> rsp) {
+            public Integer code(List<SmsSingleSend> rsp) {
                 if (rspMap != null) { return YunpianApi.code(rspMap, SmsApi.this.version()); }
                 return Code.OK;
             }
