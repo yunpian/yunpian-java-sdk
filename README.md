@@ -10,7 +10,7 @@ yunpian-java-sdk
 <dependency>
     <groupId>com.yunpian.sdk</groupId>
     <artifactId>yunpian-java-sdk</artifactId>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
 </dependency>
 ```
 **注**: 可以在[Maven](http://search.maven.org/#search%7Cga%7C1%7Cyunpian-java-sdk)获取
