@@ -28,7 +28,7 @@ public class TestSmsApi extends TestYunpianClient {
     @Test
     public void single_sendTest() {
         Map<String, String> param = clnt.newParam(2);
-        param.put(MOBILE, "手机号");
+        param.put(MOBILE, "123456");
         param.put(TEXT, "【云片网】您的验证码是1234");
         // param.put(EXTEND, "001");
         // param.put(UID, "10001");
