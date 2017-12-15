@@ -64,7 +64,7 @@ public class VideoSmsApi extends YunpianApi {
         if (r.getCode() != Code.OK) return r;
 
         Charset ch = Charset.forName(charset());
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create().setCharset(ch).setMode(HttpMultipartMode.BROWSER_COMPATIBLE);;
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create().setCharset(ch).setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
         for (NameValuePair pair : list) {
             builder.addTextBody(pair.getName(), pair.getValue(), ContentType.create("text/plain", ch));
         }

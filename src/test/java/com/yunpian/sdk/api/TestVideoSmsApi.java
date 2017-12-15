@@ -32,7 +32,6 @@ public class TestVideoSmsApi extends TestYunpianClient {
     static Logger LOG = LoggerFactory.getLogger(TestVideoSmsApi.class);
 
     @Test
-    @Ignore
     public void getTplTest() {
         Map<String, String> param = clnt.newParam(1);
         param.put(TPL_ID, "1");
@@ -42,6 +41,7 @@ public class TestVideoSmsApi extends TestYunpianClient {
     }
 
     @Test
+    @Ignore
     public void tplBatchSendTest() {
         Map<String, String> param = clnt.newParam(2);
         param.put(TPL_ID, "1");
@@ -52,7 +52,6 @@ public class TestVideoSmsApi extends TestYunpianClient {
     }
 
     @Test
-    @Ignore
     public void addTplTest() throws Exception {
         Map<String, String> param = clnt.newParam(1);
         param.put(SIGN, "【企盆阔记】");
@@ -62,12 +61,12 @@ public class TestVideoSmsApi extends TestYunpianClient {
 
         VideoFrame frame1 = new VideoFrame().setIndex(1);
         FrameData data1 = new FrameData().setIndex(1).setFileName("data1.txt");
-        FrameData data2 = new FrameData().setIndex(2).setFileName("data2.mov");
+        FrameData data2 = new FrameData().setIndex(2).setFileName("data2.mp4");
         frame1.setAttachments(Arrays.asList(data1, data2));
 
         VideoFrame frame2 = new VideoFrame().setIndex(2);
         FrameData data3 = new FrameData().setIndex(1).setFileName("data3.txt");
-        FrameData data4 = new FrameData().setIndex(2).setFileName("data4.mov");
+        FrameData data4 = new FrameData().setIndex(2).setFileName("data4.mp4");
         frame2.setAttachments(Arrays.asList(data3, data4));
         vl.setFrames(Arrays.asList(frame1, frame2));
 
