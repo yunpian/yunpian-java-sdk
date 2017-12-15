@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.Result;
@@ -112,13 +113,11 @@ public interface YunpianApiResult {
      * @date Nov 25, 2016 8:31:07 PM
      * @since 1.2.0
      */
-    public static abstract class MapResultHandler<T> extends AbstractResultHandler<Map<String, String>, T>
-            implements YunpianConstant {
+    public static abstract class MapResultHandler<T> extends AbstractResultHandler<Map<String, String>, T> implements YunpianConstant {
 
         @Override
         public Map<String, String> response(String rsp) throws Exception {
-            if (rsp == null)
-                return Collections.emptyMap();
+            if (rsp == null) return Collections.emptyMap();
             return JsonUtil.fromJsonToMap(rsp);
         }
 
@@ -148,8 +147,7 @@ public interface YunpianApiResult {
             if (r == null) {
                 r = new Result<>();
             }
-            return r.setCode(code).setMsg(rsp.containsKey(MSG) ? rsp.get(MSG) : Code.getErrorMsg(code))
-                    .setDetail(rsp.get(DETAIL));
+            return r.setCode(code).setMsg(rsp.containsKey(MSG) ? rsp.get(MSG) : Code.getErrorMsg(code)).setDetail(rsp.get(DETAIL));
         }
 
     }
@@ -161,8 +159,7 @@ public interface YunpianApiResult {
      * @date Nov 25, 2016 6:05:18 PM
      * @since 1.2.0
      */
-    public static abstract class ListResultHandler<R, T> extends AbstractResultHandler<List<R>, T>
-            implements YunpianConstant {
+    public static abstract class ListResultHandler<R, T> extends AbstractResultHandler<List<R>, T> implements YunpianConstant {
 
         /**
          * list解析错误时，按map方式解析
@@ -171,10 +168,8 @@ public interface YunpianApiResult {
 
         @Override
         public List<R> response(String rsp) throws Exception {
-            if (rsp == null)
-                return Collections.emptyList();
-            if (rsp.startsWith("["))
-                return JsonUtil.fromJson(rsp, rspType());
+            if (rsp == null) return Collections.emptyList();
+            if (rsp.startsWith("[")) return JsonUtil.fromJson(rsp, rspType());
             else {
                 rspMap = JsonUtil.fromJsonToMap(rsp);
                 return Collections.emptyList();
@@ -209,14 +204,35 @@ public interface YunpianApiResult {
             if (r == null) {
                 r = new Result<>();
             }
-            Map<String, String> map = rspMap == null ? Collections.<String, String>emptyMap() : rspMap;
-            return r.setCode(code).setMsg(map.containsKey(MSG) ? map.get(MSG) : Code.getErrorMsg(code))
-                    .setDetail(map.get(DETAIL));
+            Map<String, String> map = rspMap == null ? Collections.<String, String> emptyMap() : rspMap;
+            return r.setCode(code).setMsg(map.containsKey(MSG) ? map.get(MSG) : Code.getErrorMsg(code)).setDetail(map.get(DETAIL));
         }
 
     }
 
-    public static abstract class SimpleListResultHandler<T> extends ListResultHandler<T, List<T>>
-            implements YunpianConstant {
+    public static abstract class SimpleListResultHandler<T> extends ListResultHandler<T, List<T>> implements YunpianConstant {}
+
+    public static class StdResultHandler<T> extends AbstractResultHandler<Result<T>, T> implements YunpianConstant {
+
+        @Override
+        public Result<T> response(String rsp) throws Exception {
+            return JsonUtil.<Result<T>> fromJson(rsp, new TypeToken<Result<T>>() {}.getType());
+        }
+
+        @Override
+        public Integer code(Result<T> rsp) {
+            return rsp.getCode();
+        }
+
+        @Override
+        public Result<T> succ(Integer code, Result<T> rsp, Result<T> r) {
+            return rsp;
+        }
+
+        @Override
+        public Result<T> fail(Integer code, Result<T> rsp, Result<T> r) {
+            return rsp;
+        }
+
     }
 }

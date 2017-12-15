@@ -1,5 +1,12 @@
 package com.yunpian.sdk.api;
 
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.junit.Test;
+
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SmsBatchSend;
 import com.yunpian.sdk.model.SmsRecord;
@@ -7,12 +14,6 @@ import com.yunpian.sdk.model.SmsReply;
 import com.yunpian.sdk.model.SmsSingleSend;
 import com.yunpian.sdk.model.SmsStatus;
 import com.yunpian.sdk.util.ApiUtil;
-import org.junit.Test;
-
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 短信API
@@ -189,8 +190,7 @@ public class TestSmsApi extends TestYunpianClient {
                     try {
                         sl.await();
                         tpl_sendTest();
-                    } catch (Exception e) {
-                    } finally {
+                    } catch (Exception e) {} finally {
                         el.countDown();
                     }
                 }
@@ -199,8 +199,7 @@ public class TestSmsApi extends TestYunpianClient {
         sl.countDown();
         try {
             el.await();
-        } catch (InterruptedException e) {
-        }
+        } catch (InterruptedException e) {}
     }
 
     @Test
