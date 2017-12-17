@@ -73,7 +73,7 @@ public class TestVideoSmsApi extends TestYunpianClient {
         InputStream material = new FileInputStream(new File("/Users/dzh/temp/vsms/Archive.zip"));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int len = -1;
-        byte[] buf = new byte[32];
+        byte[] buf = new byte[1024];
         while ((len = material.read(buf)) != -1) {
             baos.write(buf, 0, len);
         }

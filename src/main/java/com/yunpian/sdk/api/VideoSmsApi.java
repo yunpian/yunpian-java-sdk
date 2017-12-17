@@ -20,6 +20,7 @@ import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SmsBatchSend;
 import com.yunpian.sdk.model.SmsSingleSend;
 import com.yunpian.sdk.model.Template;
+import com.yunpian.sdk.util.HttpEntityWrapper;
 import com.yunpian.sdk.util.JsonUtil;
 
 /**
@@ -73,7 +74,7 @@ public class VideoSmsApi extends YunpianApi {
 
         StdResultHandler<Template> h = new StdResultHandler<>();
         try {
-            return path("add_tpl.json").post(builder.build(), h, r);
+            return path("add_tpl.json").post(new HttpEntityWrapper(builder.build()), h, r);
         } catch (Exception e) {
             return h.catchExceptoin(e, r);
         }
