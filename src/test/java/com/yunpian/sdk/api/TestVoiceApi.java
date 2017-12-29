@@ -57,7 +57,7 @@ public class TestVoiceApi extends TestYunpianClient {
         param.put(TPL_VALUE, "name=dzh&time=7");
         // param.put(CALLBACK_URL, "");
         Result<VoiceSend> r = clnt.voice().tpl_notify(param);
-        System.out.println(r);
-    }
+		System.out.println(r);
+	}
 
 }

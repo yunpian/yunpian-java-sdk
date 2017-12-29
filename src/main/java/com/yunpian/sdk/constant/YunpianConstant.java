@@ -30,6 +30,7 @@ public interface YunpianConstant {
     String YP_FLOW_HOST = "yp.flow.host";
     String YP_CALL_HOST = "yp.call.host";
     String YP_SHORT_URL_HOST = "yp.short_url.host";
+    String YP_VIDEO_SMS_HOST = "yp.vsms.host";
 
     /**************************** api *************************************/
     String VERSION_V1 = "v1";
@@ -86,6 +87,8 @@ public interface YunpianConstant {
     String CHECK_STATUS = "check_status";
     String REASON = "reason";
     String TEMPLATE = "template";
+    String LAYOUT = "layout";
+    String MATERIAL = "material";
     /**
      * 模板语言
      */
@@ -139,7 +142,6 @@ public interface YunpianConstant {
     String PROVIDER = "provider";
     String NAME = "name";
     String STAT = "stat";
-
 
     @Deprecated
     String ENCRYPT = "encrypt";
