@@ -3,16 +3,21 @@
  */
 package com.yunpian.sdk;
 
-import com.yunpian.sdk.api.ApiFactory;
-import com.yunpian.sdk.api.CallApi;
-import com.yunpian.sdk.api.FlowApi;
-import com.yunpian.sdk.api.ShortUrlApi;
-import com.yunpian.sdk.api.SignApi;
-import com.yunpian.sdk.api.SmsApi;
-import com.yunpian.sdk.api.TplApi;
-import com.yunpian.sdk.api.UserApi;
-import com.yunpian.sdk.api.VoiceApi;
-import com.yunpian.sdk.constant.YunpianConstant;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.CodingErrorAction;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.concurrent.Future;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.config.ConnectionConfig;
@@ -30,18 +35,17 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.io.File;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.CodingErrorAction;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.concurrent.Future;
+import com.yunpian.sdk.api.ApiFactory;
+import com.yunpian.sdk.api.CallApi;
+import com.yunpian.sdk.api.FlowApi;
+import com.yunpian.sdk.api.ShortUrlApi;
+import com.yunpian.sdk.api.SignApi;
+import com.yunpian.sdk.api.SmsApi;
+import com.yunpian.sdk.api.TplApi;
+import com.yunpian.sdk.api.UserApi;
+import com.yunpian.sdk.api.VideoSmsApi;
+import com.yunpian.sdk.api.VoiceApi;
+import com.yunpian.sdk.constant.YunpianConstant;
 
 /**
  * 开始使用:
@@ -125,7 +129,11 @@ public class YunpianClient implements YunpianConstant {
     }
 
     public ShortUrlApi shortUrl() {
-        return api.<ShortUrlApi>api(ShortUrlApi.NAME);
+        return api.<ShortUrlApi> api(ShortUrlApi.NAME);
+    }
+
+    public VideoSmsApi vsms() {
+        return api.<VideoSmsApi> api(VideoSmsApi.NAME);
     }
 
     private static ContentType DefaultContentType;
@@ -183,7 +191,21 @@ public class YunpianClient implements YunpianConstant {
      * @param data
      */
     public Future<HttpResponse> post(String uri, String data) {
-        return post(uri, data, DefaultContentType.getMimeType(), DefaultContentType.getCharset(), HEADERS);
+        return post(uri, data, null);
+    }
+
+    /**
+     * 
+     * @param uri
+     * @param data
+     * @since 1.2.6
+     */
+    public Future<HttpResponse> post(String uri, String data, String charset) {
+        Charset ch = null;
+        if (charset != null) {
+            ch = Charset.forName(charset);
+        }
+        return post(uri, data, DefaultContentType.getMimeType(), ch, HEADERS);
     }
 
     public void closeResponse(HttpResponse rsp) {
@@ -191,9 +213,13 @@ public class YunpianClient implements YunpianConstant {
     }
 
     public Future<HttpResponse> post(String uri, String data, String mimeType, Charset charset, Map<String, String> headers) {
+        return post(uri, new StringEntity(data, ContentType.create(mimeType == null ? DefaultContentType.getMimeType() : mimeType,
+                charset == null ? DefaultContentType.getCharset() : charset)), headers);
+    }
+
+    public Future<HttpResponse> post(String uri, HttpEntity entity, Map<String, String> headers) {
         HttpPost req = new HttpPost(uri);
-        req.setEntity(new StringEntity(data, ContentType.create(mimeType == null ? DefaultContentType.getMimeType() : mimeType,
-                charset == null ? DefaultContentType.getCharset() : charset)));
+        req.setEntity(entity);
         if (headers == null) headers = HEADERS;
         for (Entry<String, String> e : headers.entrySet()) {
             req.setHeader(e.getKey(), e.getValue());

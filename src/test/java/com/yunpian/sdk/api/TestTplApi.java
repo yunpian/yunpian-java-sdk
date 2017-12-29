@@ -100,7 +100,7 @@ public class TestTplApi extends TestYunpianClient {
         param.put(TPL_CONTENT, "应用#name#在#time#无法响应1");
         // param.put(NOTIFY_TYPE, "true");
         Result<Template> r = clnt.tpl().update_voice_notify(param);
-        System.out.println(r);
-    }
+		System.out.println(r);
+	}
 
 }

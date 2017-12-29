@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.yunpian.sdk</groupId>
 	<artifactId>yunpian-java-sdk</artifactId>
-	<version>1.2.5</version>
+	<version>1.2.6</version>
 	<url>https://github.com/yunpian/yunpian-java-sdk</url>
 	<name>yunpian-java-sdk</name>
 	<description>yunpian java sdk</description>
@@ -222,6 +222,11 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpasyncclient-cache</artifactId>
 			<version>${httpasyncclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.2</version>
 		</dependency>
 	</dependencies>
 </project>
