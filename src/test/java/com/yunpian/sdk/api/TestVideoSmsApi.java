@@ -29,58 +29,60 @@ import com.yunpian.sdk.model.VideoLayout.VideoFrame;
  */
 public class TestVideoSmsApi extends TestYunpianClient {
 
-    static Logger LOG = LoggerFactory.getLogger(TestVideoSmsApi.class);
+	static Logger LOG = LoggerFactory.getLogger(TestVideoSmsApi.class);
 
-    @Test
-    public void getTplTest() {
-        Map<String, String> param = clnt.newParam(1);
-        param.put(TPL_ID, "1");
+	@Test
+	@Ignore
+	public void getTplTest() {
+		Map<String, String> param = clnt.newParam(1);
+		param.put(TPL_ID, "1");
 
-        Result<Template> r = clnt.vsms().getTpl(param);
-        LOG.info(r.toString());
-    }
+		Result<Template> r = clnt.vsms().getTpl(param);
+		LOG.info(r.toString());
+	}
 
-    @Test
-    @Ignore
-    public void tplBatchSendTest() {
-        Map<String, String> param = clnt.newParam(2);
-        param.put(TPL_ID, "1");
-        param.put(MOBILE, "18616020610,18616020611");
+	@Test
+	@Ignore
+	public void tplBatchSendTest() {
+		Map<String, String> param = clnt.newParam(2);
+		param.put(TPL_ID, "1");
+		param.put(MOBILE, "18616020610,18616020611");
 
-        Result<SmsBatchSend> r = clnt.vsms().tplBatchSend(param);
-        LOG.info(r.toString());
-    }
+		Result<SmsBatchSend> r = clnt.vsms().tplBatchSend(param);
+		LOG.info(r.toString());
+	}
 
-    @Test
-    public void addTplTest() throws Exception {
-        Map<String, String> param = clnt.newParam(1);
-        param.put(SIGN, "【企盆阔记】");
+	@Test
+	@Ignore
+	public void addTplTest() throws Exception {
+		Map<String, String> param = clnt.newParam(1);
+		param.put(SIGN, "【企盆阔记】");
 
-        VideoLayout vl = new VideoLayout();
-        vl.setSubject("restapi-" + System.currentTimeMillis());
+		VideoLayout vl = new VideoLayout();
+		vl.setSubject("restapi-" + System.currentTimeMillis());
 
-        VideoFrame frame1 = new VideoFrame().setIndex(1);
-        FrameData data1 = new FrameData().setIndex(1).setFileName("data1.txt");
-        FrameData data2 = new FrameData().setIndex(2).setFileName("data2.mp4");
-        frame1.setAttachments(Arrays.asList(data1, data2));
+		VideoFrame frame1 = new VideoFrame().setIndex(1);
+		FrameData data1 = new FrameData().setIndex(1).setFileName("data1.txt");
+		FrameData data2 = new FrameData().setIndex(2).setFileName("data2.mp4");
+		frame1.setAttachments(Arrays.asList(data1, data2));
 
-        VideoFrame frame2 = new VideoFrame().setIndex(2);
-        FrameData data3 = new FrameData().setIndex(1).setFileName("data3.txt");
-        FrameData data4 = new FrameData().setIndex(2).setFileName("data4.mp4");
-        frame2.setAttachments(Arrays.asList(data3, data4));
-        vl.setFrames(Arrays.asList(frame1, frame2));
+		VideoFrame frame2 = new VideoFrame().setIndex(2);
+		FrameData data3 = new FrameData().setIndex(1).setFileName("data3.txt");
+		FrameData data4 = new FrameData().setIndex(2).setFileName("data4.mp4");
+		frame2.setAttachments(Arrays.asList(data3, data4));
+		vl.setFrames(Arrays.asList(frame1, frame2));
 
-        InputStream material = new FileInputStream(new File("/Users/dzh/temp/vsms/Archive.zip"));
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int len = -1;
-        byte[] buf = new byte[1024];
-        while ((len = material.read(buf)) != -1) {
-            baos.write(buf, 0, len);
-        }
-        material.close();
+		InputStream material = new FileInputStream(new File("/Users/dzh/temp/vsms/Archive.zip"));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int len = -1;
+		byte[] buf = new byte[1024];
+		while ((len = material.read(buf)) != -1) {
+			baos.write(buf, 0, len);
+		}
+		material.close();
 
-        Result<Template> r = clnt.vsms().addTpl(param, vl.toString(), baos.toByteArray());
-        LOG.info(r.toString());
-    }
+		Result<Template> r = clnt.vsms().addTpl(param, vl.toString(), baos.toByteArray());
+		LOG.info(r.toString());
+	}
 
 }
