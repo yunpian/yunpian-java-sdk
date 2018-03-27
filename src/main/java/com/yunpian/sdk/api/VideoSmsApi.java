@@ -72,7 +72,7 @@ public class VideoSmsApi extends YunpianApi {
         builder.addTextBody(LAYOUT, layout, ContentType.APPLICATION_JSON);
         builder.addBinaryBody(MATERIAL, material, ContentType.create("application/octet-stream", ch), null);
 
-        StdResultHandler<Template> h = new StdResultHandler<>();
+        StdResultHandler<Template> h = new StdResultHandler<>(new TypeToken<Result<Template>>() {}.getType());
         try {
             return path("add_tpl.json").post(new HttpEntityWrapper(builder.build()), h, r);
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class VideoSmsApi extends YunpianApi {
         if (r.getCode() != Code.OK) return r;
         String data = urlEncode(list);
 
-        StdResultHandler<Template> h = new StdResultHandler<>();
+        StdResultHandler<Template> h = new StdResultHandler<>(new TypeToken<Result<Template>>() {}.getType());
         try {
             return path("get_tpl.json").post(data, h, r);
         } catch (Exception e) {
