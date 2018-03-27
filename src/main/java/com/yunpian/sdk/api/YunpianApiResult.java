@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.reflect.TypeToken;
 import com.yunpian.sdk.constant.Code;
 import com.yunpian.sdk.constant.YunpianConstant;
 import com.yunpian.sdk.model.Result;
@@ -214,9 +213,15 @@ public interface YunpianApiResult {
 
     public static class StdResultHandler<T> extends AbstractResultHandler<Result<T>, T> implements YunpianConstant {
 
+        private Type t;
+
+        public StdResultHandler(Type t) {
+            this.t = t;
+        }
+
         @Override
         public Result<T> response(String rsp) throws Exception {
-            return JsonUtil.<Result<T>> fromJson(rsp, new TypeToken<Result<T>>() {}.getType());
+            return JsonUtil.<Result<T>> fromJson(rsp, t);
         }
 
         @Override
