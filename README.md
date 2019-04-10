@@ -49,6 +49,8 @@ clnt.close()
 - YunpianClient使用单例方式，不要每次new和close
 - 不推荐使用标注@Deprecated类
 - 分支说明: master是发布版本,develop是待发布的分支(开源贡献可以pull request到develop)
+## 视频教程
+[使用视频教程](http://oss-standard.oss-cn-hangzhou.aliyuncs.com/yunpian/app/apiweb/JavaSdkmp4.mp4) 
 
 ## 联系我们
 [云片支持 QQ](https://static.meiqia.com/dist/standalone.html?eid=30951&groupid=0d20ab23ab4702939552b3f81978012f&metadata={"name":"github"})
