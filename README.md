@@ -58,5 +58,5 @@ SDK开源QQ群
 <img src="doc/sdk_qq.jpeg" width="15%" alt="SDK开源QQ群"/>
 
 ## 文档链接
-- [api文档](https://www.yunpian.com/api2.0/guide.html)
+- [api文档](https://www.yunpian.com/dev-doc)
 
