@@ -30,8 +30,8 @@ Result<SmsSingleSend> r = clnt.sms().single_send(param);
 
 //账户:clnt.user().* 签名:clnt.sign().* 模版:clnt.tpl().* 短信:clnt.sms().* 语音:clnt.voice().* 流量:clnt.flow().* 隐私通话:clnt.call().*
 
-//释放clnt
-clnt.close() 
+//释放:clnt.close() 释放后clnt将无法再使用
+
 ```
 **注**: v1.2开始使用YunpianClient，做了重新设计，改进性能、扩展性、便利性等。兼容v1.1.*版本，YunpianRestClient暂时保留,请尽快升级。
 
